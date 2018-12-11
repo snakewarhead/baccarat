@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Phaser from "phaser";
-import "./css/App.css";
+import "../css/App.css";
 import screenful from "screenfull";
 import {
   getMobileOperatingSystem,
@@ -8,9 +8,9 @@ import {
   resizeApp,
   centerPortraitGif,
   goFullscreen
-} from "./utils/helperFunctions";
-import Loading from "./scenes/Loading";
-import Main from "./scenes/Main";
+} from "../utils/helperFunctions";
+import Loading from "../scenes/Loading";
+import Main from "../scenes/Main";
 
 class App extends Component {
   constructor(props) {
