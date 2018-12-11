@@ -46,7 +46,7 @@ export function centerPortraitGif() {
     portrait.style.transform = scale;
     portrait.style.backgroundPosition = "center";
     portrait.style.backgroundSize = "50%";
-    portrait.style.width = "100vw";
+    portrait.style.width = "100%";
   }, 500);
 
   portrait.style.webkitTransform = scale;
@@ -54,7 +54,7 @@ export function centerPortraitGif() {
   portrait.style.transform = scale;
   portrait.style.backgroundPosition = "center";
   portrait.style.backgroundSize = "50%";
-  portrait.style.width = "100vw";
+  portrait.style.width = "100%";
 }
 
 export function resizeApp() {
