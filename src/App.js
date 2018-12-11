@@ -97,7 +97,7 @@ class App extends Component {
       scene: [Loading, Main]
     };
 
-    // var game = new Phaser.Game(config);
+    var game = new Phaser.Game(config);
     setTimeout(() => {
       resizeApp();
     }, 0);
