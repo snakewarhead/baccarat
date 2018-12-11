@@ -45,7 +45,7 @@ export function centerPortraitGif() {
     portrait.style.backgroundPosition = "center";
     portrait.style.backgroundSize = "50%";
     portrait.style.width = "100vw";
-  }, 100);
+  }, 500);
 
   portrait.style.webkitTransform = scale;
   portrait.style.msTransform = scale;
@@ -68,9 +68,7 @@ export function resizeApp() {
 
   // Check if device DPI messes up the width-height-ratio
   let canvas = document.querySelector("canvas");
-  console.log(document);
 
-  console.log(div, canvas);
   let dpi_w = parseInt(div.style.width) / canvas.width;
   let dpi_h = parseInt(div.style.height) / canvas.height;
 
