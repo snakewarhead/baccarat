@@ -130,7 +130,7 @@ class App extends Component {
     const { mobile, inLandscapeMode, mobileIOS } = this.state;
     return (
       <div className="background">
-        <div id="game" />
+        <div id="game" className="game" />
         <div
           className={
             mobile && !inLandscapeMode ? "portrait visible" : "portrait"
