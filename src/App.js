@@ -82,7 +82,10 @@ class App extends Component {
         function() {
           const landscape = document.querySelector(".landscape");
           landscape.scrollIntoView();
-          resizeApp();
+          console.log("a");
+          setTimeout(() => {
+            resizeApp();
+          }, 0);
         }
       );
     };
