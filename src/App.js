@@ -35,6 +35,7 @@ class App extends Component {
 
       if (this.state.mobileAndroid) {
         window.addEventListener("click", goFullscreen);
+        window.addEventListener("touchend", goFullscreen);
       }
 
       var mql = window.matchMedia("(orientation: portrait)");
