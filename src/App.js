@@ -78,9 +78,9 @@ class App extends Component {
           scrollCounter: 0
         },
         function() {
-          const landscape = document.querySelector(".landscape");
-          landscape.scrollIntoView();
           setTimeout(() => {
+            const landscape = document.querySelector(".landscape");
+            landscape.scrollIntoView();
             resizeApp();
           }, 0);
         }
