@@ -2,6 +2,27 @@
   box-sizing: border-box;
 }
 
+body,
+div,
+html {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  /* font-size: 100%; */
+  vertical-align: baseline;
+  font-family: "標楷體", DFKai-sb, BiauKai, Heiti TC, sans-serif;
+  touch-action: manipulation;
+}
+
+body {
+  margin: 0;
+  overflow: scroll;
+  background-color: black;
+  text-align: center;
+  position: relative;
+}
+
 .background {
   width: 100vw;
   height: 100vh;
