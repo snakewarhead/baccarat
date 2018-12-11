@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import Phaser from "phaser";
 import "./css/App.css";
+import screenful from "screenfull";
 import {
   getMobileOperatingSystem,
   isMobile,
   resizeApp,
-  centerPortraitGif
+  centerPortraitGif,
+  goFullscreen
 } from "./utils/helperFunctions";
 import Loading from "./scenes/Loading";
 import Main from "./scenes/Main";
@@ -29,6 +31,10 @@ class App extends Component {
         this.state.mobileAndroid = true;
       } else if (getMobileOperatingSystem() === "iOS") {
         this.state.mobileIOS = true;
+      }
+
+      if (this.state.mobileAndroid) {
+        window.addEventListener("click", goFullscreen);
       }
 
       var mql = window.matchMedia("(orientation: portrait)");
@@ -55,6 +61,11 @@ class App extends Component {
       });
 
       centerPortraitGif();
+      if (this.state.mobileAndroid) {
+        if (screenful.enabled) {
+          screenful.request();
+        }
+      }
     };
 
     const leaveIncorrectOrientation = () => {

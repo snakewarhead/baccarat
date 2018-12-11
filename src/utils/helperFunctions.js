@@ -1,3 +1,5 @@
+import screenfull from "screenfull";
+
 export function getMobileOperatingSystem() {
   var userAgent = navigator.userAgent || navigator.vendor || window.opera;
 
@@ -80,4 +82,10 @@ export function resizeApp() {
 
   canvas.style.width = width + "px";
   canvas.style.height = height + "px";
+}
+
+export function goFullscreen() {
+  if (screenfull.enabled) {
+    screenfull.request();
+  }
 }
