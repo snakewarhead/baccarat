@@ -64,7 +64,7 @@ class App extends Component {
       centerPortraitGif();
       if (this.state.mobileAndroid) {
         if (screenful.enabled) {
-          screenful.request();
+          screenful.exit();
         }
       }
     };
