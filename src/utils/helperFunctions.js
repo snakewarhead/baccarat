@@ -82,6 +82,9 @@ export function resizeApp() {
 
   canvas.style.width = width + "px";
   canvas.style.height = height + "px";
+
+  alert(width);
+  alert(window.innerWidth);
 }
 
 export function goFullscreen() {
