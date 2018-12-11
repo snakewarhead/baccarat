@@ -82,7 +82,6 @@ class App extends Component {
         function() {
           const landscape = document.querySelector(".landscape");
           landscape.scrollIntoView();
-          console.log("a");
           setTimeout(() => {
             resizeApp();
           }, 0);
@@ -100,7 +99,7 @@ class App extends Component {
       scene: [Loading, Main]
     };
 
-    var game = new Phaser.Game(config);
+    // var game = new Phaser.Game(config);
     setTimeout(() => {
       resizeApp();
     }, 0);
@@ -129,7 +128,6 @@ class App extends Component {
   }
 
   render() {
-    alert("oops");
     const { mobile, inLandscapeMode, mobileIOS } = this.state;
     return (
       <div className="background">
