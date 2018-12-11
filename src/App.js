@@ -129,6 +129,7 @@ class App extends Component {
   }
 
   render() {
+    alert("oops");
     const { mobile, inLandscapeMode, mobileIOS } = this.state;
     return (
       <div className="background">
