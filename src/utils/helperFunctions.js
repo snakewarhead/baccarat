@@ -34,3 +34,32 @@ export function isMobile() {
   }
   return flag;
 }
+
+export function resizeApp() {
+  // Width-height-ratio of game resolution
+  let game_ratio = 1920 / 1080;
+
+  // Make div full height of browser and keep the ratio of game resolution
+  let div = document.getElementById("game");
+  // div.style.width = window.innerHeight * game_ratio + "px";
+  // div.style.height = window.innerHeight + "px";
+  div.style.height = window.innerWidth / game_ratio + "px";
+  div.style.width = window.innerWidth + "px";
+
+  // Check if device DPI messes up the width-height-ratio
+  let canvas = document.querySelector("canvas");
+  console.log(document);
+
+  console.log(div, canvas);
+  let dpi_w = parseInt(div.style.width) / canvas.width;
+  let dpi_h = parseInt(div.style.height) / canvas.height;
+
+  // height = window.innerHeight * (dpi_w / dpi_h);
+  // width = height * game_ratio;
+
+  let width = window.innerWidth * (dpi_h / dpi_w);
+  let height = width / game_ratio;
+
+  canvas.style.width = width + "px";
+  canvas.style.height = height + "px";
+}

@@ -1,7 +1,13 @@
 import React, { Component } from "react";
 import Phaser from "phaser";
-import "./App.css";
-import { getMobileOperatingSystem, isMobile } from "./utils/helperFunctions";
+import "./css/App.css";
+import {
+  getMobileOperatingSystem,
+  isMobile,
+  resizeApp
+} from "./utils/helperFunctions";
+import Loading from "./scenes/Loading";
+import Main from "./scenes/Main";
 
 class App extends Component {
   constructor(props) {
@@ -10,8 +16,11 @@ class App extends Component {
       inLandscapeMode: true,
       mobileIOS: false,
       mobileAndroid: false,
-      mobile: false
+      mobile: false,
+      scrollCounter: 0
     };
+
+    window.addEventListener("resize", resizeApp);
 
     if (isMobile()) {
       this.state.mobile = true;
@@ -47,7 +56,8 @@ class App extends Component {
 
     const leaveIncorrectOrientation = () => {
       this.setState({
-        inLandscapeMode: true
+        inLandscapeMode: true,
+        scrollCounter: 0
       });
       const landscape = document.querySelector(".landscape");
       landscape.scrollIntoView();
@@ -60,22 +70,35 @@ class App extends Component {
       width: 1920,
       height: 1080,
       parent: "game",
-      scene: []
+      scene: [Loading, Main]
     };
 
     var game = new Phaser.Game(config);
-
-    const landscape = document.querySelector(".landscape");
-    landscape.style.height = window.innerHeight + 100 + "px";
-    landscape.scrollTop = 0;
-
     setTimeout(() => {
-      landscape.scrollTop = 0;
+      resizeApp();
     }, 0);
-    window.addEventListener("scroll", function(e) {
-      console.log(e.target);
-      // landscape.classList.remove("display-block");
-    });
+
+    if (this.state.mobileIOS) {
+      const landscape = document.querySelector(".landscape");
+      landscape.style.height = window.innerHeight + 100 + "px";
+      setTimeout(() => {
+        landscape.scrollIntoView();
+      }, 400);
+
+      window.addEventListener(
+        "scroll",
+        function(e) {
+          this.setState(function(prevState) {
+            return {
+              scrollCounter: prevState.scrollCounter + 1
+            };
+          });
+          if (this.state.scrollCounter === 5) {
+            landscape.classList.remove("display-block");
+          }
+        }.bind(this)
+      );
+    }
   }
 
   render() {

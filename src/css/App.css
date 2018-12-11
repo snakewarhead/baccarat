@@ -8,7 +8,7 @@
   position: relative;
 }
 
-.game {
+#game {
   z-index: 0;
   width: 100vh;
   height: 100vw;
@@ -29,7 +29,7 @@
   background-size: 50%;
   background-repeat: no-repeat;
   background-position: center;
-  background-image: url("./assets/rotatePhone.gif");
+  background-image: url("../assets/rotatePhone.gif");
 }
 
 .landscape {
@@ -43,7 +43,7 @@
   background-repeat: no-repeat;
   background-size: 50%;
   background-position: top;
-  background-image: url("./assets/swipeUp.gif");
+  background-image: url("../assets/swipeUp.gif");
 }
 
 .display-block {
