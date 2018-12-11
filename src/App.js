@@ -76,12 +76,16 @@ class App extends Component {
     };
 
     const leaveIncorrectOrientation = () => {
-      this.setState({
-        inLandscapeMode: true,
-        scrollCounter: 0
-      });
-      const landscape = document.querySelector(".landscape");
-      landscape.scrollIntoView();
+      this.setState(
+        {
+          inLandscapeMode: true,
+          scrollCounter: 0
+        },
+        function() {
+          const landscape = document.querySelector(".landscape");
+          landscape.scrollIntoView();
+        }
+      );
     };
   }
 
