@@ -23,7 +23,7 @@ class App extends Component {
       scrollCounter: 0
     };
 
-    window.addEventListener("resize", resizeApp);
+    //window.addEventListener("resize", resizeApp);
 
     if (isMobile()) {
       this.state.mobile = true;
@@ -62,9 +62,7 @@ class App extends Component {
           inLandscapeMode: false
         },
         function() {
-          setTimeout(() => {
-            centerPortraitGif();
-          }, 0);
+          centerPortraitGif();
         }
       );
 
@@ -84,6 +82,7 @@ class App extends Component {
         function() {
           const landscape = document.querySelector(".landscape");
           landscape.scrollIntoView();
+          resizeApp();
         }
       );
     };
