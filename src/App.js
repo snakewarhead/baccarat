@@ -83,7 +83,7 @@ class App extends Component {
           const landscape = document.querySelector(".landscape");
           landscape.scrollIntoView();
           setTimeout(() => {
-            resizeApp();
+            //resizeApp();
           }, 0);
         }
       );
@@ -101,7 +101,7 @@ class App extends Component {
 
     // var game = new Phaser.Game(config);
     setTimeout(() => {
-      resizeApp();
+      //  resizeApp();
     }, 0);
 
     if (this.state.mobileIOS) {
