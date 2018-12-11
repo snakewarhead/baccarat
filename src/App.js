@@ -23,8 +23,6 @@ class App extends Component {
       scrollCounter: 0
     };
 
-    //window.addEventListener("resize", resizeApp);
-
     if (isMobile()) {
       this.state.mobile = true;
       if (getMobileOperatingSystem() === "Android") {
@@ -83,7 +81,7 @@ class App extends Component {
           const landscape = document.querySelector(".landscape");
           landscape.scrollIntoView();
           setTimeout(() => {
-            //resizeApp();
+            resizeApp();
           }, 0);
         }
       );
@@ -92,7 +90,7 @@ class App extends Component {
 
   componentDidMount() {
     var config = {
-      type: Phaser.AUTO,
+      type: Phaser.CANVAS,
       width: 1920,
       height: 1080,
       parent: "game",
@@ -101,7 +99,7 @@ class App extends Component {
 
     // var game = new Phaser.Game(config);
     setTimeout(() => {
-      //  resizeApp();
+      resizeApp();
     }, 0);
 
     if (this.state.mobileIOS) {
