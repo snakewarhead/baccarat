@@ -35,6 +35,26 @@ export function isMobile() {
   return flag;
 }
 
+export function centerPortraitGif() {
+  const portrait = document.querySelector(".portrait");
+  var scale = "scale(1)";
+  setTimeout(() => {
+    portrait.style.webkitTransform = scale;
+    portrait.style.msTransform = scale;
+    portrait.style.transform = scale;
+    portrait.style.backgroundPosition = "center";
+    portrait.style.backgroundSize = "50%";
+    portrait.style.width = "100vw";
+  }, 100);
+
+  portrait.style.webkitTransform = scale;
+  portrait.style.msTransform = scale;
+  portrait.style.transform = scale;
+  portrait.style.backgroundPosition = "center";
+  portrait.style.backgroundSize = "50%";
+  portrait.style.width = "100vw";
+}
+
 export function resizeApp() {
   // Width-height-ratio of game resolution
   let game_ratio = 1920 / 1080;

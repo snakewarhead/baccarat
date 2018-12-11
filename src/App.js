@@ -4,7 +4,8 @@ import "./css/App.css";
 import {
   getMobileOperatingSystem,
   isMobile,
-  resizeApp
+  resizeApp,
+  centerPortraitGif
 } from "./utils/helperFunctions";
 import Loading from "./scenes/Loading";
 import Main from "./scenes/Main";
@@ -52,6 +53,8 @@ class App extends Component {
       this.setState({
         inLandscapeMode: false
       });
+
+      centerPortraitGif();
     };
 
     const leaveIncorrectOrientation = () => {
