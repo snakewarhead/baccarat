@@ -9,6 +9,8 @@ import {
   centerPortraitGif,
   goFullscreen
 } from "../utils/helperFunctions";
+import TopNavBar from "./TopNavBar.jsx";
+import Modal from "./Modal.jsx";
 import Loading from "../scenes/Loading";
 import Main from "../scenes/Main";
 import Tables from "../scenes/Tables";
@@ -21,10 +23,25 @@ class App extends Component {
       mobileIOS: false,
       mobileAndroid: false,
       mobile: false,
-      scrollCounter: 0
+      scrollCounter: 0,
+      showBackgroundOne: false,
+      balance: 50000,
+      showHistoryModal: true
     };
 
     window.addEventListener("resize", resizeApp);
+    window.addEventListener(
+      "fromTableToMain",
+      function() {
+        this.setState({ showBackgroundOne: false });
+      }.bind(this)
+    );
+    window.addEventListener(
+      "finishLoadingGame",
+      function() {
+        this.setState({ showBackgroundOne: true });
+      }.bind(this)
+    );
 
     if (isMobile()) {
       this.state.mobile = true;
@@ -128,10 +145,55 @@ class App extends Component {
     }
   }
 
+  showHistoryModal = () => {
+    this.setState({ showHistoryModal: true });
+  };
+
+  hideHistoryModal = () => {
+    console.log("?");
+    this.setState({ showHistoryModal: false });
+  };
+
   render() {
     const { mobile, inLandscapeMode, mobileIOS } = this.state;
+    const historyModal = this.state.showHistoryModal ? (
+      <Modal>
+        <div className="modal">
+          <div className="history-modal-bg">
+            <div
+              className="history-modal-bg-x"
+              onClick={this.hideHistoryModal}
+            />
+            <div className="time-bar">
+              <div className="time-selection-year time-selection" />
+              <div className="down-arrow-year down-arrow" />
+              <div className="time-selection-month time-selection" />
+              <div className="down-arrow-month down-arrow" />
+              <div className="time-selection-day time-selection" />
+              <div className="down-arrow-day down-arrow" />
+              <div className="history-modal-confirm-btn" />
+            </div>
+            <div className="info-header-row">
+              <div className="game-no" />
+              <div className="bet-time" />
+              <div className="bet-item" />
+              <div className="bet-amount" />
+              <div className="bet-result" />
+              <div className="bet-winning" />
+            </div>
+          </div>
+        </div>
+      </Modal>
+    ) : null;
+
     return (
       <div className="background">
+        {this.state.showBackgroundOne ? (
+          <TopNavBar
+            balance={this.state.balance}
+            showHistoryModal={this.showHistoryModal}
+          />
+        ) : null}
         <div id="game" className="game" />
         <div
           className={
@@ -145,6 +207,7 @@ class App extends Component {
               : "landscape"
           }
         />
+        {historyModal}
       </div>
     );
   }

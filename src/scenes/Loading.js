@@ -1,6 +1,6 @@
 import Phaser from "phaser";
 import background1 from "../assets/backgroundOne/background1.png";
-import background2 from "../assets/backgroundTwo/background2.jpg";
+import background2 from "../assets/backgroundTwo/background2.png";
 import table from "../assets/backgroundOne/table.png";
 import title from "../assets/backgroundOne/title.png";
 import tableSquares from "../assets/backgroundOne/tableSquares.png";
@@ -20,10 +20,10 @@ class Loading extends Phaser.Scene {
     this.load.image("table", table);
     this.load.image("title", title);
     this.load.image("tableSquares", tableSquares);
-    //this.load.image("tableOneSign", tableOneSign);
-    // this.load.image("tableTwoSign", tableTwoSign);
-    // this.load.image("tableThreeSign", tableThreeSign);
-    // this.load.image("tableFourSign", tableFourSign);
+    this.load.image("tableOneSign", tableOneSign);
+    this.load.image("tableTwoSign", tableTwoSign);
+    this.load.image("tableThreeSign", tableThreeSign);
+    this.load.image("tableFourSign", tableFourSign);
 
     const progressBar = this.add.graphics();
     const progressBox = this.add.graphics();
@@ -79,6 +79,8 @@ class Loading extends Phaser.Scene {
   }
 
   create() {
+    const event = new CustomEvent("finishLoadingGame");
+    window.dispatchEvent(event);
     this.scene.start("Tables");
   }
 
