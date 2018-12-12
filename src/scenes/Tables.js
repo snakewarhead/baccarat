@@ -31,6 +31,10 @@ class Tables extends Phaser.Scene {
       .setScale(0.95);
     this.tableFour.setInteractive();
 
+    // this.tableOneSquares = this.add
+    //   .image(width / 3.4, height / 3.4, "tableSquares")
+    //   .setScale(0.95);
+
     this.tableOne.on(
       "pointerdown",
       function() {
