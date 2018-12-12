@@ -11,6 +11,7 @@ import {
 } from "../utils/helperFunctions";
 import Loading from "../scenes/Loading";
 import Main from "../scenes/Main";
+import Tables from "../scenes/Tables";
 
 class App extends Component {
   constructor(props) {
@@ -22,6 +23,8 @@ class App extends Component {
       mobile: false,
       scrollCounter: 0
     };
+
+    window.addEventListener("resize", resizeApp);
 
     if (isMobile()) {
       this.state.mobile = true;
@@ -94,7 +97,7 @@ class App extends Component {
       width: 1920,
       height: 1080,
       parent: "game",
-      scene: [Loading, Main]
+      scene: [Loading, Tables, Main]
     };
 
     var game = new Phaser.Game(config);

@@ -1,5 +1,8 @@
 import Phaser from "phaser";
-import background from "../assets/background.png";
+import background1 from "../assets/background1.png";
+import background2 from "../assets/background2.jpg";
+import table from "../assets/table.png";
+import title from "../assets/title.png";
 import { isMobile } from "../utils/helperFunctions";
 
 class Loading extends Phaser.Scene {
@@ -7,7 +10,10 @@ class Loading extends Phaser.Scene {
     super("Loading");
   }
   preload() {
-    this.load.image("background", background);
+    this.load.image("background1", background1);
+    this.load.image("background2", background2);
+    this.load.image("table", table);
+    this.load.image("title", title);
 
     const progressBar = this.add.graphics();
     const progressBox = this.add.graphics();
@@ -43,7 +49,7 @@ class Loading extends Phaser.Scene {
     progressBox.fillRect(width / 2 - 160, height / 2 - 25, 320, 50);
 
     for (let i = 0; i < 100; i++) {
-      this.load.image("background" + i, background);
+      this.load.image("background" + i, background1);
     }
 
     this.load.on("progress", function(value) {
@@ -63,7 +69,7 @@ class Loading extends Phaser.Scene {
   }
 
   create() {
-    this.scene.start("Main");
+    this.scene.start("Tables");
   }
 
   update() {}

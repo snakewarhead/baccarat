@@ -7,7 +7,7 @@ class Main extends Phaser.Scene {
   preload() {}
 
   create() {
-    this.bg = this.add.image(0, 0, "background").setOrigin(0, 0);
+    this.bg = this.add.image(0, 0, "background2").setOrigin(0, 0);
   }
 
   update() {}
