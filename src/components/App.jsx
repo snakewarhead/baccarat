@@ -176,7 +176,7 @@ class App extends Component {
                 parentDiv.scrollTop = parentDiv.scrollTop - 1;
               }
 
-              if (landscape.style.display === "block") {
+              if (landscape.classList.contains("display-block")) {
                 return true;
               }
               e.preventDefault();
