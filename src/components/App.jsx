@@ -9,6 +9,7 @@ import {
   centerPortraitGif,
   goFullscreen
 } from "../utils/helperFunctions";
+import { historyArr } from "../utils/tempValues";
 import TopNavBar from "./TopNavBar.jsx";
 import Modal from "./Modal.jsx";
 import Loading from "../scenes/Loading";
@@ -156,6 +157,7 @@ class App extends Component {
 
   render() {
     const { mobile, inLandscapeMode, mobileIOS } = this.state;
+
     const historyModal = this.state.showHistoryModal ? (
       <Modal>
         <div className="modal">
@@ -180,6 +182,34 @@ class App extends Component {
               <div className="bet-amount" />
               <div className="bet-result" />
               <div className="bet-winning" />
+            </div>
+            <div className="history-modal-scrollable-body-container">
+              <div className="history-modal-scrollable-body">
+                {historyArr.map((obj, idx) => {
+                  let divObj = (
+                    <div className="history-body-row" key={idx}>
+                      <div className="game-no-item cell-item ">
+                        {obj.roomId}
+                      </div>
+                      <div className="bet-time-item cell-item ">{obj.time}</div>
+                      <div className="bet-item-item cell-item ">
+                        {obj.betItem}
+                      </div>
+                      <div className="bet-amount-item cell-item ">
+                        {obj.betAmount}
+                      </div>
+                      <div className="bet-result-item cell-item ">
+                        {obj.result}
+                      </div>
+                      <div className="bet-winning-item cell-item ">
+                        {obj.award}
+                      </div>
+                    </div>
+                  );
+
+                  return divObj;
+                })}
+              </div>
             </div>
           </div>
         </div>
