@@ -16,6 +16,8 @@ import Loading from "../scenes/Loading";
 import Main from "../scenes/Main";
 import Tables from "../scenes/Tables";
 
+let lastScrollTop = 0;
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -76,6 +78,10 @@ class App extends Component {
     }
 
     const enterIncorrectOrientation = () => {
+      document.ontouchmove = function(e) {
+        return true;
+      };
+
       this.setState(
         {
           inLandscapeMode: false
@@ -141,6 +147,45 @@ class App extends Component {
           if (this.state.scrollCounter === 5) {
             landscape.classList.remove("display-block");
           }
+
+          document.ontouchmove = function(e) {
+            //let game history modal be scrollable
+            const historyModalBody = document.querySelector(
+              ".history-modal-scrollable-body"
+            );
+            if (historyModalBody)
+              historyModalBody.ontouchmove = function(e) {
+                e.allowScroll = true;
+              };
+            const parentDiv = e.target.parentNode.parentNode;
+            // console.log(parentDiv);
+            // console.log(e.allowScroll);
+            if (
+              !e.allowScroll ||
+              (lastScrollTop !== 0 && parentDiv.scrollTop === 0) ||
+              (lastScrollTop === parentDiv.scrollTop && lastScrollTop !== 0)
+            ) {
+              if (lastScrollTop !== 0 && parentDiv.scrollTop === 0) {
+                lastScrollTop = 1;
+                parentDiv.scrollTop = 2;
+              }
+              if (
+                lastScrollTop === parentDiv.scrollTop &&
+                lastScrollTop !== 0
+              ) {
+                parentDiv.scrollTop = parentDiv.scrollTop - 1;
+              }
+
+              if (landscape.style.display === "block") {
+                return true;
+              }
+              e.preventDefault();
+              console.log("prevent scrolling");
+            } else {
+              lastScrollTop = parentDiv.scrollTop;
+              return true;
+            }
+          };
         }.bind(this)
       );
     }
