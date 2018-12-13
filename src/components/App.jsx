@@ -9,9 +9,8 @@ import {
   centerPortraitGif,
   goFullscreen
 } from "../utils/helperFunctions";
-import { historyArr } from "../utils/tempValues";
 import TopNavBar from "./TopNavBar.jsx";
-import Modal from "./Modal.jsx";
+import HistoryModal from "../components/HistoryModal.jsx";
 import Loading from "../scenes/Loading";
 import Main from "../scenes/Main";
 import Tables from "../scenes/Tables";
@@ -21,6 +20,7 @@ let lastScrollTop = 0;
 class App extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       inLandscapeMode: true,
       mobileIOS: false,
@@ -29,7 +29,7 @@ class App extends Component {
       scrollCounter: 0,
       showBackgroundOne: false,
       balance: 50000,
-      showHistoryModal: false
+      showHistoryModal: true
     };
 
     window.addEventListener("resize", resizeApp);
@@ -148,6 +148,7 @@ class App extends Component {
             landscape.classList.remove("display-block");
           }
 
+          //allow scrolling only when user tries to scroll history modal body
           document.ontouchmove = function(e) {
             //let game history modal be scrollable
             const historyModalBody = document.querySelector(
@@ -158,8 +159,7 @@ class App extends Component {
                 e.allowScroll = true;
               };
             const parentDiv = e.target.parentNode.parentNode;
-            // console.log(parentDiv);
-            // console.log(e.allowScroll);
+
             if (
               !e.allowScroll ||
               (lastScrollTop !== 0 && parentDiv.scrollTop === 0) ||
@@ -203,64 +203,6 @@ class App extends Component {
   render() {
     const { mobile, inLandscapeMode, mobileIOS } = this.state;
 
-    const historyModal = this.state.showHistoryModal ? (
-      <Modal>
-        <div className="modal">
-          <div className="history-modal-bg">
-            <div
-              className="history-modal-bg-x"
-              onClick={this.hideHistoryModal}
-            />
-            <div className="time-bar">
-              <div className="time-selection-year time-selection" />
-              <div className="down-arrow-year down-arrow" />
-              <div className="time-selection-month time-selection" />
-              <div className="down-arrow-month down-arrow" />
-              <div className="time-selection-day time-selection" />
-              <div className="down-arrow-day down-arrow" />
-              <div className="history-modal-confirm-btn" />
-            </div>
-            <div className="info-header-row">
-              <div className="game-no" />
-              <div className="bet-time" />
-              <div className="bet-item" />
-              <div className="bet-amount" />
-              <div className="bet-result" />
-              <div className="bet-winning" />
-            </div>
-            <div className="history-modal-scrollable-body-container">
-              <div className="history-modal-scrollable-body">
-                {historyArr.map((obj, idx) => {
-                  let divObj = (
-                    <div className="history-body-row" key={idx}>
-                      <div className="game-no-item cell-item ">
-                        {obj.roomId}
-                      </div>
-                      <div className="bet-time-item cell-item ">{obj.time}</div>
-                      <div className="bet-item-item cell-item ">
-                        {obj.betItem}
-                      </div>
-                      <div className="bet-amount-item cell-item ">
-                        {obj.betAmount}
-                      </div>
-                      <div className="bet-result-item cell-item ">
-                        {obj.result}
-                      </div>
-                      <div className="bet-winning-item cell-item ">
-                        {obj.award}
-                      </div>
-                    </div>
-                  );
-
-                  return divObj;
-                })}
-              </div>
-            </div>
-          </div>
-        </div>
-      </Modal>
-    ) : null;
-
     return (
       <div className="background">
         {this.state.showBackgroundOne ? (
@@ -282,7 +224,9 @@ class App extends Component {
               : "landscape"
           }
         />
-        {historyModal}
+        {this.state.showHistoryModal ? (
+          <HistoryModal hideHistoryModal={this.hideHistoryModal} />
+        ) : null}
       </div>
     );
   }

@@ -1,0 +1,267 @@
+.history-modal-bg {
+  position: relative;
+  height: 80%;
+  width: 60%;
+  background-image: url("../assets/backgroundOne/historyModal/historyModalBg.png");
+  background-size: 100% 100%;
+}
+
+.history-modal-bg-x {
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  right: 0%;
+  width: 7%;
+  height: 8%;
+  background-image: url("../assets/backgroundOne/historyModal/historyModalX.png");
+  background-size: 100% 100%;
+}
+
+.time-bar {
+  position: absolute;
+  top: 9%;
+  left: 1.5%;
+  height: 5%;
+  width: 97%;
+  background-image: url("../assets/backgroundOne/historyModal/timebar.png");
+  background-size: 100% 100%;
+}
+
+.info-header-row {
+  position: absolute;
+  top: 14%;
+  left: 1.5%;
+  height: 5%;
+  width: 97%;
+  display: flex;
+}
+
+.history-modal-scrollable-body-container {
+  position: absolute;
+  top: 19%;
+  left: 1.5%;
+  height: 70%;
+  width: 97%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.history-modal-scrollable-body {
+  height: 100%;
+  width: 100%;
+  overflow-y: auto;
+}
+
+@media (max-width: 900px) {
+  .history-modal-scrollable-body {
+    font-size: 0.5em;
+  }
+}
+
+.history-body-row {
+  height: 10%;
+  display: flex;
+}
+
+.option-dropdown {
+  z-index: 3;
+  position: absolute;
+  top: 90%;
+  width: 18%;
+}
+
+@media (max-width: 900px) {
+  .option-dropdown {
+    font-size: 0.5em;
+  }
+}
+
+.year-option-dropdown {
+  left: 10%;
+  height: 500%;
+}
+
+.month-option-dropdown {
+  left: 38%;
+  height: 1200%;
+}
+
+.date-option-dropdown {
+  left: 66%;
+  height: 1500%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.date-option-dropdown-child {
+  height: 200%;
+  overflow-y: scroll;
+}
+
+.option-items {
+  cursor: pointer;
+  background-image: url("../assets/backgroundOne/historyModal/time-option.png");
+  background-size: 100% 100%;
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.year-option {
+  height: calc(100% / 6);
+}
+
+.month-option {
+  height: calc(100% / 12);
+}
+
+.date-option {
+  min-height: calc(100% / 15);
+}
+
+.time-selection {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  cursor: pointer;
+  position: absolute;
+  top: 10%;
+  width: 15%;
+  height: 80%;
+  background-image: url("../assets/backgroundOne/historyModal/time-selection.png");
+  background-size: 100% 100%;
+}
+
+@media (max-width: 900px) {
+  .time-selection {
+    font-size: 0.5em;
+  }
+}
+
+.down-arrow {
+  cursor: pointer;
+  position: absolute;
+  top: 10%;
+  height: 80%;
+  width: 3%;
+  background-image: url(../assets/backgroundOne/historyModal/down-arrow.png);
+  background-size: 100% 100%;
+}
+
+.time-selection-year {
+  left: 10%;
+}
+
+.down-arrow-year {
+  left: 25%;
+}
+
+.time-selection-month {
+  left: 38%;
+}
+
+.down-arrow-month {
+  left: 53%;
+}
+
+.time-selection-day {
+  left: 66%;
+}
+
+.down-arrow-day {
+  left: 81%;
+}
+
+.history-modal-confirm-btn {
+  position: absolute;
+  top: 10%;
+  width: 10%;
+  height: 80%;
+  background-image: url("../assets/backgroundOne/historyModal/confirm.png");
+  background-size: 100% 100%;
+  left: 87%;
+}
+
+.cell-item {
+  background-image: url("../assets/backgroundOne/historyModal/historyCellBg.png");
+  background-size: 100% 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.game-no,
+.game-no-item {
+  height: 100%;
+  width: 10%;
+  color: white;
+}
+
+.game-no {
+  background-image: url("../assets/backgroundOne/historyModal/gameNo.png");
+  background-size: 100% 100%;
+}
+
+.bet-time,
+.bet-time-item {
+  height: 100%;
+  width: 12%;
+  color: white;
+}
+
+.bet-time {
+  background-image: url("../assets/backgroundOne/historyModal/betTime.png");
+  background-size: 100% 100%;
+}
+
+.bet-item,
+.bet-item-item {
+  height: 100%;
+  width: 20%;
+  color: white;
+}
+
+.bet-item {
+  background-image: url("../assets/backgroundOne/historyModal/betItem.png");
+  background-size: 100% 100%;
+}
+
+.bet-amount,
+.bet-amount-item {
+  height: 100%;
+  width: 20%;
+  color: white;
+}
+
+.bet-amount {
+  background-image: url("../assets/backgroundOne/historyModal/betAmount.png");
+  background-size: 100% 100%;
+}
+
+.bet-result,
+.bet-result-item {
+  height: 100%;
+  width: 20%;
+  color: white;
+}
+.bet-result {
+  background-image: url("../assets/backgroundOne/historyModal/betResult.png");
+  background-size: 100% 100%;
+}
+
+.bet-winning,
+.bet-winning-item {
+  height: 100%;
+  width: 18%;
+  color: white;
+}
+
+.bet-winning {
+  background-image: url("../assets/backgroundOne/historyModal/betWinning.png");
+  background-size: 100% 100%;
+}
