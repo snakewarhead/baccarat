@@ -40,7 +40,7 @@
   position: absolute;
   top: 24%;
   left: 1.5%;
-  height: 70%;
+  height: 65%;
   width: 97%;
   display: flex;
   flex-direction: column;
@@ -264,4 +264,47 @@
 .bet-winning {
   background-image: url("../assets/backgroundOne/historyModal/betWinning.png");
   background-size: 100% 100%;
+}
+
+.history-modal-bottom-bar {
+  position: absolute;
+  top: 89%;
+  height: 8%;
+  left: 1.5%;
+  width: 97%;
+  background-image: url("../assets/backgroundOne/historyModal/historyModalBottomBar.png");
+  background-size: 100% 100%;
+  display: flex;
+}
+
+.history-modal-bottom-bar-bet-amount {
+  width: 20%;
+  height: 100%;
+  background-image: url("../assets/backgroundOne/historyModal/historyModalBetAmount.png");
+  background-size: 100% 100%;
+}
+
+.history-modal-bottom-bar-bet-amount-display {
+  width: 30%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+.history-modal-bottom-bar-total-winning {
+  width: 20%;
+  height: 100%;
+  background-image: url("../assets/backgroundOne/historyModal/historyModalTotalWinning.png");
+  background-size: 100% 100%;
+}
+
+.history-modal-bottom-bar-total-winning-display {
+  width: 30%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
 }

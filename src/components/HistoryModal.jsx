@@ -220,6 +220,16 @@ class HistoryModal extends Component {
                 })}
               </div>
             </div>
+            <div className="history-modal-bottom-bar">
+              <div className="history-modal-bottom-bar-bet-amount" />
+              <div className="history-modal-bottom-bar-bet-amount-display">
+                100000
+              </div>
+              <div className="history-modal-bottom-bar-total-winning" />
+              <div className="history-modal-bottom-bar-total-winning-display">
+                100000
+              </div>
+            </div>
           </div>
         </div>
       </Modal>
