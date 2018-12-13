@@ -102,6 +102,7 @@ class Tables extends Phaser.Scene {
       this.tableThree,
       this.tableFour
     ];
+
     this.tablePlusAccessoriesGroup = [
       this.tableOne,
       this.tableTwo,
@@ -155,10 +156,11 @@ class Tables extends Phaser.Scene {
   }
 
   update() {
-    if (this.nextScene) {
-      //   const event = new CustomEvent("fromTableToMain");
-      //   window.dispatchEvent(event);
-      //   this.scene.start("Main");
+    //replace true with this.nextScene
+    if (true) {
+      const event = new CustomEvent("fromTableToMain");
+      window.dispatchEvent(event);
+      this.scene.start("Main");
     }
   }
 }

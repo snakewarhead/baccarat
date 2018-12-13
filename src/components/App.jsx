@@ -11,6 +11,7 @@ import {
 } from "../utils/helperFunctions";
 import TopNavBar from "./TopNavBar.jsx";
 import HistoryModal from "../components/HistoryModal.jsx";
+import SecondPageUIOverlay from "../components/SecondPageUIOverlay.jsx";
 import Loading from "../scenes/Loading";
 import Main from "../scenes/Main";
 import Tables from "../scenes/Tables";
@@ -29,7 +30,7 @@ class App extends Component {
       scrollCounter: 0,
       showBackgroundOne: false,
       balance: 50000,
-      showHistoryModal: true
+      showHistoryModal: false
     };
 
     window.addEventListener("resize", resizeApp);
@@ -134,7 +135,7 @@ class App extends Component {
       landscape.style.height = window.innerHeight + 100 + "px";
       setTimeout(() => {
         landscape.scrollIntoView();
-      }, 400);
+      }, 500);
 
       window.addEventListener(
         "scroll",
@@ -144,7 +145,7 @@ class App extends Component {
               scrollCounter: prevState.scrollCounter + 1
             };
           });
-          if (this.state.scrollCounter === 5) {
+          if (this.state.scrollCounter >= 5) {
             landscape.classList.remove("display-block");
           }
 
@@ -195,7 +196,6 @@ class App extends Component {
                 return true;
               }
               e.preventDefault();
-              console.log("prevent scrolling");
             } else {
               lastScrollTop = parentDiv.scrollTop;
               return true;
@@ -211,7 +211,6 @@ class App extends Component {
   };
 
   hideHistoryModal = () => {
-    console.log("?");
     this.setState({ showHistoryModal: false });
   };
 
@@ -225,7 +224,9 @@ class App extends Component {
             balance={this.state.balance}
             showHistoryModal={this.showHistoryModal}
           />
-        ) : null}
+        ) : (
+          <SecondPageUIOverlay />
+        )}
         <div id="game" className="game" />
         <div
           className={
