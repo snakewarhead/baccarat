@@ -1,7 +1,7 @@
 .history-modal-bg {
   position: relative;
-  height: 80%;
-  width: 60%;
+  height: 90%;
+  width: 70%;
   background-image: url("../assets/backgroundOne/historyModal/historyModalBg.png");
   background-size: 100% 100%;
 }
@@ -21,7 +21,7 @@
   position: absolute;
   top: 9%;
   left: 1.5%;
-  height: 5%;
+  height: 7.5%;
   width: 97%;
   background-image: url("../assets/backgroundOne/historyModal/timebar.png");
   background-size: 100% 100%;
@@ -29,16 +29,16 @@
 
 .info-header-row {
   position: absolute;
-  top: 14%;
+  top: 16.5%;
   left: 1.5%;
-  height: 5%;
+  height: 7.5%;
   width: 97%;
   display: flex;
 }
 
 .history-modal-scrollable-body-container {
   position: absolute;
-  top: 19%;
+  top: 24%;
   left: 1.5%;
   height: 70%;
   width: 97%;
@@ -84,12 +84,12 @@
 
 .month-option-dropdown {
   left: 38%;
-  height: 1200%;
+  height: 800%;
 }
 
 .date-option-dropdown {
   left: 66%;
-  height: 1500%;
+  height: 1000%;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -116,7 +116,7 @@
 }
 
 .month-option {
-  height: calc(100% / 12);
+  height: calc(100% / 10);
 }
 
 .date-option {

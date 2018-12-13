@@ -148,16 +148,27 @@ class App extends Component {
             landscape.classList.remove("display-block");
           }
 
-          //allow scrolling only when user tries to scroll history modal body
+          //allow scrolling only when user tries to scroll history modal body or the date option dropdown
           document.ontouchmove = function(e) {
             //let game history modal be scrollable
             const historyModalBody = document.querySelector(
               ".history-modal-scrollable-body"
             );
-            if (historyModalBody)
+            const dateOptionDropdown = document.querySelector(
+              ".date-option-dropdown-child"
+            );
+
+            if (historyModalBody) {
               historyModalBody.ontouchmove = function(e) {
                 e.allowScroll = true;
               };
+            }
+
+            if (dateOptionDropdown) {
+              dateOptionDropdown.ontouchmove = function(e) {
+                e.allowScroll = true;
+              };
+            }
             const parentDiv = e.target.parentNode.parentNode;
 
             if (
