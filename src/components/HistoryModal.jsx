@@ -83,6 +83,18 @@ class HistoryModal extends Component {
     });
   };
 
+  temp = e => {
+    if (e.target.classList.contains("time-selection")) {
+      return;
+    } else {
+      this.setState({
+        showDateDropdown: false,
+        showMonthDropdown: false,
+        showYearDropdown: false
+      });
+    }
+  };
+
   render() {
     const dateObj = new Date();
     const year = dateObj.getFullYear();
@@ -99,7 +111,7 @@ class HistoryModal extends Component {
 
     return (
       <Modal>
-        <div className="modal">
+        <div className="modal" onClick={this.temp}>
           <div className="history-modal-bg">
             <div
               className="history-modal-bg-x"

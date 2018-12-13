@@ -174,9 +174,6 @@ class App extends Component {
             if (parentDiv.classList.contains("date-option-dropdown")) {
               parentDiv = e.target.parentNode;
             }
-            console.log(parentDiv);
-            console.log(lastScrollTop);
-            console.log(parentDiv.scrollTop);
 
             if (
               !e.allowScroll ||
