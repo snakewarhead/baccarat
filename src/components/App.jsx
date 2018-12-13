@@ -27,7 +27,7 @@ class App extends Component {
       scrollCounter: 0,
       showBackgroundOne: false,
       balance: 50000,
-      showHistoryModal: true
+      showHistoryModal: false
     };
 
     window.addEventListener("resize", resizeApp);
