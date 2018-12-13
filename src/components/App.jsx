@@ -169,7 +169,14 @@ class App extends Component {
                 e.allowScroll = true;
               };
             }
-            const parentDiv = e.target.parentNode.parentNode;
+            let parentDiv = e.target.parentNode.parentNode;
+
+            if (parentDiv.classList.contains("date-option-dropdown")) {
+              parentDiv = e.target.parentNode;
+            }
+            console.log(parentDiv);
+            console.log(lastScrollTop);
+            console.log(parentDiv.scrollTop);
 
             if (
               !e.allowScroll ||

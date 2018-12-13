@@ -120,7 +120,7 @@
 }
 
 .date-option {
-  min-height: calc(100% / 15);
+  min-height: calc(100% / 10);
 }
 
 .time-selection {
