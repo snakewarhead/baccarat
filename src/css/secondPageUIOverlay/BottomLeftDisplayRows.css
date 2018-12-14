@@ -1,0 +1,44 @@
+.bottom-left-rows {
+  position: absolute;
+  height: 22%;
+  width: 28%;
+  bottom: 2%;
+  z-index: 1;
+  left: 1%;
+}
+
+.display-row {
+  height: 33%;
+  width: 100%;
+  background-image: url("../../assets/backgroundTwo/bottomLeftDisplayRows/display-row.png");
+  background-size: 100% 100%;
+  display: flex;
+}
+
+.display-row-first-partition {
+  margin-left: 1%;
+  width: 27%;
+  color: #e0c643;
+  white-space: nowrap;
+  font-size: 2em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.display-row-second-partition {
+  width: 69%;
+  color: #e0c643;
+  white-space: nowrap;
+  font-size: 2em;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+@media (max-width: 900px) {
+  .display-row-first-partition,
+  .display-row-second-partition {
+    font-size: 0.8em;
+  }
+}

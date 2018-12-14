@@ -1,15 +1,15 @@
 import React, { Component } from "react";
-import "../css/TopNavBar.css";
-import img0 from "../assets/backgroundOne/numbers/0.png";
-import img1 from "../assets/backgroundOne/numbers/1.png";
-import img2 from "../assets/backgroundOne/numbers/2.png";
-import img3 from "../assets/backgroundOne/numbers/3.png";
-import img4 from "../assets/backgroundOne/numbers/4.png";
-import img5 from "../assets/backgroundOne/numbers/5.png";
-import img6 from "../assets/backgroundOne/numbers/6.png";
-import img7 from "../assets/backgroundOne/numbers/7.png";
-import img8 from "../assets/backgroundOne/numbers/8.png";
-import img9 from "../assets/backgroundOne/numbers/9.png";
+import "../../css/firstPageUIOverlay/TopNavBar.css";
+import img0 from "../../assets/backgroundOne/numbers/0.png";
+import img1 from "../../assets/backgroundOne/numbers/1.png";
+import img2 from "../../assets/backgroundOne/numbers/2.png";
+import img3 from "../../assets/backgroundOne/numbers/3.png";
+import img4 from "../../assets/backgroundOne/numbers/4.png";
+import img5 from "../../assets/backgroundOne/numbers/5.png";
+import img6 from "../../assets/backgroundOne/numbers/6.png";
+import img7 from "../../assets/backgroundOne/numbers/7.png";
+import img8 from "../../assets/backgroundOne/numbers/8.png";
+import img9 from "../../assets/backgroundOne/numbers/9.png";
 
 class TopNavBar extends Component {
   render() {

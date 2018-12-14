@@ -1,0 +1,42 @@
+.countdown-timer-container {
+  position: absolute;
+  position: absolute;
+  top: 45%;
+  left: 1.5%;
+  width: 12%;
+  height: 30%;
+
+  z-index: 1;
+  pointer-events: all;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.countdown-timer {
+  height: 66%;
+  width: 100%;
+  background-image: url("../../assets/backgroundTwo/countdownTimer/timer.png");
+  background-size: 100% 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.countdown-timer > img {
+  width: 30%;
+  height: 50%;
+}
+
+.timer-condition {
+  width: 120%;
+  height: 32%;
+  /* background-image: url("../../assets/backgroundTwo/countdownTimer/start-bet.png");
+  background-size: 100% 100%; */
+}
+
+.timer-condition > img {
+  height: 100%;
+  width: 100%;
+}

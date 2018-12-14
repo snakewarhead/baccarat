@@ -1,0 +1,45 @@
+.chip-holder {
+  border: 1px green solid;
+  width: 45%;
+  height: 20%;
+  left: 30%;
+  bottom: 2%;
+  position: absolute;
+  display: flex;
+  pointer-events: all;
+}
+
+.left-arrow {
+  width: 10%;
+  height: 100%;
+  background-image: url("../../assets/backgroundTwo/chipHolder/left-arrow.png");
+  background-size: 100% 100%;
+}
+
+.chip-holder-body {
+  width: 80%;
+  height: 100%;
+  background-image: url("../../assets/backgroundTwo/chipHolder/chip-holder-bg.png");
+  background-size: 100% 100%;
+  overflow: hidden;
+}
+
+.chip-holder-slider {
+  width: 200%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.chip-container {
+  width: 10%;
+  height: 80%;
+}
+
+.right-arrow {
+  width: 10%;
+  height: 100%;
+  background-image: url("../../assets/backgroundTwo/chipHolder/right-arrow.png");
+  background-size: 100% 100%;
+}

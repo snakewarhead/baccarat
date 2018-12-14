@@ -9,9 +9,9 @@ import {
   centerPortraitGif,
   goFullscreen
 } from "../utils/helperFunctions";
-import TopNavBar from "./TopNavBar.jsx";
+import TopNavBar from "../components/firstPageUIOverlay/TopNavBar.jsx";
 import HistoryModal from "../components/HistoryModal.jsx";
-import SecondPageUIOverlay from "../components/SecondPageUIOverlay.jsx";
+import SecondPageUIOverlay from "../components/secondPageUIOverlay/SecondPageUIOverlay.jsx";
 import Loading from "../scenes/Loading";
 import Main from "../scenes/Main";
 import Tables from "../scenes/Tables";
@@ -28,7 +28,7 @@ class App extends Component {
       mobileAndroid: false,
       mobile: false,
       scrollCounter: 0,
-      showBackgroundOne: false,
+      showBackgroundOne: true,
       balance: 50000,
       showHistoryModal: false
     };
