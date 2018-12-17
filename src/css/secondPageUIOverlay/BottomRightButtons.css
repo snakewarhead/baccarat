@@ -1,0 +1,33 @@
+.bottom-right-button-holder {
+  position: absolute;
+  bottom: 2%;
+  right: 1%;
+  width: 24%;
+  height: 18%;
+  display: flex;
+  align-items: center;
+}
+
+.auto-bet-button {
+  background-image: url(../../assets/backgroundTwo/bottomRightButtons/autoBet.png);
+  background-size: 100% 100%;
+  width: 30%;
+  height: 90%;
+}
+
+.clear-bet-button {
+  background-image: url(../../assets/backgroundTwo/bottomRightButtons/clearBets.png);
+  background-size: 100% 100%;
+  width: 30%;
+  height: 90%;
+}
+
+.confirm-bet-button {
+  position: absolute;
+  right: 0;
+  bottom: 5%;
+  background-image: url(../../assets/backgroundTwo/bottomRightButtons/confirmBet.png);
+  background-size: 100% 100%;
+  width: 40%;
+  height: 110%;
+}

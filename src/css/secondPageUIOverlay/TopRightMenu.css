@@ -1,0 +1,53 @@
+.top-right-menu-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 60%;
+  width: 7%;
+  background-image: url("../../assets/backgroundTwo/topRightMenu/sidebar.png");
+  background-size: 100% 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: all;
+}
+
+.top-right-menu-container-inner {
+  width: 95%;
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.top-right-menu-icon {
+  width: 80%;
+  height: 15%;
+  background-size: 100% 100%;
+  cursor: pointer;
+}
+
+.tally-change-table-icon {
+  background-image: url("../../assets/backgroundTwo/topRightMenu/tallyChangeTableIcon.png");
+}
+
+.change-table-icon {
+  background-image: url("../../assets/backgroundTwo/topRightMenu/changeTableIcon.png");
+}
+
+.history-icon {
+  background-image: url("../../assets/backgroundTwo/topRightMenu/historyIcon.png");
+}
+
+.gear-icon {
+  background-image: url("../../assets/backgroundTwo/topRightMenu/gearIcon.png");
+}
+
+.instruction-icon {
+  background-image: url("../../assets/backgroundTwo/topRightMenu/instructionIcon.png");
+}
+
+.exit-icon {
+  background-image: url("../../assets/backgroundTwo/topRightMenu/exitIcon.png");
+}

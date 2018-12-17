@@ -1,5 +1,4 @@
 .chip-holder {
-  border: 1px green solid;
   width: 45%;
   height: 20%;
   left: 30%;
@@ -22,6 +21,14 @@
   background-image: url("../../assets/backgroundTwo/chipHolder/chip-holder-bg.png");
   background-size: 100% 100%;
   overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.chip-holder-body-inner {
+  width: 90%;
+  overflow: hidden;
 }
 
 .chip-holder-slider {
@@ -30,11 +37,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: transform 500ms;
 }
 
 .chip-container {
   width: 10%;
   height: 80%;
+  cursor: pointer;
 }
 
 .right-arrow {

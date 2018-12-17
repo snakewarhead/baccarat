@@ -86,12 +86,14 @@ class HistoryModal extends Component {
   temp = e => {
     if (e.target.classList.contains("time-selection")) {
       return;
-    } else {
+    } else if (!e.target.classList.contains("modal")) {
       this.setState({
         showDateDropdown: false,
         showMonthDropdown: false,
         showYearDropdown: false
       });
+    } else {
+      this.props.hideHistoryModal();
     }
   };
 

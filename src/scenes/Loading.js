@@ -8,6 +8,16 @@ import tableOneSign from "../assets/backgroundOne/tableOneSign.png";
 import tableTwoSign from "../assets/backgroundOne/tableTwoSign.png";
 import tableThreeSign from "../assets/backgroundOne/tableThreeSign.png";
 import tableFourSign from "../assets/backgroundOne/tableFourSign.png";
+import chip100 from "../assets/backgroundTwo/chipHolder/100-selected.png";
+import chip500 from "../assets/backgroundTwo/chipHolder/500-selected.png";
+import chip1000 from "../assets/backgroundTwo/chipHolder/1k-selected.png";
+import chip5000 from "../assets/backgroundTwo/chipHolder/5k-selected.png";
+import chip10000 from "../assets/backgroundTwo/chipHolder/10k-selected.png";
+import chip25000 from "../assets/backgroundTwo/chipHolder/25k-selected.png";
+import chip50000 from "../assets/backgroundTwo/chipHolder/50k-selected.png";
+import chip100000 from "../assets/backgroundTwo/chipHolder/100k-selected.png";
+import chip250000 from "../assets/backgroundTwo/chipHolder/250k-selected.png";
+import chip500000 from "../assets/backgroundTwo/chipHolder/500k-selected.png";
 import { isMobile } from "../utils/helperFunctions";
 
 class Loading extends Phaser.Scene {
@@ -24,6 +34,16 @@ class Loading extends Phaser.Scene {
     this.load.image("tableTwoSign", tableTwoSign);
     this.load.image("tableThreeSign", tableThreeSign);
     this.load.image("tableFourSign", tableFourSign);
+    this.load.image("chip100", chip100);
+    this.load.image("chip500", chip500);
+    this.load.image("chip1000", chip1000);
+    this.load.image("chip5000", chip5000);
+    this.load.image("chip10000", chip10000);
+    this.load.image("chip25000", chip25000);
+    this.load.image("chip50000", chip50000);
+    this.load.image("chip100000", chip100000);
+    this.load.image("chip250000", chip250000);
+    this.load.image("chip500000", chip500000);
 
     const progressBar = this.add.graphics();
     const progressBox = this.add.graphics();

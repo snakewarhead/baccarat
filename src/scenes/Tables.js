@@ -130,6 +130,13 @@ class Tables extends Phaser.Scene {
       "pointerdown",
       function() {
         this.nextScene = true;
+        this.tablePicked = 0;
+
+        var event = new CustomEvent("tablePicked", {
+          detail: 0
+        });
+
+        window.dispatchEvent(event);
       }.bind(this)
     );
 
@@ -137,6 +144,13 @@ class Tables extends Phaser.Scene {
       "pointerdown",
       function() {
         this.nextScene = true;
+        this.tablePicked = 1;
+
+        var event = new CustomEvent("tablePicked", {
+          detail: 1
+        });
+
+        window.dispatchEvent(event);
       }.bind(this)
     );
 
@@ -144,6 +158,13 @@ class Tables extends Phaser.Scene {
       "pointerdown",
       function() {
         this.nextScene = true;
+        this.tablePicked = 2;
+
+        var event = new CustomEvent("tablePicked", {
+          detail: 2
+        });
+
+        window.dispatchEvent(event);
       }.bind(this)
     );
 
@@ -151,6 +172,13 @@ class Tables extends Phaser.Scene {
       "pointerdown",
       function() {
         this.nextScene = true;
+        this.tablePicked = 3;
+
+        var event = new CustomEvent("tablePicked", {
+          detail: 3
+        });
+
+        window.dispatchEvent(event);
       }.bind(this)
     );
   }

@@ -1,15 +1,25 @@
 import React, { Component } from "react";
 import "../../css/secondPageUIOverlay/ChipHolder.css";
 import chip100 from "../../assets/backgroundTwo/chipHolder/100-unselected.png";
+import chip100s from "../../assets/backgroundTwo/chipHolder/100-selected.png";
 import chip500 from "../../assets/backgroundTwo/chipHolder/500-unselected.png";
+import chip500s from "../../assets/backgroundTwo/chipHolder/500-selected.png";
 import chip1k from "../../assets/backgroundTwo/chipHolder/1k-unselected.png";
+import chip1ks from "../../assets/backgroundTwo/chipHolder/1k-selected.png";
 import chip5k from "../../assets/backgroundTwo/chipHolder/5k-unselected.png";
+import chip5ks from "../../assets/backgroundTwo/chipHolder/5k-selected.png";
 import chip10k from "../../assets/backgroundTwo/chipHolder/10k-unselected.png";
+import chip10ks from "../../assets/backgroundTwo/chipHolder/10k-selected.png";
 import chip25k from "../../assets/backgroundTwo/chipHolder/25k-unselected.png";
+import chip25ks from "../../assets/backgroundTwo/chipHolder/25k-selected.png";
 import chip50k from "../../assets/backgroundTwo/chipHolder/50k-unselected.png";
+import chip50ks from "../../assets/backgroundTwo/chipHolder/50k-selected.png";
 import chip100k from "../../assets/backgroundTwo/chipHolder/100k-unselected.png";
+import chip100ks from "../../assets/backgroundTwo/chipHolder/100k-selected.png";
 import chip250k from "../../assets/backgroundTwo/chipHolder/250k-unselected.png";
+import chip250ks from "../../assets/backgroundTwo/chipHolder/250k-selected.png";
 import chip500k from "../../assets/backgroundTwo/chipHolder/500k-unselected.png";
+import chip500ks from "../../assets/backgroundTwo/chipHolder/500k-selected.png";
 class ChipHolder extends Component {
   constructor(props) {
     super(props);
@@ -17,45 +27,81 @@ class ChipHolder extends Component {
 
   translateXLeft = () => {
     const chipSlider = document.querySelector(".chip-holder-slider");
-    let position = chipSlider.style.transform.substring(12, 14);
+    let position = chipSlider.style.transform.substring(
+      12,
+      chipSlider.style.transform.indexOf("%")
+    );
     if (position === "0%") position = 0;
-    if (!chipSlider.style.transform) {
-      chipSlider.style.transform = "translateX(-10%)";
-    } else if (position <= 40) {
+    if (position <= 40) {
       chipSlider.style.transform = `translateX(-${Number(position) + 10}%)`;
-      console.log(position);
-    } else {
     }
   };
 
   translateXRight = () => {
     const chipSlider = document.querySelector(".chip-holder-slider");
-    let position = chipSlider.style.transform.substring(12, 14);
+    let position = chipSlider.style.transform.substring(
+      12,
+      chipSlider.style.transform.indexOf("%")
+    );
     if (position === "0%") position = 0;
-    if (!chipSlider.style.transform) {
-    } else if (position <= 40) {
+
+    if (position <= 50) {
       chipSlider.style.transform = `translateX(-${Number(position) - 10}%)`;
-      console.log(chipSlider.style.transform);
-    } else {
     }
   };
 
   render() {
     return (
-      <div className="chip-holder">
+      <div
+        className="chip-holder"
+        onMouseEnter={this.props.mouseEntersUI}
+        onMouseLeave={this.props.mouseLeavesUI}
+      >
         <div className="left-arrow" onClick={this.translateXLeft} />
-        <div className="chip-holder-body">
-          <div className="chip-holder-slider">
-            <img className="chip-container" src={chip100} />
-            <img className="chip-container" src={chip500} />
-            <img className="chip-container" src={chip1k} />
-            <img className="chip-container" src={chip5k} />
-            <img className="chip-container" src={chip10k} />
-            <img className="chip-container" src={chip25k} />
-            <img className="chip-container" src={chip50k} />
-            <img className="chip-container" src={chip100k} />
-            <img className="chip-container" src={chip250k} />
-            <img className="chip-container" src={chip500k} />
+        <div className="chip-holder-body ">
+          <div className="chip-holder-body-inner">
+            <div className="chip-holder-slider" onClick={this.props.selectChip}>
+              <img
+                className="chip-container 100"
+                src={this.props.selectedChip === 100 ? chip100s : chip100}
+              />
+              <img
+                className="chip-container 500"
+                src={this.props.selectedChip === 500 ? chip500s : chip500}
+              />
+              <img
+                className="chip-container 1000"
+                src={this.props.selectedChip === 1000 ? chip1ks : chip1k}
+              />
+              <img
+                className="chip-container 5000"
+                src={this.props.selectedChip === 5000 ? chip5ks : chip5k}
+              />
+              <img
+                className="chip-container 10000"
+                src={this.props.selectedChip === 10000 ? chip10ks : chip10k}
+              />
+              <img
+                className="chip-container 25000"
+                src={this.props.selectedChip === 25000 ? chip25ks : chip25k}
+              />
+              <img
+                className="chip-container 50000"
+                src={this.props.selectedChip === 50000 ? chip50ks : chip50k}
+              />
+              <img
+                className="chip-container 100000"
+                src={this.props.selectedChip === 100000 ? chip100ks : chip100k}
+              />
+              <img
+                className="chip-container 250000"
+                src={this.props.selectedChip === 250000 ? chip250ks : chip250k}
+              />
+              <img
+                className="chip-container 500000"
+                src={this.props.selectedChip === 500000 ? chip500ks : chip500k}
+              />
+            </div>
           </div>
         </div>
         <div className="right-arrow" onClick={this.translateXRight} />

@@ -30,7 +30,8 @@ class App extends Component {
       scrollCounter: 0,
       showBackgroundOne: true,
       balance: 50000,
-      showHistoryModal: false
+      showHistoryModal: false,
+      tableNo: 0
     };
 
     window.addEventListener("resize", resizeApp);
@@ -44,6 +45,12 @@ class App extends Component {
       "finishLoadingGame",
       function() {
         this.setState({ showBackgroundOne: true });
+      }.bind(this)
+    );
+    window.addEventListener(
+      "tablePicked",
+      function(e) {
+        this.setState({ tableNo: e.detail });
       }.bind(this)
     );
 
@@ -225,7 +232,7 @@ class App extends Component {
             showHistoryModal={this.showHistoryModal}
           />
         ) : (
-          <SecondPageUIOverlay />
+          <SecondPageUIOverlay showHistoryModal={this.showHistoryModal} />
         )}
         <div id="game" className="game" />
         <div
