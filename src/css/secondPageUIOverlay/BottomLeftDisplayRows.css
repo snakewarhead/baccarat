@@ -5,6 +5,7 @@
   bottom: 2%;
   z-index: 1;
   left: 1%;
+  pointer-events: all;
 }
 
 .display-row {

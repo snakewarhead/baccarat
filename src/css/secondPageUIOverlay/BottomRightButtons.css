@@ -6,28 +6,49 @@
   height: 18%;
   display: flex;
   align-items: center;
+  pointer-events: all;
+}
+
+.auto-bet-button-container {
+  width: 30%;
+  height: 90%;
 }
 
 .auto-bet-button {
+  height: 80%;
   background-image: url(../../assets/backgroundTwo/bottomRightButtons/autoBet.png);
   background-size: 100% 100%;
+}
+
+.auto-bet-button-text,
+.clear-bet-button-text,
+.confirm-bet-button-text {
+  color: white;
+  font-weight: bold;
+  font-size: 1.5em;
+}
+
+.clear-bet-button-container {
   width: 30%;
   height: 90%;
 }
 
 .clear-bet-button {
+  height: 80%;
   background-image: url(../../assets/backgroundTwo/bottomRightButtons/clearBets.png);
   background-size: 100% 100%;
-  width: 30%;
-  height: 90%;
 }
 
-.confirm-bet-button {
+.confirm-bet-button-container {
   position: absolute;
   right: 0;
   bottom: 5%;
-  background-image: url(../../assets/backgroundTwo/bottomRightButtons/confirmBet.png);
-  background-size: 100% 100%;
   width: 40%;
   height: 110%;
+}
+
+.confirm-bet-button {
+  background-image: url(../../assets/backgroundTwo/bottomRightButtons/confirmBet.png);
+  background-size: 100% 100%;
+  height: 83.5%;
 }

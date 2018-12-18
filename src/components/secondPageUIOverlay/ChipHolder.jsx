@@ -51,6 +51,8 @@ class ChipHolder extends Component {
   };
 
   render() {
+    const { selectedChip, isChipActive } = this.props;
+
     return (
       <div
         className="chip-holder"
@@ -63,43 +65,55 @@ class ChipHolder extends Component {
             <div className="chip-holder-slider" onClick={this.props.selectChip}>
               <img
                 className="chip-container 100"
-                src={this.props.selectedChip === 100 ? chip100s : chip100}
+                src={selectedChip === 100 && isChipActive ? chip100s : chip100}
               />
               <img
                 className="chip-container 500"
-                src={this.props.selectedChip === 500 ? chip500s : chip500}
+                src={selectedChip === 500 && isChipActive ? chip500s : chip500}
               />
               <img
                 className="chip-container 1000"
-                src={this.props.selectedChip === 1000 ? chip1ks : chip1k}
+                src={selectedChip === 1000 && isChipActive ? chip1ks : chip1k}
               />
               <img
                 className="chip-container 5000"
-                src={this.props.selectedChip === 5000 ? chip5ks : chip5k}
+                src={selectedChip === 5000 && isChipActive ? chip5ks : chip5k}
               />
               <img
                 className="chip-container 10000"
-                src={this.props.selectedChip === 10000 ? chip10ks : chip10k}
+                src={
+                  selectedChip === 10000 && isChipActive ? chip10ks : chip10k
+                }
               />
               <img
                 className="chip-container 25000"
-                src={this.props.selectedChip === 25000 ? chip25ks : chip25k}
+                src={
+                  selectedChip === 25000 && isChipActive ? chip25ks : chip25k
+                }
               />
               <img
                 className="chip-container 50000"
-                src={this.props.selectedChip === 50000 ? chip50ks : chip50k}
+                src={
+                  selectedChip === 50000 && isChipActive ? chip50ks : chip50k
+                }
               />
               <img
                 className="chip-container 100000"
-                src={this.props.selectedChip === 100000 ? chip100ks : chip100k}
+                src={
+                  selectedChip === 100000 && isChipActive ? chip100ks : chip100k
+                }
               />
               <img
                 className="chip-container 250000"
-                src={this.props.selectedChip === 250000 ? chip250ks : chip250k}
+                src={
+                  selectedChip === 250000 && isChipActive ? chip250ks : chip250k
+                }
               />
               <img
                 className="chip-container 500000"
-                src={this.props.selectedChip === 500000 ? chip500ks : chip500k}
+                src={
+                  selectedChip === 500000 && isChipActive ? chip500ks : chip500k
+                }
               />
             </div>
           </div>

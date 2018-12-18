@@ -60,7 +60,11 @@ class CountdownTimer extends Component {
     const rightDigit = this.state.time % 10;
 
     return (
-      <div className="countdown-timer-container">
+      <div
+        className="countdown-timer-container"
+        onMouseEnter={this.props.mouseEntersUI}
+        onMouseLeave={this.props.mouseLeavesUI}
+      >
         <div className="countdown-timer">
           <img src={map[leftDigit]} />
           <img src={map[rightDigit]} />

@@ -12,11 +12,17 @@ class SecondPageUIOverlay extends Component {
     super(props);
     this.state = {
       selectedChip: 0,
-      isChipActive: false
+      isChipActive: false,
+      totalBet: 0
     };
 
-    this.pointerEnterEvent = new CustomEvent("pointerEntersUI");
-    this.pointerLeaveEvent = new CustomEvent("pointerLeavesUI");
+    window.addEventListener("placeBet", () => {
+      this.setState(function(prevState) {
+        return {
+          totalBet: prevState.totalBet + prevState.selectedChip
+        };
+      });
+    });
   }
 
   selectChip = e => {
@@ -36,7 +42,6 @@ class SecondPageUIOverlay extends Component {
       }
     });
     this.setState(function(prevState) {
-      console.log(chipAmount !== this.state.isChipActive);
       return {
         selectedChip: chipAmount,
         isChipActive: chipActiveOrNot
@@ -47,27 +52,56 @@ class SecondPageUIOverlay extends Component {
   };
 
   mouseEntersUI = () => {
-    window.dispatchEvent(this.pointerEnterEvent);
+    const event = new CustomEvent("pointerEntersUI");
+    window.dispatchEvent(event);
   };
 
   mouseLeavesUI = () => {
-    window.dispatchEvent(this.pointerLeaveEvent);
+    const event = new CustomEvent("pointerLeavesUI");
+    window.dispatchEvent(event);
+  };
+
+  clearAllChips = () => {
+    const event = new CustomEvent("clearAllChips");
+    window.dispatchEvent(event);
+    this.setState({
+      totalBet: 0
+    });
   };
 
   render() {
     return (
       <div className="full-page-UI-overlay">
-        <TopLeftHistory />
-        <CountdownTimer />
-        <BottomLeftDisplayRows />
+        <TopLeftHistory
+          mouseEntersUI={this.mouseEntersUI}
+          mouseLeavesUI={this.mouseLeavesUI}
+        />
+        <CountdownTimer
+          mouseEntersUI={this.mouseEntersUI}
+          mouseLeavesUI={this.mouseLeavesUI}
+        />
+        <BottomLeftDisplayRows
+          mouseEntersUI={this.mouseEntersUI}
+          mouseLeavesUI={this.mouseLeavesUI}
+          totalBet={this.state.totalBet}
+        />
         <ChipHolder
           selectedChip={this.state.selectedChip}
+          isChipActive={this.state.isChipActive}
           selectChip={this.selectChip}
           mouseEntersUI={this.mouseEntersUI}
           mouseLeavesUI={this.mouseLeavesUI}
         />
-        <BottomRightButtons />
-        <TopRightMenu showHistoryModal={this.props.showHistoryModal} />
+        <BottomRightButtons
+          mouseEntersUI={this.mouseEntersUI}
+          mouseLeavesUI={this.mouseLeavesUI}
+          clearAllChips={this.clearAllChips}
+        />
+        <TopRightMenu
+          showHistoryModal={this.props.showHistoryModal}
+          mouseEntersUI={this.mouseEntersUI}
+          mouseLeavesUI={this.mouseLeavesUI}
+        />
       </div>
     );
   }

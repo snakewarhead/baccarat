@@ -18,6 +18,12 @@ import chip50000 from "../assets/backgroundTwo/chipHolder/50k-selected.png";
 import chip100000 from "../assets/backgroundTwo/chipHolder/100k-selected.png";
 import chip250000 from "../assets/backgroundTwo/chipHolder/250k-selected.png";
 import chip500000 from "../assets/backgroundTwo/chipHolder/500k-selected.png";
+import crop1 from "../assets/backgroundTwo/crop1.png";
+import crop2 from "../assets/backgroundTwo/crop2.png";
+import crop3 from "../assets/backgroundTwo/crop3.png";
+import crop4 from "../assets/backgroundTwo/crop4.png";
+import crop5 from "../assets/backgroundTwo/crop5.png";
+import crop6 from "../assets/backgroundTwo/crop6.png";
 import { isMobile } from "../utils/helperFunctions";
 
 class Loading extends Phaser.Scene {
@@ -44,6 +50,12 @@ class Loading extends Phaser.Scene {
     this.load.image("chip100000", chip100000);
     this.load.image("chip250000", chip250000);
     this.load.image("chip500000", chip500000);
+    this.load.image("crop1", crop1);
+    this.load.image("crop2", crop2);
+    this.load.image("crop3", crop3);
+    this.load.image("crop4", crop4);
+    this.load.image("crop5", crop5);
+    this.load.image("crop6", crop6);
 
     const progressBar = this.add.graphics();
     const progressBox = this.add.graphics();

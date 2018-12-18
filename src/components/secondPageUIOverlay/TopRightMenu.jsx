@@ -8,7 +8,11 @@ class TopRightMenu extends Component {
 
   render() {
     return (
-      <div className="top-right-menu-container">
+      <div
+        className="top-right-menu-container"
+        onMouseEnter={this.props.mouseEntersUI}
+        onMouseLeave={this.props.mouseLeavesUI}
+      >
         <div className="top-right-menu-container-inner">
           <div className="tally-change-table-icon top-right-menu-icon" />
           <div className="change-table-icon top-right-menu-icon" />

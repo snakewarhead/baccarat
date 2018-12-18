@@ -31,7 +31,11 @@ class TopLeftHistory extends Component {
     const rowNumberMap = ["one", "two", "three", "four", "five", "six"];
 
     return (
-      <div className="top-left-history-display">
+      <div
+        className="top-left-history-display"
+        onMouseEnter={this.props.mouseEntersUI}
+        onMouseLeave={this.props.mouseLeavesUI}
+      >
         <div className="top-left-history-display-body-container">
           {rowsArr.map((obj, idx) => {
             return (
