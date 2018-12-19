@@ -24,6 +24,11 @@ import crop3 from "../assets/backgroundTwo/crop3.png";
 import crop4 from "../assets/backgroundTwo/crop4.png";
 import crop5 from "../assets/backgroundTwo/crop5.png";
 import crop6 from "../assets/backgroundTwo/crop6.png";
+import recycledCardHolder from "../assets/backgroundTwo/recycledCardHolder.png";
+import recycledCard from "../assets/backgroundTwo/recycledCard.png";
+import deckHolder from "../assets/backgroundTwo/deckHolder.png";
+import deckCard from "../assets/backgroundTwo/deckCard.png";
+import cardsLeftDisplay from "../assets/backgroundTwo/numberOfCardsLeftDisplay.png";
 import { isMobile } from "../utils/helperFunctions";
 
 class Loading extends Phaser.Scene {
@@ -56,12 +61,16 @@ class Loading extends Phaser.Scene {
     this.load.image("crop4", crop4);
     this.load.image("crop5", crop5);
     this.load.image("crop6", crop6);
+    this.load.image("recycledCard", recycledCard);
+    this.load.image("recycledCardHolder", recycledCardHolder);
+    this.load.image("deckHolder", deckHolder);
+    this.load.image("deckCard", deckCard);
+    this.load.image("cardsLeftDisplay", cardsLeftDisplay);
 
     const progressBar = this.add.graphics();
     const progressBox = this.add.graphics();
     const width = this.cameras.main.width;
     const height = this.cameras.main.height;
-    console.log(width, height);
     const loadingText = this.make.text({
       x: width / 2,
       y: height / 2 - 50,

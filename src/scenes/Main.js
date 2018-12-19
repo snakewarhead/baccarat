@@ -8,8 +8,8 @@ class Main extends Phaser.Scene {
   preload() {}
 
   create() {
-    const width = this.cameras.main.width;
-    const height = this.cameras.main.height;
+    this.width = this.cameras.main.width;
+    this.height = this.cameras.main.height;
 
     this.bg = this.add.image(0, 0, "background2").setOrigin(0, 0);
 
@@ -65,8 +65,8 @@ class Main extends Phaser.Scene {
 
     this.tableSign = this.add
       .image(
-        width / 2.8,
-        height / 2.8,
+        this.width / 2.8,
+        this.height / 2.8,
         tableSignMap[this.scene.get("Tables").tablePicked]
       )
       .setScale(1.1);
@@ -119,9 +119,125 @@ class Main extends Phaser.Scene {
     listenTobetOnArea(this.crop4, 965, 750, this);
     listenTobetOnArea(this.crop5, 1280, 640, this);
     listenTobetOnArea(this.crop6, 1510, 500, this);
+
+    //number of cards left
+    this.totalNumberOfCards = 416;
+    this.numberOfCardsLeft = 416;
+
+    //arrays to holder cards waiting to be dealt and dealt cards
+    this.deckCards = [];
+    this.recycledCards = [];
+
+    //top right deck holder
+    this.deckHolder = this.add.image(
+      this.width / 1.15,
+      this.height / 20,
+      "deckHolder"
+    );
+
+    //top right cards
+    for (let i = 0; i < this.numberOfCardsLeft; i++) {
+      this.deckCards[i] = this.add.image(
+        this.width / 1.135 - 0.1 * i,
+        this.height / 305 + 0.2 * i,
+        "deckCard"
+      );
+    }
+
+    //top left recycle card holder
+    this.recycledCardHolder = this.add.image(
+      this.width / 9,
+      this.height / 20,
+      "recycledCardHolder"
+    );
+
+    //top left recycled cards
+    for (let i = 0; i < this.totalNumberOfCards - this.numberOfCardsLeft; i++) {
+      this.recycledCards[i] = this.add.image(
+        this.width / 9 - 0.1 * i,
+        this.height / 20 - 0.2 * i,
+        "recycledCard"
+      );
+    }
+
+    //display number of cards left
+    this.cardsLeftDisplay = this.add
+      .image(this.width / 1.2, this.height / 4, "cardsLeftDisplay")
+      .setScale(0.8);
+
+    this.numberOfCardsLeftText = this.make.text({
+      x: this.width / 1.18,
+      y: this.height / 4,
+      text: this.numberOfCardsLeft,
+      style: {
+        font: "40px monospace",
+        fill: "#ffffff"
+      }
+    });
+    this.numberOfCardsLeftText.setOrigin(0.5, 0.5);
+
+    setInterval(() => {
+      if (this.numberOfCardsLeft > 0) {
+        this.numberOfCardsLeft--;
+      } else {
+        this.numberOfCardsLeft = 416;
+        this.lastNumberOfCardsLeft = undefined;
+        //cleaup then repopulate top right cards
+        this.deckCards.forEach(card => {
+          if (card) card.destroy();
+        });
+        for (let i = 0; i < this.totalNumberOfCards; i++) {
+          this.deckCards[i] = this.add.image(
+            this.width / 1.135 - 0.1 * i,
+            this.height / 305 + 0.2 * i,
+            "deckCard"
+          );
+        }
+        //clean up top left cards
+        this.recycledCards.forEach(card => {
+          card.destroy();
+        });
+      }
+    }, 1000);
   }
 
   update() {
+    if (this.lastNumberOfCardsLeft === undefined) {
+      this.lastNumberOfCardsLeft = this.numberOfCardsLeft;
+    } else {
+      if (this.lastNumberOfCardsLeft != this.numberOfCardsLeft) {
+        //removing cards from the top right deck of cards
+        // for (
+        //   let i = this.numberOfCardsLeft;
+        //   i < this.lastNumberOfCardsLeft;
+        //   i++
+        // ) {
+        //   this.deckCards[i].destroy();
+        // }
+        for (let i = this.numberOfCardsLeft; i < this.totalNumberOfCards; i++) {
+          if (this.deckCards[i]) this.deckCards[i].destroy();
+        }
+
+        //adding cards to top left card holder
+        for (
+          let i = this.totalNumberOfCards - this.lastNumberOfCardsLeft;
+          i < this.totalNumberOfCards - this.numberOfCardsLeft;
+          i++
+        ) {
+          this.recycledCards[i] = this.add.image(
+            this.width / 9 - 0.1 * i,
+            this.height / 20 - 0.2 * i,
+            "recycledCard"
+          );
+        }
+
+        //for text display of number of cards left
+        this.numberOfCardsLeftText.setText(this.numberOfCardsLeft);
+
+        this.lastNumberOfCardsLeft = this.numberOfCardsLeft;
+      }
+    }
+    //make chip follow cursor, also make it invisible once cursor is over UI
     if (this.isChipSelected && !this.isPointerOverUI) {
       this.pointerChip.alpha = 1;
       var pointer = this.input.activePointer;

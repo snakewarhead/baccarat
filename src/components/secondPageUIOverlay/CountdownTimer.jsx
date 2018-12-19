@@ -19,7 +19,7 @@ class CountdownTimer extends Component {
     super(props);
 
     this.state = {
-      time: 5,
+      time: this.props.time,
       condition: startBet
     };
   }
@@ -41,6 +41,7 @@ class CountdownTimer extends Component {
         } else if (prevState.time === 1) {
           return { time: prevState.time - 1, condition: stopBet };
         } else if (prevState.time === 0) {
+          this.props.showCardModal();
           return { time: prevState.time, condition: halt };
         }
       });

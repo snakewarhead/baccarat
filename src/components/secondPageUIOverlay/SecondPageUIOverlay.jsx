@@ -13,7 +13,8 @@ class SecondPageUIOverlay extends Component {
     this.state = {
       selectedChip: 0,
       isChipActive: false,
-      totalBet: 0
+      totalBet: 0,
+      time: 5
     };
 
     window.addEventListener("placeBet", () => {
@@ -79,6 +80,8 @@ class SecondPageUIOverlay extends Component {
         <CountdownTimer
           mouseEntersUI={this.mouseEntersUI}
           mouseLeavesUI={this.mouseLeavesUI}
+          time={this.state.time}
+          showCardModal={this.props.showCardModal}
         />
         <BottomLeftDisplayRows
           mouseEntersUI={this.mouseEntersUI}

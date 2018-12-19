@@ -9,6 +9,13 @@
   pointer-events: all;
 }
 
+.auto-bet-button,
+.clear-bet-button,
+.confirm-bet-button {
+  background-size: 100% 100%;
+  cursor: pointer;
+}
+
 .auto-bet-button-container {
   width: 30%;
   height: 90%;
@@ -17,15 +24,26 @@
 .auto-bet-button {
   height: 80%;
   background-image: url(../../assets/backgroundTwo/bottomRightButtons/autoBet.png);
-  background-size: 100% 100%;
 }
 
-.auto-bet-button-text,
-.clear-bet-button-text,
-.confirm-bet-button-text {
-  color: white;
-  font-weight: bold;
-  font-size: 1.5em;
+@media (max-width: 900px) {
+  .auto-bet-button-text,
+  .clear-bet-button-text,
+  .confirm-bet-button-text {
+    color: white;
+    font-weight: bold;
+    font-size: 0.5em;
+  }
+}
+
+@media (min-width: 901px) {
+  .auto-bet-button-text,
+  .clear-bet-button-text,
+  .confirm-bet-button-text {
+    color: white;
+    font-weight: bold;
+    font-size: 1.5em;
+  }
 }
 
 .clear-bet-button-container {
@@ -36,7 +54,6 @@
 .clear-bet-button {
   height: 80%;
   background-image: url(../../assets/backgroundTwo/bottomRightButtons/clearBets.png);
-  background-size: 100% 100%;
 }
 
 .confirm-bet-button-container {
@@ -49,6 +66,5 @@
 
 .confirm-bet-button {
   background-image: url(../../assets/backgroundTwo/bottomRightButtons/confirmBet.png);
-  background-size: 100% 100%;
   height: 83.5%;
 }

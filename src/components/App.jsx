@@ -11,6 +11,7 @@ import {
 } from "../utils/helperFunctions";
 import TopNavBar from "../components/firstPageUIOverlay/TopNavBar.jsx";
 import HistoryModal from "../components/HistoryModal.jsx";
+import CardModal from "../components/CardModal.jsx";
 import SecondPageUIOverlay from "../components/secondPageUIOverlay/SecondPageUIOverlay.jsx";
 import Loading from "../scenes/Loading";
 import Main from "../scenes/Main";
@@ -28,9 +29,11 @@ class App extends Component {
       mobileAndroid: false,
       mobile: false,
       scrollCounter: 0,
-      showBackgroundOne: true,
+      showBackgroundOne: false,
+      showBackgroundTwo: false,
       balance: 50000,
       showHistoryModal: false,
+      showCardModal: false,
       tableNo: 0
     };
 
@@ -38,7 +41,7 @@ class App extends Component {
     window.addEventListener(
       "fromTableToMain",
       function() {
-        this.setState({ showBackgroundOne: false });
+        this.setState({ showBackgroundOne: false, showBackgroundTwo: true });
       }.bind(this)
     );
     window.addEventListener(
@@ -221,6 +224,14 @@ class App extends Component {
     this.setState({ showHistoryModal: false });
   };
 
+  showCardModal = () => {
+    this.setState({ showCardModal: true });
+  };
+
+  hideCardModal = () => {
+    this.setState({ showCardModal: false });
+  };
+
   render() {
     const { mobile, inLandscapeMode, mobileIOS } = this.state;
 
@@ -231,9 +242,14 @@ class App extends Component {
             balance={this.state.balance}
             showHistoryModal={this.showHistoryModal}
           />
-        ) : (
-          <SecondPageUIOverlay showHistoryModal={this.showHistoryModal} />
-        )}
+        ) : null}
+        {this.state.showBackgroundTwo ? (
+          <SecondPageUIOverlay
+            showHistoryModal={this.showHistoryModal}
+            showCardModal={this.showCardModal}
+          />
+        ) : null}
+
         <div id="game" className="game" />
         <div
           className={
@@ -249,6 +265,9 @@ class App extends Component {
         />
         {this.state.showHistoryModal ? (
           <HistoryModal hideHistoryModal={this.hideHistoryModal} />
+        ) : null}
+        {this.state.showCardModal ? (
+          <CardModal hideCardModal={this.hideCardModal} />
         ) : null}
       </div>
     );
