@@ -24,7 +24,9 @@ class BottomLeftDisplayRows extends Component {
         </div>
         <div className="display-row">
           <div className="display-row-first-partition">餘額</div>
-          <div className="display-row-second-partition">1234567890</div>
+          <div className="display-row-second-partition">
+            {this.props.balance}
+          </div>
         </div>
       </div>
     );

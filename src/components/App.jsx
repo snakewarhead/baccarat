@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Phaser from "phaser";
 import "../css/App.css";
-import screenful from "screenfull";
+import screenfull from "screenfull";
 import {
   getMobileOperatingSystem,
   isMobile,
@@ -103,8 +103,8 @@ class App extends Component {
       );
 
       if (this.state.mobileAndroid) {
-        if (screenful.enabled) {
-          screenful.exit();
+        if (screenfull.enabled && screenfull.isFullscreen) {
+          screenfull.exit();
         }
       }
     };
@@ -145,7 +145,7 @@ class App extends Component {
       landscape.style.height = window.innerHeight + 100 + "px";
       setTimeout(() => {
         landscape.scrollIntoView();
-      }, 500);
+      }, 1000);
 
       window.addEventListener(
         "scroll",
@@ -224,13 +224,13 @@ class App extends Component {
     this.setState({ showHistoryModal: false });
   };
 
-  showCardModal = () => {
-    this.setState({ showCardModal: true });
-  };
+  // showCardModal = () => {
+  //   this.setState({ showCardModal: true });
+  // };
 
-  hideCardModal = () => {
-    this.setState({ showCardModal: false });
-  };
+  // hideCardModal = () => {
+  //   this.setState({ showCardModal: false });
+  // };
 
   render() {
     const { mobile, inLandscapeMode, mobileIOS } = this.state;
@@ -266,9 +266,9 @@ class App extends Component {
         {this.state.showHistoryModal ? (
           <HistoryModal hideHistoryModal={this.hideHistoryModal} />
         ) : null}
-        {this.state.showCardModal ? (
+        {/* {this.state.showCardModal ? (
           <CardModal hideCardModal={this.hideCardModal} />
-        ) : null}
+        ) : null} */}
       </div>
     );
   }

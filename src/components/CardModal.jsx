@@ -4,6 +4,8 @@ import "../css/CardModal.css";
 class CardModal extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {};
   }
 
   componentDidMount() {
@@ -30,9 +32,9 @@ class CardModal extends Component {
       card4Inner.style.transform = "rotateX(180deg)";
     }, 1000);
 
-    setTimeout(() => {
-      this.props.hideCardModal();
-    }, 3000);
+    // setTimeout(() => {
+    //   this.props.hideCardModal();
+    // }, 3000);
   }
 
   render() {

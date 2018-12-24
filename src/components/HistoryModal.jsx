@@ -84,7 +84,10 @@ class HistoryModal extends Component {
   };
 
   temp = e => {
-    if (e.target.classList.contains("time-selection")) {
+    if (
+      e.target.classList.contains("time-selection") ||
+      e.target.classList.contains("down-arrow")
+    ) {
       return;
     } else if (!e.target.classList.contains("modal")) {
       this.setState({
@@ -103,13 +106,15 @@ class HistoryModal extends Component {
 
     const yearArr = [year, year + 1, year + 2, year + 3, year + 4, year + 5];
     const monthArr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-    const daysInAMonth = isLeapYear(year)
+    const daysInAMonth = isLeapYear(this.state.selectedYear)
       ? [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
       : [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
     let dayArr = [];
     for (let i = 1; i <= daysInAMonth[this.state.selectedMonth - 1]; i++) {
       dayArr.push(i);
     }
+
+    console.log(isLeapYear(2020));
 
     return (
       <Modal>

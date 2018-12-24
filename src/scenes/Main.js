@@ -1,5 +1,10 @@
 import Phaser from "phaser";
-import { listenTobetOnArea } from "../utils/sceneHelperFunctions";
+import {
+  listenTobetOnArea,
+  makePatchGlow,
+  reduceNumberOfCardsToBeDealt
+} from "../utils/sceneHelperFunctions";
+import { totalNumberOfCards } from "../utils/constants";
 
 class Main extends Phaser.Scene {
   constructor() {
@@ -11,8 +16,10 @@ class Main extends Phaser.Scene {
     this.width = this.cameras.main.width;
     this.height = this.cameras.main.height;
 
+    //background of main
     this.bg = this.add.image(0, 0, "background2").setOrigin(0, 0);
 
+    //listen to when chip is selected on UI
     window.addEventListener("chipSelected", e => {
       if (this.pointerChipAmount != e.detail.chipAmount) {
         if (this.pointerChip) this.pointerChip.destroy();
@@ -32,6 +39,7 @@ class Main extends Phaser.Scene {
       }
     });
 
+    //need the following two event listeners to hide chip when mousing over UI
     window.addEventListener("pointerEntersUI", () => {
       this.isPointerOverUI = true;
     });
@@ -40,20 +48,25 @@ class Main extends Phaser.Scene {
       this.isPointerOverUI = false;
     });
 
+    //clear chips
     window.addEventListener("clearAllChips", () => {
       const chips = [
-        this.crop1.chip,
-        this.crop2.chip,
-        this.crop3.chip,
-        this.crop4.chip,
-        this.crop5.chip,
-        this.crop6.chip
+        this.patch1.chip,
+        this.patch2.chip,
+        this.patch3.chip,
+        this.patch4.chip,
+        this.patch5.chip,
+        this.patch6.chip
       ];
       chips.forEach(chip => {
         if (chip) {
           chip.destroy();
         }
       });
+
+      this.pointerChip.destroy();
+      this.pointerChipAmount = undefined;
+      this.isChipSelected = false;
     });
 
     const tableSignMap = [
@@ -72,60 +85,53 @@ class Main extends Phaser.Scene {
       .setScale(1.1);
 
     //閒對
-    this.crop1 = this.add
-      .image(440, 510, "crop1")
-      .setScale(1.9)
+    this.patch1 = this.add
+      .image(this.width / 2, this.height / 2, "patch1")
       .setInteractive({ pixelPerfect: true });
-    this.crop1.alpha = 0.001;
+    this.patch1.alpha = 0.001;
 
     //閒
-    this.crop2 = this.add
-      .image(670, 630, "crop2")
-      .setScale(1.5)
+    this.patch2 = this.add
+      .image(this.width / 2, this.height / 2, "patch2")
       .setInteractive({ pixelPerfect: true });
-    this.crop2.alpha = 0.001;
+    this.patch2.alpha = 0.001;
 
     //超級六
-    this.crop3 = this.add
-      .image(965, 590, "crop3")
-      .setScale(1.6)
+    this.patch3 = this.add
+      .image(this.width / 2, this.height / 2, "patch3")
       .setInteractive({ pixelPerfect: true });
-    this.crop3.alpha = 0.001;
+    this.patch3.alpha = 0.001;
 
     //和
-    this.crop4 = this.add
-      .image(965, 750, "crop4")
-      .setScale(1.5)
+    this.patch4 = this.add
+      .image(this.width / 2, this.height / 2, "patch4")
       .setInteractive({ pixelPerfect: true });
-    this.crop4.alpha = 0.001;
+    this.patch4.alpha = 0.001;
 
     //莊
-    this.crop5 = this.add
-      .image(1280, 640, "crop5")
-      .setScale(1.5)
+    this.patch5 = this.add
+      .image(this.width / 2, this.height / 2, "patch5")
       .setInteractive({ pixelPerfect: true });
-    this.crop5.alpha = 0.001;
+    this.patch5.alpha = 0.001;
 
     //莊對
-    this.crop6 = this.add
-      .image(1510, 500, "crop6")
-      .setScale(1.5)
+    this.patch6 = this.add
+      .image(this.width / 2, this.height / 2, "patch6")
       .setInteractive({ pixelPerfect: true });
-    this.crop6.alpha = 0.001;
+    this.patch6.alpha = 0.001;
 
-    listenTobetOnArea(this.crop1, 440, 510, this);
-    listenTobetOnArea(this.crop2, 670, 630, this);
-    listenTobetOnArea(this.crop3, 965, 590, this);
-    listenTobetOnArea(this.crop4, 965, 750, this);
-    listenTobetOnArea(this.crop5, 1280, 640, this);
-    listenTobetOnArea(this.crop6, 1510, 500, this);
+    listenTobetOnArea(this.patch1, 440, 510, this);
+    listenTobetOnArea(this.patch2, 670, 630, this);
+    listenTobetOnArea(this.patch3, 965, 590, this);
+    listenTobetOnArea(this.patch4, 965, 750, this);
+    listenTobetOnArea(this.patch5, 1280, 640, this);
+    listenTobetOnArea(this.patch6, 1510, 500, this);
 
     //number of cards left
-    this.totalNumberOfCards = 416;
-    this.numberOfCardsLeft = 416;
+    this.numberOfCardsLeft = totalNumberOfCards;
 
     //arrays to holder cards waiting to be dealt and dealt cards
-    this.deckCards = [];
+    this.cardsToBeDealt = [];
     this.recycledCards = [];
 
     //top right deck holder
@@ -136,8 +142,8 @@ class Main extends Phaser.Scene {
     );
 
     //top right cards
-    for (let i = 0; i < this.numberOfCardsLeft; i++) {
-      this.deckCards[i] = this.add.image(
+    for (let i = 0; i < totalNumberOfCards; i++) {
+      this.cardsToBeDealt[i] = this.add.image(
         this.width / 1.135 - 0.1 * i,
         this.height / 305 + 0.2 * i,
         "deckCard"
@@ -151,8 +157,8 @@ class Main extends Phaser.Scene {
       "recycledCardHolder"
     );
 
-    //top left recycled cards
-    for (let i = 0; i < this.totalNumberOfCards - this.numberOfCardsLeft; i++) {
+    //top left recycled cards, there will be NO cards at first
+    for (let i = 0; i < totalNumberOfCards - this.numberOfCardsLeft; i++) {
       this.recycledCards[i] = this.add.image(
         this.width / 9 - 0.1 * i,
         this.height / 20 - 0.2 * i,
@@ -176,52 +182,52 @@ class Main extends Phaser.Scene {
     });
     this.numberOfCardsLeftText.setOrigin(0.5, 0.5);
 
-    setInterval(() => {
-      if (this.numberOfCardsLeft > 0) {
-        this.numberOfCardsLeft--;
-      } else {
-        this.numberOfCardsLeft = 416;
-        this.lastNumberOfCardsLeft = undefined;
-        //cleaup then repopulate top right cards
-        this.deckCards.forEach(card => {
-          if (card) card.destroy();
-        });
-        for (let i = 0; i < this.totalNumberOfCards; i++) {
-          this.deckCards[i] = this.add.image(
-            this.width / 1.135 - 0.1 * i,
-            this.height / 305 + 0.2 * i,
-            "deckCard"
-          );
-        }
-        //clean up top left cards
-        this.recycledCards.forEach(card => {
-          card.destroy();
-        });
-      }
-    }, 1000);
+    reduceNumberOfCardsToBeDealt(totalNumberOfCards, 1, this);
+
+    //collection of all patches
+    this.patches = [
+      this.patch1,
+      this.patch2,
+      this.patch3,
+      this.patch4,
+      this.patch5,
+      this.patch6
+    ];
+    this.patches.forEach(patch => {
+      patch.alphaDir = "up";
+      patch.cycle = 0;
+    });
+
+    this.makeWinningPatchGlow = false;
+
+    window.addEventListener("displayingResult", () => {
+      this.makeWinningPatchGlow = true;
+      this.randomPatchIndex = Math.floor(Math.random() * 6);
+
+      //clear out previously selected chip/chip amount
+      this.pointerChip.destroy();
+      this.isChipSelected = false;
+      this.pointerChipAmount = 0;
+    });
   }
 
   update() {
+    if (this.makeWinningPatchGlow) {
+      makePatchGlow(this.patches[this.randomPatchIndex], this);
+    }
+
     if (this.lastNumberOfCardsLeft === undefined) {
       this.lastNumberOfCardsLeft = this.numberOfCardsLeft;
     } else {
       if (this.lastNumberOfCardsLeft != this.numberOfCardsLeft) {
-        //removing cards from the top right deck of cards
-        // for (
-        //   let i = this.numberOfCardsLeft;
-        //   i < this.lastNumberOfCardsLeft;
-        //   i++
-        // ) {
-        //   this.deckCards[i].destroy();
-        // }
-        for (let i = this.numberOfCardsLeft; i < this.totalNumberOfCards; i++) {
-          if (this.deckCards[i]) this.deckCards[i].destroy();
+        //removing cards from top right deck
+        for (let i = this.numberOfCardsLeft; i < totalNumberOfCards; i++) {
+          if (this.cardsToBeDealt[i]) this.cardsToBeDealt[i].destroy();
         }
-
         //adding cards to top left card holder
         for (
-          let i = this.totalNumberOfCards - this.lastNumberOfCardsLeft;
-          i < this.totalNumberOfCards - this.numberOfCardsLeft;
+          let i = totalNumberOfCards - this.lastNumberOfCardsLeft;
+          i < totalNumberOfCards - this.numberOfCardsLeft;
           i++
         ) {
           this.recycledCards[i] = this.add.image(
@@ -230,7 +236,6 @@ class Main extends Phaser.Scene {
             "recycledCard"
           );
         }
-
         //for text display of number of cards left
         this.numberOfCardsLeftText.setText(this.numberOfCardsLeft);
 
