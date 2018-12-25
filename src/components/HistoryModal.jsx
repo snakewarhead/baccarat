@@ -83,7 +83,7 @@ class HistoryModal extends Component {
     });
   };
 
-  temp = e => {
+  hideHistoryModalIfClickOnBg = e => {
     if (
       e.target.classList.contains("time-selection") ||
       e.target.classList.contains("down-arrow")
@@ -118,7 +118,7 @@ class HistoryModal extends Component {
 
     return (
       <Modal>
-        <div className="modal" onClick={this.temp}>
+        <div className="modal" onClick={this.hideHistoryModalIfClickOnBg}>
           <div className="history-modal-bg">
             <div
               className="history-modal-bg-x"

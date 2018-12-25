@@ -59,7 +59,10 @@ class ChipHolder extends Component {
         onMouseEnter={this.props.mouseEntersUI}
         onMouseLeave={this.props.mouseLeavesUI}
       >
-        <div className="left-arrow" onClick={this.translateXLeft} />
+        <div
+          className="left-arrow chip-holder-arrow"
+          onClick={this.translateXLeft}
+        />
         <div className="chip-holder-body ">
           <div className="chip-holder-body-inner">
             <div className="chip-holder-slider" onClick={this.props.selectChip}>
@@ -118,7 +121,10 @@ class ChipHolder extends Component {
             </div>
           </div>
         </div>
-        <div className="right-arrow" onClick={this.translateXRight} />
+        <div
+          className="right-arrow chip-holder-arrow"
+          onClick={this.translateXRight}
+        />
       </div>
     );
   }

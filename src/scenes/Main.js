@@ -64,7 +64,7 @@ class Main extends Phaser.Scene {
         }
       });
 
-      this.pointerChip.destroy();
+      if (this.pointerChip) this.pointerChip.destroy();
       this.pointerChipAmount = undefined;
       this.isChipSelected = false;
     });
@@ -205,7 +205,7 @@ class Main extends Phaser.Scene {
       this.randomPatchIndex = Math.floor(Math.random() * 6);
 
       //clear out previously selected chip/chip amount
-      this.pointerChip.destroy();
+      if (this.pointerChip) this.pointerChip.destroy();
       this.isChipSelected = false;
       this.pointerChipAmount = 0;
     });

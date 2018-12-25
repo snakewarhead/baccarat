@@ -107,7 +107,7 @@ class SecondPageUIOverlay extends Component {
     if (chipAmount !== this.state.selectedChip) {
       chipActive = true;
     } else {
-      chipActive = false;
+      chipActive = !this.state.isChipActive;
     }
 
     const event = new CustomEvent("chipSelected", {

@@ -1,5 +1,12 @@
 import Phaser from "phaser";
-import { tablePositions } from "../utils/constants";
+import {
+  tablePositions,
+  table1TopLeftPosition,
+  table2TopLeftPosition,
+  table3TopLeftPosition,
+  table4TopLeftPosition,
+  tableCellDeltas
+} from "../utils/constants";
 
 class Tables extends Phaser.Scene {
   constructor() {
@@ -96,6 +103,42 @@ class Tables extends Phaser.Scene {
       "tableFourSign"
     );
 
+    const { x: t1x, y: t1y } = table1TopLeftPosition;
+    const { x: t2x, y: t2y } = table2TopLeftPosition;
+    const { x: t3x, y: t3y } = table3TopLeftPosition;
+    const { x: t4x, y: t4y } = table4TopLeftPosition;
+    const { deltaX, deltaY } = tableCellDeltas;
+    const iconMap = { 1: "bankerWinsIcon", 2: "playerWinsIcon", 3: "tieIcon" };
+    const tableXY = [
+      { x: t1x, y: t1y },
+      { x: t2x, y: t2y },
+      { x: t3x, y: t3y },
+      { x: t4x, y: t4y }
+    ];
+
+    const loadingScene = this.scene.get("Loading");
+    loadingScene.events.on(
+      "tableHistoryLoadingComplete",
+      drawHistoryOnTables,
+      this
+    );
+
+    function drawHistoryOnTables(tables) {
+      tables.forEach((table, tableIdx) => {
+        table.forEach((col, colIdx) => {
+          col.forEach((cell, rowIdx) => {
+            this.add
+              .image(
+                tableXY[tableIdx].x + colIdx * deltaX,
+                tableXY[tableIdx].y + rowIdx * deltaY,
+                iconMap[col[rowIdx]]
+              )
+              .setScale(0.7);
+          });
+        });
+      });
+    }
+
     this.tableGroup = [
       this.tableOne,
       this.tableTwo,
@@ -119,7 +162,7 @@ class Tables extends Phaser.Scene {
     ];
 
     this.tableGroup.forEach(table => {
-      table.setInteractive();
+      table.setInteractive({ pixelPerfect: true });
     });
 
     this.tablePlusAccessoriesGroup.forEach(item => {

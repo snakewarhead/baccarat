@@ -8,6 +8,9 @@ import tableOneSign from "../assets/backgroundOne/tableOneSign.png";
 import tableTwoSign from "../assets/backgroundOne/tableTwoSign.png";
 import tableThreeSign from "../assets/backgroundOne/tableThreeSign.png";
 import tableFourSign from "../assets/backgroundOne/tableFourSign.png";
+import bankerWinsIcon from "../assets/backgroundOne/bankerWinsIcon.png";
+import playerWinsIcon from "../assets/backgroundOne/playerWinsIcon.png";
+import tieIcon from "../assets/backgroundOne/tieIcon.png";
 import chip100 from "../assets/backgroundTwo/chipHolder/100-selected.png";
 import chip500 from "../assets/backgroundTwo/chipHolder/500-selected.png";
 import chip1000 from "../assets/backgroundTwo/chipHolder/1k-selected.png";
@@ -29,6 +32,8 @@ import recycledCard from "../assets/backgroundTwo/recycledCard.png";
 import deckHolder from "../assets/backgroundTwo/deckHolder.png";
 import deckCard from "../assets/backgroundTwo/deckCard.png";
 import cardsLeftDisplay from "../assets/backgroundTwo/numberOfCardsLeftDisplay.png";
+import { getTablesHistory } from "../utils/api";
+
 import { isMobile } from "../utils/helperFunctions";
 
 class Loading extends Phaser.Scene {
@@ -36,6 +41,13 @@ class Loading extends Phaser.Scene {
     super("Loading");
   }
   preload() {
+    getTablesHistory().then(value => {
+      setTimeout(() => {
+        console.log(value);
+        this.events.emit("tableHistoryLoadingComplete", value);
+      }, 1000);
+    });
+
     this.load.image("background1", background1);
     this.load.image("background2", background2);
     this.load.image("table", table);
@@ -45,6 +57,9 @@ class Loading extends Phaser.Scene {
     this.load.image("tableTwoSign", tableTwoSign);
     this.load.image("tableThreeSign", tableThreeSign);
     this.load.image("tableFourSign", tableFourSign);
+    this.load.image("bankerWinsIcon", bankerWinsIcon);
+    this.load.image("playerWinsIcon", playerWinsIcon);
+    this.load.image("tieIcon", tieIcon);
     this.load.image("chip100", chip100);
     this.load.image("chip500", chip500);
     this.load.image("chip1000", chip1000);
