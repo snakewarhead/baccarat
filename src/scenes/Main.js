@@ -16,6 +16,7 @@ class Main extends Phaser.Scene {
     //helper functions
     this.clearPointerChip = () => {
       if (this.pointerChip) this.pointerChip.destroy();
+      console.log(this.pointerchip);
       this.pointerChipAmount = 0;
       this.isChipSelected = false;
     };
@@ -181,11 +182,13 @@ class Main extends Phaser.Scene {
       this.pointerChipAmount = e.detail.chipAmount;
 
       if (this.isChipSelected) {
+        console.log(this.pointerChip);
         this.pointerChip = this.add.image(
           -1000,
           -1000,
           "chip" + this.pointerChipAmount
         );
+        console.log(this.pointerChip);
       } else {
         this.pointerChip.destroy();
       }
@@ -292,7 +295,11 @@ class Main extends Phaser.Scene {
       }
     }
     //make chip follow cursor, also make it invisible once cursor is over UI
-    if (this.isChipSelected && !this.isPointerOverUI) {
+    if (
+      this.isChipSelected &&
+      !this.isPointerOverUI &&
+      this.sys.game.device.os.desktop
+    ) {
       this.pointerChip.alpha = 1;
       var pointer = this.input.activePointer;
       const { x, y } = pointer;
