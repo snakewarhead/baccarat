@@ -24,13 +24,20 @@ class SecondPageUIOverlay extends Component {
       balance: 1000000,
       time: placeBetDuration,
       timerText: placeBet,
-      timerRunning: true
+      timerRunning: true,
+      betConfirmed: false,
+      lastBet: { amount: 0, location: undefined },
+      inAutoBetMode: false
     };
 
-    window.addEventListener("placeBet", () => {
+    window.addEventListener("placeBet", e => {
       this.setState(function(prevState) {
         return {
-          totalBet: prevState.totalBet + prevState.selectedChip
+          totalBet: prevState.totalBet + e.detail.amount,
+          lastBet: {
+            amount: e.detail.amount,
+            location: e.detail.location
+          }
         };
       });
     });
@@ -65,7 +72,9 @@ class SecondPageUIOverlay extends Component {
               time: placeBetDuration,
               timerRunning: true,
               timerText: placeBet,
-              totalBet: 0
+              totalBet: 0,
+              betConfirmed: false,
+              selectedChip: 0
             });
             this.first = true;
             setTimeout(step, interval);
@@ -74,6 +83,24 @@ class SecondPageUIOverlay extends Component {
             window.dispatchEvent(event);
           }, timeInbetweenCountdowns);
           // this.props.showCardModal();
+
+          //clear all chips if bets are not confirmed
+          if (!this.state.betConfirmed) {
+            this.setState({
+              totalBet: 0,
+              previousBetState: {
+                patch1: [],
+                patch2: [],
+                patch3: [],
+                patch4: [],
+                patch5: [],
+                patch6: []
+              }
+            });
+            const event = new CustomEvent("clearAllChips");
+            window.dispatchEvent(event);
+          }
+
           const event = new CustomEvent("displayingResult");
           window.dispatchEvent(event);
           return {
@@ -142,7 +169,45 @@ class SecondPageUIOverlay extends Component {
     this.setState({
       totalBet: 0,
       selectedChip: 0,
+      isChipActive: false,
+      betConfirmed: false
+    });
+
+    this.clearAutoBet();
+  };
+
+  clearSelectedChip = () => {
+    this.setState({
+      selectedChip: 0,
       isChipActive: false
+    });
+
+    const event = new CustomEvent("clearSelectedChip");
+    window.dispatchEvent(event);
+  };
+
+  confirmBet = () => {
+    this.setState({
+      betConfirmed: true
+    });
+  };
+
+  autoBet = () => {
+    const event = new CustomEvent("autoReBet", { detail: this.state.lastBet });
+    window.dispatchEvent(event);
+    console.log(this.state.lastBet);
+
+    this.setState({
+      inAutoBetMode: true
+    });
+  };
+
+  clearAutoBet = () => {
+    const event = new CustomEvent("clearAutoReBet");
+    window.dispatchEvent(event);
+
+    this.setState({
+      inAutoBetMode: false
     });
   };
 
@@ -156,6 +221,8 @@ class SecondPageUIOverlay extends Component {
         <TopLeftHistory
           mouseEntersUI={this.mouseEntersUI}
           mouseLeavesUI={this.mouseLeavesUI}
+          showBeadPlateModal={this.props.showBeadPlateModal}
+          clearSelectedChip={this.clearSelectedChip}
         />
         <CountdownTimer
           mouseEntersUI={this.mouseEntersUI}
@@ -183,11 +250,18 @@ class SecondPageUIOverlay extends Component {
           mouseEntersUI={this.mouseEntersUI}
           mouseLeavesUI={this.mouseLeavesUI}
           clearAllChips={this.clearAllChips}
+          confirmBet={this.confirmBet}
+          autoBet={this.autoBet}
+          clearAutoBet={this.clearAutoBet}
+          lastBet={this.state.lastBet}
+          inAutoBetMode={this.state.inAutoBetMode}
+          clearSelectedChip={this.clearSelectedChip}
         />
         <TopRightMenu
           showHistoryModal={this.props.showHistoryModal}
           mouseEntersUI={this.mouseEntersUI}
           mouseLeavesUI={this.mouseLeavesUI}
+          clearSelectedChip={this.clearSelectedChip}
         />
       </div>
     );

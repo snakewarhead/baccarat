@@ -103,10 +103,12 @@ class Tables extends Phaser.Scene {
       "tableFourSign"
     );
 
+    //position of the top left cell of each table
     const { x: t1x, y: t1y } = table1TopLeftPosition;
     const { x: t2x, y: t2y } = table2TopLeftPosition;
     const { x: t3x, y: t3y } = table3TopLeftPosition;
     const { x: t4x, y: t4y } = table4TopLeftPosition;
+    //x, y difference between each cell
     const { deltaX, deltaY } = tableCellDeltas;
     const iconMap = { 1: "bankerWinsIcon", 2: "playerWinsIcon", 3: "tieIcon" };
     const tableXY = [
@@ -131,7 +133,7 @@ class Tables extends Phaser.Scene {
               .image(
                 tableXY[tableIdx].x + colIdx * deltaX,
                 tableXY[tableIdx].y + rowIdx * deltaY,
-                iconMap[col[rowIdx]]
+                iconMap[cell]
               )
               .setScale(0.7);
           });

@@ -7,7 +7,7 @@ export const tablePositions = {
 
 export const totalNumberOfCards = 416;
 
-export const placeBetDuration = 90;
+export const placeBetDuration = 9000;
 
 export const timeInbetweenCountdowns = 10000;
 
@@ -34,4 +34,13 @@ export const table4TopLeftPosition = {
 export const tableCellDeltas = {
   deltaX: 35.8,
   deltaY: 34
+};
+
+export const patchCenters = {
+  patch1: { x: 440, y: 510 },
+  patch2: { x: 670, y: 630 },
+  patch3: { x: 965, y: 590 },
+  patch4: { x: 965, y: 750 },
+  patch5: { x: 1280, y: 640 },
+  patch6: { x: 1510, y: 500 }
 };

@@ -21,7 +21,7 @@ class TopNavBar extends Component {
         <div className="balance-display-container">
           <div className="balance-display">
             {balanceArr.map((num, idx) => {
-              return <img src={map[num]} key={idx} />;
+              return <img src={map[num]} key={idx} alt="" />;
             })}
           </div>
         </div>

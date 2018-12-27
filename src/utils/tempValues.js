@@ -309,4 +309,7 @@ export const tableHistory = [
   [[1, 1, 3], [2, 3, 3, 3, 3], [1, 1, 1, 1, 1, 1]],
   [[1, 1, 3], [2, 3, 3, 3, 3], [1, 1, 1, 1, 1, 1]]
 ];
-//export const table2History =
+
+export const beadPlateHistoryTop = [[1, 1, 1, 3], [2, 3]];
+
+export const beadPlateHistoryBottom = [[1, 1, 1, 3, 2, 3]];

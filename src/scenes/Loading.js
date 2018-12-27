@@ -43,7 +43,6 @@ class Loading extends Phaser.Scene {
   preload() {
     getTablesHistory().then(value => {
       setTimeout(() => {
-        console.log(value);
         this.events.emit("tableHistoryLoadingComplete", value);
       }, 1000);
     });

@@ -114,8 +114,6 @@ class HistoryModal extends Component {
       dayArr.push(i);
     }
 
-    console.log(isLeapYear(2020));
-
     return (
       <Modal>
         <div className="modal" onClick={this.hideHistoryModalIfClickOnBg}>

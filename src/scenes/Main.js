@@ -1,16 +1,25 @@
 import Phaser from "phaser";
 import {
-  listenTobetOnArea,
+  listenToBetOnArea,
   makePatchGlow,
-  reduceNumberOfCardsToBeDealt
+  reduceNumberOfCardsToBeDealt,
+  placeBet
 } from "../utils/sceneHelperFunctions";
-import { totalNumberOfCards } from "../utils/constants";
+import { totalNumberOfCards, patchCenters } from "../utils/constants";
+const { patch1, patch2, patch3, patch4, patch5, patch6 } = patchCenters;
 
 class Main extends Phaser.Scene {
   constructor() {
     super("Main");
   }
-  preload() {}
+  preload() {
+    //helper functions
+    this.clearPointerChip = () => {
+      if (this.pointerChip) this.pointerChip.destroy();
+      this.pointerChipAmount = 0;
+      this.isChipSelected = false;
+    };
+  }
 
   create() {
     this.width = this.cameras.main.width;
@@ -18,56 +27,6 @@ class Main extends Phaser.Scene {
 
     //background of main
     this.bg = this.add.image(0, 0, "background2").setOrigin(0, 0);
-
-    //listen to when chip is selected on UI
-    window.addEventListener("chipSelected", e => {
-      if (this.pointerChipAmount != e.detail.chipAmount) {
-        if (this.pointerChip) this.pointerChip.destroy();
-      }
-
-      this.isChipSelected = e.detail.isChipActive;
-      this.pointerChipAmount = e.detail.chipAmount;
-
-      if (this.isChipSelected) {
-        this.pointerChip = this.add.image(
-          -1000,
-          -1000,
-          "chip" + this.pointerChipAmount
-        );
-      } else {
-        this.pointerChip.destroy();
-      }
-    });
-
-    //need the following two event listeners to hide chip when mousing over UI
-    window.addEventListener("pointerEntersUI", () => {
-      this.isPointerOverUI = true;
-    });
-
-    window.addEventListener("pointerLeavesUI", () => {
-      this.isPointerOverUI = false;
-    });
-
-    //clear chips
-    window.addEventListener("clearAllChips", () => {
-      const chips = [
-        this.patch1.chip,
-        this.patch2.chip,
-        this.patch3.chip,
-        this.patch4.chip,
-        this.patch5.chip,
-        this.patch6.chip
-      ];
-      chips.forEach(chip => {
-        if (chip) {
-          chip.destroy();
-        }
-      });
-
-      if (this.pointerChip) this.pointerChip.destroy();
-      this.pointerChipAmount = undefined;
-      this.isChipSelected = false;
-    });
 
     const tableSignMap = [
       "tableOneSign",
@@ -120,12 +79,13 @@ class Main extends Phaser.Scene {
       .setInteractive({ pixelPerfect: true });
     this.patch6.alpha = 0.001;
 
-    listenTobetOnArea(this.patch1, 440, 510, this);
-    listenTobetOnArea(this.patch2, 670, 630, this);
-    listenTobetOnArea(this.patch3, 965, 590, this);
-    listenTobetOnArea(this.patch4, 965, 750, this);
-    listenTobetOnArea(this.patch5, 1280, 640, this);
-    listenTobetOnArea(this.patch6, 1510, 500, this);
+    console.log(patch1);
+    listenToBetOnArea(this.patch1, patch1.x, patch1.y, this);
+    listenToBetOnArea(this.patch2, patch2.x, patch2.y, this);
+    listenToBetOnArea(this.patch3, patch3.x, patch3.y, this);
+    listenToBetOnArea(this.patch4, patch4.x, patch4.y, this);
+    listenToBetOnArea(this.patch5, patch5.x, patch5.y, this);
+    listenToBetOnArea(this.patch6, patch6.x, patch6.y, this);
 
     //number of cards left
     this.numberOfCardsLeft = totalNumberOfCards;
@@ -205,9 +165,98 @@ class Main extends Phaser.Scene {
       this.randomPatchIndex = Math.floor(Math.random() * 6);
 
       //clear out previously selected chip/chip amount
-      if (this.pointerChip) this.pointerChip.destroy();
-      this.isChipSelected = false;
-      this.pointerChipAmount = 0;
+      this.clearPointerChip();
+
+      //clear timer
+      clearInterval(this.autoBetTimerId);
+    });
+
+    //listen to when chip is selected on UI
+    window.addEventListener("chipSelected", e => {
+      if (this.pointerChipAmount != e.detail.chipAmount) {
+        if (this.pointerChip) this.pointerChip.destroy();
+      }
+
+      this.isChipSelected = e.detail.isChipActive;
+      this.pointerChipAmount = e.detail.chipAmount;
+
+      if (this.isChipSelected) {
+        this.pointerChip = this.add.image(
+          -1000,
+          -1000,
+          "chip" + this.pointerChipAmount
+        );
+      } else {
+        this.pointerChip.destroy();
+      }
+    });
+
+    //need the following two event listeners to hide chip when mousing over UI
+    window.addEventListener("pointerEntersUI", () => {
+      this.isPointerOverUI = true;
+    });
+
+    window.addEventListener("pointerLeavesUI", () => {
+      this.isPointerOverUI = false;
+    });
+
+    //clear chips
+    window.addEventListener("clearAllChips", () => {
+      const chips = [
+        this.patch1.chip,
+        this.patch2.chip,
+        this.patch3.chip,
+        this.patch4.chip,
+        this.patch5.chip,
+        this.patch6.chip
+      ];
+      chips.forEach(chip => {
+        if (chip) {
+          chip.destroy();
+        }
+      });
+
+      this.clearPointerChip();
+    });
+
+    //clear pointer chip
+    window.addEventListener("clearSelectedChip", () => {
+      this.clearPointerChip();
+    });
+
+    //auto rebet
+    window.addEventListener("autoReBet", e => {
+      const map = {
+        patch1: 0,
+        patch2: 1,
+        patch3: 2,
+        patch4: 3,
+        patch5: 4,
+        patch6: 5
+      };
+      const map2 = {
+        patch1,
+        patch2,
+        patch3,
+        patch4,
+        patch5,
+        patch6
+      };
+
+      this.autoBetTimerId = setInterval(() => {
+        placeBet(
+          this.patches[map[e.detail.location]],
+          map2[e.detail.location].x,
+          map2[e.detail.location].y,
+          e.detail.amount,
+          this
+        );
+      }, 1000);
+    });
+
+    //clear auto bet
+    window.addEventListener("clearAutoReBet", () => {
+      clearInterval(this.autoBetTimerId);
     });
   }
 

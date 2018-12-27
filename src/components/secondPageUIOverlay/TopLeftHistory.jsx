@@ -23,6 +23,11 @@ class TopLeftHistory extends Component {
 
   componentDidMount() {}
 
+  showBeadPlateModalAndClearSelectedChip = () => {
+    this.props.showBeadPlateModal();
+    this.props.clearSelectedChip();
+  };
+
   render() {
     const rowsArr = [];
     for (let i = 0; i < this.state.numberOfRows; i++) {
@@ -35,6 +40,7 @@ class TopLeftHistory extends Component {
         className="top-left-history-display"
         onMouseEnter={this.props.mouseEntersUI}
         onMouseLeave={this.props.mouseLeavesUI}
+        onClick={this.showBeadPlateModalAndClearSelectedChip}
       >
         <div className="top-left-history-display-body-container">
           {rowsArr.map((obj, idx) => {

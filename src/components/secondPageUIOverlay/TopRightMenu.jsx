@@ -12,6 +12,7 @@ class TopRightMenu extends Component {
         className="top-right-menu-container"
         onMouseEnter={this.props.mouseEntersUI}
         onMouseLeave={this.props.mouseLeavesUI}
+        onClick={this.props.clearSelectedChip}
       >
         <div className="top-right-menu-container-inner">
           <div className="tally-change-table-icon top-right-menu-icon" />

@@ -11,6 +11,7 @@ import {
 } from "../utils/helperFunctions";
 import TopNavBar from "../components/firstPageUIOverlay/TopNavBar.jsx";
 import HistoryModal from "../components/HistoryModal.jsx";
+import BeadPlateModal from "../components/BeadPlateModal.jsx";
 import CardModal from "../components/CardModal.jsx";
 import SecondPageUIOverlay from "../components/secondPageUIOverlay/SecondPageUIOverlay.jsx";
 import Loading from "../scenes/Loading";
@@ -33,6 +34,7 @@ class App extends Component {
       showBackgroundTwo: false,
       balance: 50000,
       showHistoryModal: false,
+      showBeadPlateModal: false,
       showCardModal: false,
       tableNo: 0
     };
@@ -224,6 +226,14 @@ class App extends Component {
     this.setState({ showHistoryModal: false });
   };
 
+  showBeadPlateModal = () => {
+    this.setState({ showBeadPlateModal: true });
+  };
+
+  hideBeadPlateModal = () => {
+    this.setState({ showBeadPlateModal: false });
+  };
+
   // showCardModal = () => {
   //   this.setState({ showCardModal: true });
   // };
@@ -247,6 +257,7 @@ class App extends Component {
           <SecondPageUIOverlay
             showHistoryModal={this.showHistoryModal}
             showCardModal={this.showCardModal}
+            showBeadPlateModal={this.showBeadPlateModal}
           />
         ) : null}
 
@@ -266,6 +277,10 @@ class App extends Component {
         {this.state.showHistoryModal ? (
           <HistoryModal hideHistoryModal={this.hideHistoryModal} />
         ) : null}
+        {this.state.showBeadPlateModal ? (
+          <BeadPlateModal hideBeadPlateModal={this.hideBeadPlateModal} />
+        ) : null}
+
         {/* {this.state.showCardModal ? (
           <CardModal hideCardModal={this.hideCardModal} />
         ) : null} */}

@@ -31,8 +31,8 @@ class CountdownTimer extends Component {
         onMouseLeave={this.props.mouseLeavesUI}
       >
         <div className="countdown-timer">
-          <img src={map[leftDigit]} />
-          <img src={map[rightDigit]} />
+          <img src={map[leftDigit]} alt="" />
+          <img src={map[rightDigit]} alt="" />
         </div>
         <div className="timer-condition">
           <img src={this.props.timerText} alt="" />

@@ -69,54 +69,64 @@ class ChipHolder extends Component {
               <img
                 className="chip-container 100"
                 src={selectedChip === 100 && isChipActive ? chip100s : chip100}
+                alt=""
               />
               <img
                 className="chip-container 500"
                 src={selectedChip === 500 && isChipActive ? chip500s : chip500}
+                alt=""
               />
               <img
                 className="chip-container 1000"
                 src={selectedChip === 1000 && isChipActive ? chip1ks : chip1k}
+                alt=""
               />
               <img
                 className="chip-container 5000"
                 src={selectedChip === 5000 && isChipActive ? chip5ks : chip5k}
+                alt=""
               />
               <img
                 className="chip-container 10000"
                 src={
                   selectedChip === 10000 && isChipActive ? chip10ks : chip10k
                 }
+                alt=""
               />
               <img
                 className="chip-container 25000"
                 src={
                   selectedChip === 25000 && isChipActive ? chip25ks : chip25k
                 }
+                alt=""
               />
               <img
                 className="chip-container 50000"
                 src={
                   selectedChip === 50000 && isChipActive ? chip50ks : chip50k
                 }
+                alt=""
               />
               <img
                 className="chip-container 100000"
                 src={
                   selectedChip === 100000 && isChipActive ? chip100ks : chip100k
                 }
+                alt=""
               />
               <img
                 className="chip-container 250000"
                 src={
                   selectedChip === 250000 && isChipActive ? chip250ks : chip250k
                 }
+                alt=""
               />
               <img
                 className="chip-container 500000"
                 src={
                   selectedChip === 500000 && isChipActive ? chip500ks : chip500k
                 }
+                alt=""
               />
             </div>
           </div>
