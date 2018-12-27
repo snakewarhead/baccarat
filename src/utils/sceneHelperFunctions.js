@@ -20,8 +20,8 @@ export const listenToBetOnArea = (interactableArea, x, y, thisArg) => {
   interactableArea.on("pointerdown", () => {
     if (thisArg.isChipSelected) {
       let amount = thisArg.pointerChipAmount;
-
       placeBet(interactableArea, x, y, amount, thisArg);
+      if (thisArg.pointerChip) thisArg.pointerChip.destroy();
     }
   });
 };
