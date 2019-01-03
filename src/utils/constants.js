@@ -7,9 +7,9 @@ export const tablePositions = {
 
 export const totalNumberOfCards = 416;
 
-export const placeBetDuration = 9000;
+export const placeBetDuration = 3;
 
-export const timeInbetweenCountdowns = 10000;
+export const timeInbetweenCountdowns = 200000000;
 
 export const table1TopLeftPosition = {
   x: 375,

@@ -16,7 +16,6 @@ class Main extends Phaser.Scene {
     //helper functions
     this.clearPointerChip = () => {
       if (this.pointerChip) this.pointerChip.destroy();
-      console.log(this.pointerchip);
       this.pointerChipAmount = 0;
       this.isChipSelected = false;
     };
@@ -80,7 +79,6 @@ class Main extends Phaser.Scene {
       .setInteractive({ pixelPerfect: true });
     this.patch6.alpha = 0.001;
 
-    console.log(patch1);
     listenToBetOnArea(this.patch1, patch1.x, patch1.y, this);
     listenToBetOnArea(this.patch2, patch2.x, patch2.y, this);
     listenToBetOnArea(this.patch3, patch3.x, patch3.y, this);
@@ -182,13 +180,11 @@ class Main extends Phaser.Scene {
       this.pointerChipAmount = e.detail.chipAmount;
 
       if (this.isChipSelected) {
-        console.log(this.pointerChip);
         this.pointerChip = this.add.image(
           -1000,
           -1000,
           "chip" + this.pointerChipAmount
         );
-        console.log(this.pointerChip);
       } else {
         this.pointerChip.destroy();
       }

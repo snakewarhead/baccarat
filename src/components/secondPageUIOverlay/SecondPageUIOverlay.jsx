@@ -5,6 +5,7 @@ import BottomLeftDisplayRows from "./BottomLeftDisplayRows.jsx";
 import ChipHolder from "./ChipHolder.jsx";
 import BottomRightButtons from "./BottomRightButtons.jsx";
 import TopRightMenu from "./TopRightMenu.jsx";
+import CardActions from "../CardActions.jsx";
 import "../../css/secondPageUIOverlay/SecondPageUIOverlay.css";
 import placeBet from "../../assets/backgroundTwo/countdownTimer/start-bet.png";
 import stopBet from "../../assets/backgroundTwo/countdownTimer/stop-bet.png";
@@ -13,6 +14,7 @@ import {
   placeBetDuration,
   timeInbetweenCountdowns
 } from "../../utils/constants";
+import { getCards } from "../../utils/api.js";
 
 class SecondPageUIOverlay extends Component {
   constructor(props) {
@@ -27,7 +29,8 @@ class SecondPageUIOverlay extends Component {
       timerRunning: true,
       betConfirmed: false,
       lastBet: { amount: 0, location: undefined },
-      inAutoBetMode: false
+      inAutoBetMode: false,
+      isProcessingCards: false
     };
 
     window.addEventListener("placeBet", e => {
@@ -74,7 +77,8 @@ class SecondPageUIOverlay extends Component {
               timerText: placeBet,
               totalBet: 0,
               betConfirmed: false,
-              selectedChip: 0
+              selectedChip: 0,
+              isProcessingCards: false
             });
             this.first = true;
             setTimeout(step, interval);
@@ -82,7 +86,6 @@ class SecondPageUIOverlay extends Component {
             const event = new CustomEvent("clearAllChips");
             window.dispatchEvent(event);
           }, timeInbetweenCountdowns);
-          // this.props.showCardModal();
 
           //clear all chips if bets are not confirmed
           if (!this.state.betConfirmed) {
@@ -103,6 +106,14 @@ class SecondPageUIOverlay extends Component {
 
           const event = new CustomEvent("displayingResult");
           window.dispatchEvent(event);
+
+          getCards().then(cards => {
+            this.setState({
+              isProcessingCards: true,
+              cards
+            });
+          });
+
           return {
             time: prevState.time,
             timerText: halt,
@@ -120,6 +131,79 @@ class SecondPageUIOverlay extends Component {
       }
     };
     setTimeout(step, interval);
+
+    // const cardActions = this.state.cardActions;
+    // const screenHeight = global.screen.availHeight;
+
+    // let cards = [
+    //   {
+    //     color: "s",
+    //     number: 1
+    //   },
+    //   {
+    //     color: "h",
+    //     number: 10
+    //   },
+    //   {
+    //     color: "d",
+    //     number: 11
+    //   },
+    //   {
+    //     color: "c",
+    //     number: 12
+    //   },
+    //   {
+    //     color: "d",
+    //     number: 13
+    //   },
+    //   {
+    //     color: "c",
+    //     number: 7
+    //   }
+    // ];
+
+    // cards = cards.map((card, index) => {
+    //   card.style = {
+    //     top: "0%",
+    //     right: (screenHeight * 0.3 * 200) / 270,
+    //     width: (screenHeight * 0.3 * 200) / 270,
+    //     height: screenHeight * 0.3,
+    //     transform: "rotate(-60deg)",
+    //     opacity: 0
+    //   };
+    //   return card;
+    // });
+
+    // cards = cards.map((card, index) => {
+    //   const CARD_RATE = parseFloat(
+    //     (card.style.width / global.screen.width).toFixed(4)
+    //   );
+    //   const CARD_MARGIN = 0.0025;
+
+    //   if (index % 2 === 0) {
+    //     if (index !== 4) {
+    //       card.translateX =
+    //         -1 *
+    //           ((1 - index / 2) * (CARD_RATE + CARD_MARGIN) + 0.5) *
+    //           global.screen.width +
+    //         card.style.right;
+    //     } else {
+    //       card.translateX =
+    //         -1 * (2 * (CARD_RATE + CARD_MARGIN) + 0.5) * global.screen.width +
+    //         card.style.right;
+    //     }
+    //   } else {
+    //     card.translateX =
+    //       -1 *
+    //         (0.5 - ((CARD_RATE * (index + 1)) / 2 + CARD_MARGIN * index)) *
+    //         global.screen.width +
+    //       card.style.right;
+    //   }
+    //   card.translateY = screenHeight / 2 - (card.style.height * 3) / 4;
+    //   return card;
+    // });
+
+    // cardActions.processCards(cards);
   }
 
   selectChip = e => {
@@ -263,6 +347,21 @@ class SecondPageUIOverlay extends Component {
           mouseLeavesUI={this.mouseLeavesUI}
           clearSelectedChip={this.clearSelectedChip}
         />
+
+        {/* <CardActions
+          ref={cardActions => {
+            this.state.cardActions = cardActions;
+          }}
+        /> */}
+
+        {this.state.isProcessingCards ? (
+          <CardActions
+            // ref={cardActions => {
+            //   this.state.cardActions = cardActions;
+            // }}
+            cards={this.state.cards}
+          />
+        ) : null}
       </div>
     );
   }

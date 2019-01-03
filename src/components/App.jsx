@@ -12,7 +12,6 @@ import {
 import TopNavBar from "../components/firstPageUIOverlay/TopNavBar.jsx";
 import HistoryModal from "../components/HistoryModal.jsx";
 import BeadPlateModal from "../components/BeadPlateModal.jsx";
-import CardModal from "../components/CardModal.jsx";
 import SecondPageUIOverlay from "../components/secondPageUIOverlay/SecondPageUIOverlay.jsx";
 import Loading from "../scenes/Loading";
 import Main from "../scenes/Main";
