@@ -77,5 +77,5 @@ export function getCards() {
     return card;
   });
 
-  return Promise.resolve(cards);
+  return Promise.resolve({ cards, winning: 200000 });
 }

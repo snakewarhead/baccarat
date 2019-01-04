@@ -30,7 +30,8 @@ class SecondPageUIOverlay extends Component {
       betConfirmed: false,
       lastBet: { amount: 0, location: undefined },
       inAutoBetMode: false,
-      isProcessingCards: false
+      isProcessingCards: false,
+      currentWinning: 0
     };
 
     window.addEventListener("placeBet", e => {
@@ -70,6 +71,7 @@ class SecondPageUIOverlay extends Component {
           return { time: prevState.time - 1, timerText: stopBet };
         } else if (prevState.time === 0) {
           setTimeout(() => {
+            console.log("!!");
             //restart timer
             this.setState({
               time: placeBetDuration,
@@ -107,10 +109,12 @@ class SecondPageUIOverlay extends Component {
           const event = new CustomEvent("displayingResult");
           window.dispatchEvent(event);
 
-          getCards().then(cards => {
+          getCards().then(obj => {
+            const { cards, winning } = obj;
             this.setState({
               isProcessingCards: true,
-              cards
+              cards,
+              currentWinning: winning
             });
           });
 
@@ -356,10 +360,8 @@ class SecondPageUIOverlay extends Component {
 
         {this.state.isProcessingCards ? (
           <CardActions
-            // ref={cardActions => {
-            //   this.state.cardActions = cardActions;
-            // }}
             cards={this.state.cards}
+            currentWinning={this.state.currentWinning}
           />
         ) : null}
       </div>

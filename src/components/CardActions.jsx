@@ -1,21 +1,30 @@
 import React, { Component } from "react";
+import { CSSTransition } from "react-transition-group";
 import anime from "animejs";
 import "../css/CardActions.css";
 
 import cardBack from "../assets/cardImages/card.png";
 import cardFrontEmpty from "../assets/cardImages/card-empty.png";
 
-import cardImageObj from "../utils/cardImages";
+import {
+  cardImageObj,
+  numberImageObj,
+  winningDigitImageArr
+} from "../utils/cardImages";
 import tie from "../assets/cardImages/tie.png";
 import playerWins from "../assets/cardImages/playerWins.png";
 import bankWins from "../assets/cardImages/bankWins.png";
+import winBanner from "../assets/cardImages/resultBanner/winBanner.png";
+import goldCoinShower from "../assets/cardImages/resultBanner/gold-coin-shower.gif";
 
 class CardActions extends Component {
   constructor(props) {
     super(props);
     this.state = {
       displayPointsForFirstPair: false,
-      displayPointsForSecondPair: false
+      displayPointsForSecondPair: false,
+      displayResultBanner: false,
+      currentWinning: 0
     };
   }
 
@@ -90,10 +99,16 @@ class CardActions extends Component {
 
         promise
           .then(() => {
-            // return self.putCards(1000);
+            return self.putCards(1000);
           })
           .then(() => {
-            // return self.coverCards(3000);
+            return self.showResult(3000);
+          })
+          .then(() => {
+            return self.showResultBanner(3000);
+          })
+          .then(() => {
+            // return self.coverCards(5000);
           })
           .then(() => {
             const delay = 400;
@@ -125,32 +140,29 @@ class CardActions extends Component {
   }
 
   flipCard(index, delay) {
-    console.log(
-      this.getCards()[index].style.right,
-      this.getCards()[index].style.transform
-    );
+    const card = this.getCards()[index];
 
     let first = {};
     let second = {};
     if (index === 0) {
       first.right = this.getCards()[index].style.right;
-      first.transform = `translateX(${this.getCards()[index].translateX +
-        this.getCards()[index].style.width *
-          0.27}px) translateY(${this.getCards()[index].translateY +
-        this.getCards()[index].style.height -
-        this.getCards()[index].style.height * 0.3}px)  `;
-      first.height = this.getCards()[index].style.height * 0.3 + "px";
-      first.width = this.getCards()[index].style.width * 0.5 + "px";
+      first.transform = `translateX(${card.translateX +
+        card.style.width * 0.27}px) translateY(${card.translateY +
+        card.style.height -
+        card.style.height * 0.3}px)  `;
+      first.height = card.style.height * 0.3 + "px";
+      first.width = card.style.width * 0.5 + "px";
     } else if (index === 1) {
-      second.right = this.getCards()[index].style.right;
-      second.transform = `translateX(${this.getCards()[index].translateX +
-        this.getCards()[index].style.width *
-          0.27}px) translateY(${this.getCards()[index].translateY +
-        this.getCards()[index].style.height -
-        this.getCards()[index].style.height * 0.3}px)  `;
-      second.height = this.getCards()[index].style.height * 0.3 + "px";
-      second.width = this.getCards()[index].style.width * 0.5 + "px";
+      second.right = card.style.right;
+      second.transform = `translateX(${card.translateX +
+        card.style.width * 0.27}px) translateY(${card.translateY +
+        card.style.height -
+        card.style.height * 0.3}px)  `;
+      second.height = card.style.height * 0.3 + "px";
+      second.width = card.style.width * 0.5 + "px";
     }
+
+    let cardNumber = card.number > 10 ? 10 : card.number;
 
     return new Promise(resolve => {
       setTimeout(() => {
@@ -184,7 +196,11 @@ class CardActions extends Component {
                       width: second.width,
                       height: second.height
                     }
-                  : prevState.secondPairLocation
+                  : prevState.secondPairLocation,
+              valueOfFirstPair:
+                index === 0 ? cardNumber % 10 : prevState.valueOfFirstPair,
+              valueOfSecondPair:
+                index === 1 ? cardNumber % 10 : prevState.valueOfSecondPair
             };
           },
           () => {
@@ -196,16 +212,30 @@ class CardActions extends Component {
   }
 
   checkCard(index, delay) {
+    console.log(index);
+
+    const card = this.getCards()[index];
+    let cardNumber = card.number > 10 ? 10 : card.number;
     return new Promise(resolve => {
       setTimeout(() => {
         this.setState(
-          {
-            cards: this.state.cards.map((card, i) => {
-              if (index === i) {
-                card.checked = true;
-              }
-              return card;
-            })
+          prevState => {
+            return {
+              cards: this.state.cards.map((card, i) => {
+                if (index === i) {
+                  card.checked = true;
+                }
+                return card;
+              }),
+              valueOfFirstPair:
+                index % 2 === 0
+                  ? (prevState.valueOfFirstPair += cardNumber) % 10
+                  : prevState.valueOfFirstPair,
+              valueOfSecondPair:
+                index % 2 === 1
+                  ? (prevState.valueOfSecondPair += cardNumber) % 10
+                  : prevState.valueOfSecondPair
+            };
           },
           () => {
             resolve(0);
@@ -217,7 +247,7 @@ class CardActions extends Component {
 
   putCards(delay) {
     const self = this;
-    return anime({
+    var ss = anime({
       targets: ".card",
       easing: "linear",
       delay: delay ? delay : 500,
@@ -231,15 +261,140 @@ class CardActions extends Component {
         return card.translateX - 1 * card.style.width;
       }
     }).finished;
+
+    const firstTranslateXStr = document
+      .querySelector(".first-pair-points")
+      .style.transform.split(" ")[0];
+
+    const firstTranslateYStr = document
+      .querySelector(".first-pair-points")
+      .style.transform.split(" ")[1];
+
+    const firstTranslateXValue = firstTranslateXStr.substring(
+      11,
+      firstTranslateXStr.length - 3
+    );
+    const firstTranslateYValue = firstTranslateYStr.substring(
+      11,
+      firstTranslateYStr.length - 3
+    );
+
+    var vv = anime({
+      targets: ".first-pair-points",
+      easing: "linear",
+      delay: delay ? delay : 500,
+      duration: 150,
+      scale: 0.75,
+      translateY: function(el, i, l) {
+        return firstTranslateYValue - global.screen.height * 0.17;
+      },
+      translateX: function(el, i, l) {
+        return (
+          firstTranslateXValue -
+          document
+            .querySelector(".first-pair-points")
+            .style.width.substring(
+              0,
+              document.querySelector(".first-pair-points").style.width.length -
+                2
+            ) *
+            2.2
+        );
+      }
+    }).finished;
+
+    const secondTranslateXStr = document
+      .querySelector(".second-pair-points")
+      .style.transform.split(" ")[0];
+
+    const secondTranslateYStr = document
+      .querySelector(".second-pair-points")
+      .style.transform.split(" ")[1];
+
+    const secondTranslateXValue = secondTranslateXStr.substring(
+      11,
+      secondTranslateXStr.length - 3
+    );
+    const secondTranslateYValue = secondTranslateYStr.substring(
+      11,
+      secondTranslateYStr.length - 3
+    );
+
+    var vv = anime({
+      targets: ".second-pair-points",
+      easing: "linear",
+      delay: delay ? delay : 500,
+      duration: 150,
+      scale: 0.75,
+      translateY: function(el, i, l) {
+        return secondTranslateYValue - global.screen.height * 0.17;
+      },
+      translateX: function(el, i, l) {
+        return (
+          secondTranslateXValue -
+          document
+            .querySelector(".second-pair-points")
+            .style.width.substring(
+              0,
+              document.querySelector(".second-pair-points").style.width.length -
+                2
+            ) *
+            2.15
+        );
+      }
+    }).finished;
+    return vv;
   }
 
-  coverCards(delay) {
+  showResult(delay) {
     const randoNum = Math.random();
     this.setState({
       displayWinner:
         randoNum < 0.33 ? tie : randoNum < 0.66 ? bankWins : playerWins
     });
+    return new Promise(resolve => {
+      setTimeout(() => {
+        resolve();
+      }, delay);
+    });
+  }
 
+  showResultBanner(delay) {
+    this.setState(
+      {
+        displayResultBanner: true,
+        displayGoldCoinShower: true
+      },
+      function() {
+        let counter = 0;
+        let delta = this.props.currentWinning / 100;
+        const step = () => {
+          counter++;
+
+          this.setState(prevState => {
+            return {
+              currentWinning: (prevState.currentWinning += delta)
+            };
+          });
+          if (counter < 100) requestAnimationFrame(step);
+        };
+
+        step();
+      }
+    );
+    return new Promise(resolve => {
+      setTimeout(() => {
+        this.setState(
+          {
+            displayGoldCoinShower: false
+          },
+          resolve
+        );
+      }, delay);
+    });
+  }
+
+  coverCards(delay) {
     return new Promise(resolve => {
       setTimeout(
         () => {
@@ -251,7 +406,10 @@ class CardActions extends Component {
                 card.cover = true;
                 return card;
               }),
-              displayWinner: null
+              displayWinner: null,
+              displayPointsForFirstPair: false,
+              displayPointsForSecondPair: false,
+              displayResultBanner: false
             },
             () => {
               resolve(0);
@@ -292,6 +450,33 @@ class CardActions extends Component {
   }
 
   render() {
+    const {
+      b0,
+      b1,
+      b2,
+      b3,
+      b4,
+      b5,
+      b6,
+      b7,
+      b8,
+      b9,
+      r0,
+      r1,
+      r2,
+      r3,
+      r4,
+      r5,
+      r6,
+      r7,
+      r8,
+      r9
+    } = numberImageObj;
+    const leftPointDisplayMap = [b0, b1, b2, b3, b4, b5, b6, b7, b8, b9];
+    const rightPointDisplayMap = [r0, r1, r2, r3, r4, r5, r6, r7, r8, r9];
+
+    const winningArr = (this.state.currentWinning + "").split("");
+
     return (
       <div className="cards">
         {(this.state.cards || []).map((card, i) => {
@@ -317,21 +502,54 @@ class CardActions extends Component {
           );
         })}
         {this.state.displayWinner ? (
-          <div className="display-winner">
-            <img src={this.state.displayWinner} />
+          <CSSTransition
+            in={true}
+            appear={true}
+            timeout={600}
+            classNames="fade"
+          >
+            <div className="display-winner">
+              <img src={this.state.displayWinner} />
+            </div>
+          </CSSTransition>
+        ) : null}
+        {this.state.displayResultBanner ? (
+          <CSSTransition
+            in={true}
+            appear={true}
+            timeout={600}
+            classNames="fade"
+          >
+            <div className="result-banner">
+              <img src={winBanner} className="result-banner-bg" />
+              <div className="winning-digits-holder">
+                {winningArr.map(num => {
+                  return <img src={winningDigitImageArr[num]} />;
+                })}
+              </div>
+            </div>
+          </CSSTransition>
+        ) : null}
+        {this.state.displayGoldCoinShower ? (
+          <div className="gold-coin-shower">
+            <img src={goldCoinShower} />
           </div>
         ) : null}
         {this.state.displayPointsForFirstPair ? (
           <div
-            className="first-pair-points"
+            className="first-pair-points "
             style={this.state.firstPairLocation}
-          />
+          >
+            <img src={leftPointDisplayMap[this.state.valueOfFirstPair]} />
+          </div>
         ) : null}
         {this.state.displayPointsForSecondPair ? (
           <div
-            className="second-pair-points"
+            className="second-pair-points "
             style={this.state.secondPairLocation}
-          />
+          >
+            <img src={rightPointDisplayMap[this.state.valueOfSecondPair]} />
+          </div>
         ) : null}
       </div>
     );

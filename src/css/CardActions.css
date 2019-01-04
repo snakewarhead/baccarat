@@ -104,14 +104,59 @@
 .display-winner {
   position: absolute;
   top: 35%;
-  height: 10%;
+  height: 15%;
   width: 20%;
   left: 40%;
+}
+
+.fade-appear {
+  opacity: 0;
+  transform: scale(3);
+}
+
+.fade-appear.fade-appear-active {
+  transform: scale(1);
+  opacity: 1;
+
+  transition: all 300ms linear;
 }
 
 .display-winner > img {
   width: 100%;
   height: 100%;
+}
+
+.result-banner {
+  position: absolute;
+  top: 10%;
+  height: 70%;
+  width: 80%;
+  left: 10%;
+  z-index: 10;
+}
+
+.result-banner-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.winning-digits-holder {
+  width: 80%;
+  height: 25%;
+  position: absolute;
+  left: 10%;
+  top: 45%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.winning-digits-holder > img {
+  width: 10%;
+  height: 80%;
 }
 
 .first-pair-points,
@@ -120,16 +165,27 @@
 
   background-image: url("../assets/cardImages/pointDisplay.png");
   background-size: 100% 100%;
+
+  color: white;
   /* height: 10%;
   width: 10%; */
 }
 
-.first-pair-points {
-  /* top: 54.5%;
-  right: 57.7%; */
+.first-pair-points > img,
+.second-pair-points > img {
+  height: 100%;
+  width: 70%;
 }
 
-.second-pair-points {
-  /* top: 54.5%;
-  right: 32%; */
+.gold-coin-shower {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.gold-coin-shower > img {
+  width: 100%;
+  height: 100%;
 }

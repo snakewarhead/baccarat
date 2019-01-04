@@ -54,7 +54,40 @@ import d11 from "../assets/cardImages/card-d-11.png";
 import d12 from "../assets/cardImages/card-d-12.png";
 import d13 from "../assets/cardImages/card-d-13.png";
 
-export default {
+import r0 from "../assets/cardImages/numbers/r0.png";
+import r1 from "../assets/cardImages/numbers/r1.png";
+import r2 from "../assets/cardImages/numbers/r2.png";
+import r3 from "../assets/cardImages/numbers/r3.png";
+import r4 from "../assets/cardImages/numbers/r4.png";
+import r5 from "../assets/cardImages/numbers/r5.png";
+import r6 from "../assets/cardImages/numbers/r6.png";
+import r7 from "../assets/cardImages/numbers/r7.png";
+import r8 from "../assets/cardImages/numbers/r8.png";
+import r9 from "../assets/cardImages/numbers/r9.png";
+
+import b0 from "../assets/cardImages/numbers/b0.png";
+import b1 from "../assets/cardImages/numbers/b1.png";
+import b2 from "../assets/cardImages/numbers/b2.png";
+import b3 from "../assets/cardImages/numbers/b3.png";
+import b4 from "../assets/cardImages/numbers/b4.png";
+import b5 from "../assets/cardImages/numbers/b5.png";
+import b6 from "../assets/cardImages/numbers/b6.png";
+import b7 from "../assets/cardImages/numbers/b7.png";
+import b8 from "../assets/cardImages/numbers/b8.png";
+import b9 from "../assets/cardImages/numbers/b9.png";
+
+import gd0 from "../assets/cardImages/resultBanner/0.png";
+import gd1 from "../assets/cardImages/resultBanner/1.png";
+import gd2 from "../assets/cardImages/resultBanner/2.png";
+import gd3 from "../assets/cardImages/resultBanner/3.png";
+import gd4 from "../assets/cardImages/resultBanner/4.png";
+import gd5 from "../assets/cardImages/resultBanner/5.png";
+import gd6 from "../assets/cardImages/resultBanner/6.png";
+import gd7 from "../assets/cardImages/resultBanner/7.png";
+import gd8 from "../assets/cardImages/resultBanner/8.png";
+import gd9 from "../assets/cardImages/resultBanner/9.png";
+
+export const cardImageObj = {
   d1,
   d2,
   d3,
@@ -108,3 +141,39 @@ export default {
   c12,
   c13
 };
+
+export const numberImageObj = {
+  b0,
+  b1,
+  b2,
+  b3,
+  b4,
+  b5,
+  b6,
+  b7,
+  b8,
+  b9,
+  r0,
+  r1,
+  r2,
+  r3,
+  r4,
+  r5,
+  r6,
+  r7,
+  r8,
+  r9
+};
+
+export const winningDigitImageArr = [
+  gd0,
+  gd1,
+  gd2,
+  gd3,
+  gd4,
+  gd5,
+  gd6,
+  gd7,
+  gd8,
+  gd9
+];
