@@ -1,14 +1,13 @@
-import { placeBetDuration } from "./constants";
-
 export function placeBet(interactableArea, x, y, amount, thisArg) {
   const event = new CustomEvent("placeBet", {
     detail: { location: interactableArea.texture.key, amount }
   });
   window.dispatchEvent(event);
+
   if (!interactableArea.chip) {
     interactableArea.chip = thisArg.add.image(x, y, "chip" + amount);
     interactableArea.chipAmount = amount;
-  } else if (thisArg.crop1ChipAmount !== amount) {
+  } else if (interactableArea.chip.texture.key.substring(4) !== amount) {
     interactableArea.chip.destroy();
     interactableArea.chip = thisArg.add.image(x, y, "chip" + amount);
     interactableArea.chipAmount = amount;
@@ -16,12 +15,18 @@ export function placeBet(interactableArea, x, y, amount, thisArg) {
   }
 }
 
+export function placeConfirmedBet(interactableArea, x, y, amount, thisArg) {
+  interactableArea.chip = thisArg.add.image(x, y, "chip" + amount);
+  interactableArea.chipAmount = amount;
+}
+
 export const listenToBetOnArea = (interactableArea, x, y, thisArg) => {
   interactableArea.on("pointerdown", () => {
     if (thisArg.isChipSelected) {
       let amount = thisArg.pointerChipAmount;
       placeBet(interactableArea, x, y, amount, thisArg);
-      if (thisArg.pointerChip) thisArg.pointerChip.destroy();
+
+      //if (thisArg.pointerChip) thisArg.pointerChip.destroy();
     }
   });
 };
@@ -70,4 +75,29 @@ export function reduceNumberOfCardsToBeDealt(totalNumberOfCards, num, thisArg) {
       });
     }
   }, 1000);
+}
+
+export function reduceTopRightDeck(num, totalNumberOfCards, thisArg) {
+  if (thisArg.numberOfCardsLeft < 80) {
+    thisArg.numberOfCardsLeft = totalNumberOfCards;
+    thisArg.lastNumberOfCardsLeft = undefined;
+    //cleaup then repopulate top right cards
+    thisArg.cardsToBeDealt.forEach(card => {
+      if (card) card.destroy();
+    });
+    for (let i = 0; i < totalNumberOfCards; i++) {
+      thisArg.cardsToBeDealt[i] = thisArg.add.image(
+        thisArg.width / 1.135 - 0.1 * i,
+        thisArg.height / 305 + 0.2 * i,
+        "deckCard"
+      );
+    }
+    thisArg.numberOfCardsLeftText.setText(thisArg.numberOfCardsLeft);
+    //clean up top left cards
+    thisArg.recycledCards.forEach(card => {
+      card.destroy();
+    });
+  } else {
+    thisArg.numberOfCardsLeft = thisArg.numberOfCardsLeft - num;
+  }
 }

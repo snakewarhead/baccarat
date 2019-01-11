@@ -18,7 +18,7 @@
 
 .auto-bet-button-container {
   width: 30%;
-  height: 90%;
+  height: 100%;
 }
 
 .auto-bet-button {
@@ -48,7 +48,7 @@
 
 .clear-bet-button-container {
   width: 30%;
-  height: 90%;
+  height: 100%;
 }
 
 .clear-bet-button {
@@ -59,9 +59,9 @@
 .confirm-bet-button-container {
   position: absolute;
   right: 0;
-  bottom: 5%;
+  bottom: 0%;
   width: 40%;
-  height: 110%;
+  height: 120%;
 }
 
 .confirm-bet-button {

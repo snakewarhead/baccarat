@@ -5,11 +5,14 @@ export const tablePositions = {
   bottomHeightDivisor: 1.4
 };
 
+export const betConfirmBannerDuration = 1000;
+
 export const totalNumberOfCards = 416;
 
-export const placeBetDuration = 3;
+//in seconds
+export const placeBetDuration = 10;
 
-export const timeInbetweenCountdowns = 30000000;
+export const timeInbetweenCountdowns = 25000;
 
 export const table1TopLeftPosition = {
   x: 375,

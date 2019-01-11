@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import ReactHowler from "react-howler";
 import Phaser from "phaser";
 import "../css/App.css";
 import screenfull from "screenfull";
@@ -11,6 +12,7 @@ import {
 } from "../utils/helperFunctions";
 import TopNavBar from "../components/firstPageUIOverlay/TopNavBar.jsx";
 import HistoryModal from "../components/HistoryModal.jsx";
+import SoundModal from "../components/SoundModal.jsx";
 import BeadPlateModal from "../components/BeadPlateModal.jsx";
 import SecondPageUIOverlay from "../components/secondPageUIOverlay/SecondPageUIOverlay.jsx";
 import Loading from "../scenes/Loading";
@@ -34,9 +36,41 @@ class App extends Component {
       balance: 50000,
       showHistoryModal: false,
       showBeadPlateModal: false,
-      showCardModal: false,
-      tableNo: 0
+      showSoundModal: false,
+      tableNo: 0,
+      visibilitychange: "visible"
     };
+
+    var hidden, state, visibilityChange;
+    if (typeof document.hidden !== "undefined") {
+      hidden = "hidden";
+      visibilityChange = "visibilitychange";
+      state = "visibilityState";
+    } else if (typeof document.mozHidden !== "undefined") {
+      hidden = "mozHidden";
+      visibilityChange = "mozvisibilitychange";
+      state = "mozVisibilityState";
+    } else if (typeof document.msHidden !== "undefined") {
+      hidden = "msHidden";
+      visibilityChange = "msvisibilitychange";
+      state = "msVisibilityState";
+    } else if (typeof document.webkitHidden !== "undefined") {
+      hidden = "webkitHidden";
+      visibilityChange = "webkitvisibilitychange";
+      state = "webkitVisibilityState";
+    }
+    // Add a listener that constantly changes the title
+    document.addEventListener(
+      visibilityChange,
+      () => {
+        document.title = document[state];
+        console.log(document.title);
+        this.setState({
+          visibilityChange: document.title
+        });
+      },
+      false
+    );
 
     window.addEventListener("resize", resizeApp);
     window.addEventListener(
@@ -233,13 +267,13 @@ class App extends Component {
     this.setState({ showBeadPlateModal: false });
   };
 
-  // showCardModal = () => {
-  //   this.setState({ showCardModal: true });
-  // };
+  showSoundModal = () => {
+    this.setState({ showSoundModal: true });
+  };
 
-  // hideCardModal = () => {
-  //   this.setState({ showCardModal: false });
-  // };
+  hideSoundModal = () => {
+    this.setState({ showSoundModal: false });
+  };
 
   render() {
     const { mobile, inLandscapeMode, mobileIOS } = this.state;
@@ -250,6 +284,7 @@ class App extends Component {
           <TopNavBar
             balance={this.state.balance}
             showHistoryModal={this.showHistoryModal}
+            showSoundModal={this.showSoundModal}
           />
         ) : null}
         {this.state.showBackgroundTwo ? (
@@ -279,10 +314,9 @@ class App extends Component {
         {this.state.showBeadPlateModal ? (
           <BeadPlateModal hideBeadPlateModal={this.hideBeadPlateModal} />
         ) : null}
-
-        {/* {this.state.showCardModal ? (
-          <CardModal hideCardModal={this.hideCardModal} />
-        ) : null} */}
+        {this.state.showSoundModal ? (
+          <SoundModal hideSoundModal={this.hideSoundModal} />
+        ) : null}
       </div>
     );
   }

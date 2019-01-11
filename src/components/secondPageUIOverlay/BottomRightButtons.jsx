@@ -20,13 +20,17 @@ class BottomRightButtons extends Component {
         className="bottom-right-button-holder"
         onMouseEnter={this.props.mouseEntersUI}
         onMouseLeave={this.props.mouseLeavesUI}
-        onClick={this.props.clearSelectedChip}
+        onClick={
+          this.props.isProcessingCards ? null : this.props.clearSelectedChip
+        }
       >
         <div className="auto-bet-button-container">
           <div
             className="auto-bet-button"
             onClick={
-              this.props.lastBet.amount
+              this.props.isProcessingCards
+                ? null
+                : this.props.lastBet.amount
                 ? this.props.inAutoBetMode
                   ? this.clearAutoBet
                   : this.autoBet
@@ -40,12 +44,19 @@ class BottomRightButtons extends Component {
         <div className="clear-bet-button-container">
           <div
             className="clear-bet-button"
-            onClick={this.props.clearAllChips}
+            onClick={
+              this.props.isProcessingCards ? null : this.props.clearAllChips
+            }
           />
           <div className="clear-bet-button-text">清空籌碼</div>
         </div>
         <div className="confirm-bet-button-container">
-          <div className="confirm-bet-button" onClick={this.props.confirmBet} />
+          <div
+            className="confirm-bet-button"
+            onClick={
+              this.props.isProcessingCards ? null : this.props.confirmBet
+            }
+          />
           <div className="confirm-bet-button-text">確認押注</div>
         </div>
       </div>

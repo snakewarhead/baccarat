@@ -2,7 +2,7 @@
   position: relative;
   height: 90%;
   width: 70%;
-  background-image: url("../assets/backgroundOne/historyModal/historyModalBg.png");
+  background-image: url("../assets/modals/historyModal/historyModalBg.png");
   background-size: 100% 100%;
 }
 
@@ -13,7 +13,7 @@
   right: 0%;
   width: 7%;
   height: 8%;
-  background-image: url("../assets/backgroundOne/historyModal/historyModalX.png");
+  background-image: url("../assets/modals/historyModal/historyModalX.png");
   background-size: 100% 100%;
 }
 
@@ -23,7 +23,7 @@
   left: 1.5%;
   height: 7.5%;
   width: 97%;
-  background-image: url("../assets/backgroundOne/historyModal/timebar.png");
+  background-image: url("../assets/modals/historyModal/timebar.png");
   background-size: 100% 100%;
 }
 
@@ -102,7 +102,7 @@
 
 .option-items {
   cursor: pointer;
-  background-image: url("../assets/backgroundOne/historyModal/time-option.png");
+  background-image: url("../assets/modals/historyModal/time-option.png");
   background-size: 100% 100%;
   width: 100%;
 
@@ -133,7 +133,7 @@
   top: 10%;
   width: 15%;
   height: 80%;
-  background-image: url("../assets/backgroundOne/historyModal/time-selection.png");
+  background-image: url("../assets/modals/historyModal/time-selection.png");
   background-size: 100% 100%;
 }
 
@@ -149,7 +149,7 @@
   top: 10%;
   height: 80%;
   width: 3%;
-  background-image: url(../assets/backgroundOne/historyModal/down-arrow.png);
+  background-image: url(../assets/modals/historyModal/down-arrow.png);
   background-size: 100% 100%;
 }
 
@@ -182,13 +182,13 @@
   top: 10%;
   width: 10%;
   height: 80%;
-  background-image: url("../assets/backgroundOne/historyModal/confirm.png");
+  background-image: url("../assets/modals/historyModal/confirm.png");
   background-size: 100% 100%;
   left: 87%;
 }
 
 .cell-item {
-  background-image: url("../assets/backgroundOne/historyModal/historyCellBg.png");
+  background-image: url("../assets/modals/historyModal/historyCellBg.png");
   background-size: 100% 100%;
   display: flex;
   justify-content: center;
@@ -203,7 +203,7 @@
 }
 
 .game-no {
-  background-image: url("../assets/backgroundOne/historyModal/gameNo.png");
+  background-image: url("../assets/modals/historyModal/gameNo.png");
   background-size: 100% 100%;
 }
 
@@ -215,7 +215,7 @@
 }
 
 .bet-time {
-  background-image: url("../assets/backgroundOne/historyModal/betTime.png");
+  background-image: url("../assets/modals/historyModal/betTime.png");
   background-size: 100% 100%;
 }
 
@@ -227,7 +227,7 @@
 }
 
 .bet-item {
-  background-image: url("../assets/backgroundOne/historyModal/betItem.png");
+  background-image: url("../assets/modals/historyModal/betItem.png");
   background-size: 100% 100%;
 }
 
@@ -239,7 +239,7 @@
 }
 
 .bet-amount {
-  background-image: url("../assets/backgroundOne/historyModal/betAmount.png");
+  background-image: url("../assets/modals/historyModal/betAmount.png");
   background-size: 100% 100%;
 }
 
@@ -250,7 +250,7 @@
   color: white;
 }
 .bet-result {
-  background-image: url("../assets/backgroundOne/historyModal/betResult.png");
+  background-image: url("../assets/modals/historyModal/betResult.png");
   background-size: 100% 100%;
 }
 
@@ -262,7 +262,7 @@
 }
 
 .bet-winning {
-  background-image: url("../assets/backgroundOne/historyModal/betWinning.png");
+  background-image: url("../assets/modals/historyModal/betWinning.png");
   background-size: 100% 100%;
 }
 
@@ -272,7 +272,7 @@
   height: 8%;
   left: 1.5%;
   width: 97%;
-  background-image: url("../assets/backgroundOne/historyModal/historyModalBottomBar.png");
+  background-image: url("../assets/modals/historyModal/historyModalBottomBar.png");
   background-size: 100% 100%;
   display: flex;
 }
@@ -280,7 +280,7 @@
 .history-modal-bottom-bar-bet-amount {
   width: 20%;
   height: 100%;
-  background-image: url("../assets/backgroundOne/historyModal/historyModalBetAmount.png");
+  background-image: url("../assets/modals/historyModal/historyModalBetAmount.png");
   background-size: 100% 100%;
 }
 
@@ -296,7 +296,7 @@
 .history-modal-bottom-bar-total-winning {
   width: 20%;
   height: 100%;
-  background-image: url("../assets/backgroundOne/historyModal/historyModalTotalWinning.png");
+  background-image: url("../assets/modals/historyModal/historyModalTotalWinning.png");
   background-size: 100% 100%;
 }
 

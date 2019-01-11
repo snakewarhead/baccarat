@@ -31,7 +31,6 @@ class BeadPlateModal extends Component {
 
   hideBeadPlateModalIfClickOnBg = e => {
     if (e.target.classList.contains("modal")) {
-      console.log(e.target);
       this.props.hideBeadPlateModal();
     }
   };

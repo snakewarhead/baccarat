@@ -2,7 +2,9 @@ import Phaser from "phaser";
 import {
   listenToBetOnArea,
   makePatchGlow,
+  reduceTopRightDeck,
   reduceNumberOfCardsToBeDealt,
+  placeConfirmedBet,
   placeBet
 } from "../utils/sceneHelperFunctions";
 import { totalNumberOfCards, patchCenters } from "../utils/constants";
@@ -86,8 +88,10 @@ class Main extends Phaser.Scene {
     listenToBetOnArea(this.patch5, patch5.x, patch5.y, this);
     listenToBetOnArea(this.patch6, patch6.x, patch6.y, this);
 
-    //number of cards left
+    //number of cards left in top right deck
     this.numberOfCardsLeft = totalNumberOfCards;
+    //number of cards in top left deck
+    this.numOfCardsInTopLeftDeck = 0;
 
     //arrays to holder cards waiting to be dealt and dealt cards
     this.cardsToBeDealt = [];
@@ -100,7 +104,7 @@ class Main extends Phaser.Scene {
       "deckHolder"
     );
 
-    //top right cards
+    //populate top right cards
     for (let i = 0; i < totalNumberOfCards; i++) {
       this.cardsToBeDealt[i] = this.add.image(
         this.width / 1.135 - 0.1 * i,
@@ -141,7 +145,29 @@ class Main extends Phaser.Scene {
     });
     this.numberOfCardsLeftText.setOrigin(0.5, 0.5);
 
-    reduceNumberOfCardsToBeDealt(totalNumberOfCards, 1, this);
+    window.addEventListener("reduceTopRightDeck", e => {
+      reduceTopRightDeck(e.detail, totalNumberOfCards, this);
+    });
+
+    window.addEventListener("increaseTopLeftDeck", e => {
+      //adding cards to top left card holder
+
+      for (
+        let i = this.numOfCardsInTopLeftDeck;
+        i < this.numOfCardsInTopLeftDeck + e.detail;
+        i++
+      ) {
+        this.recycledCards[i] = this.add.image(
+          this.width / 9 - 0.1 * i,
+          this.height / 20 - 0.2 * i,
+          "recycledCard"
+        );
+      }
+
+      this.numOfCardsInTopLeftDeck += e.detail;
+    });
+
+    // reduceNumberOfCardsToBeDealt(totalNumberOfCards, 1, this);
 
     //collection of all patches
     this.patches = [
@@ -159,9 +185,9 @@ class Main extends Phaser.Scene {
 
     this.makeWinningPatchGlow = false;
 
-    window.addEventListener("displayingResult", () => {
+    window.addEventListener("displayingResult", e => {
       this.makeWinningPatchGlow = true;
-      this.randomPatchIndex = Math.floor(Math.random() * 6);
+      this.randomPatchIndices = e.detail;
 
       //clear out previously selected chip/chip amount
       this.clearPointerChip();
@@ -218,6 +244,45 @@ class Main extends Phaser.Scene {
       this.clearPointerChip();
     });
 
+    //clear unconfirmed chips
+
+    window.addEventListener("clearAllUnconfirmedChips", e => {
+      const chips = [
+        this.patch1.chip,
+        this.patch2.chip,
+        this.patch3.chip,
+        this.patch4.chip,
+        this.patch5.chip,
+        this.patch6.chip
+      ];
+      chips.forEach(chip => {
+        if (chip) {
+          chip.destroy();
+        }
+      });
+
+      const patchCenters = [patch1, patch2, patch3, patch4, patch5, patch6];
+
+      //add back chips that are confirmed
+      //e.detail is an array of arrays [[100,1000],[],[],[100,500],[],[]]
+      e.detail.forEach((arr, idx) => {
+        //arr is an array containg all of the confirmed bets on a patch
+        if (arr.length > 0) {
+          //arr[arr.length-1]
+
+          placeConfirmedBet(
+            this.patches[idx],
+            patchCenters[idx].x,
+            patchCenters[idx].y,
+            arr[arr.length - 1],
+            this
+          );
+        }
+      });
+
+      this.clearPointerChip();
+    });
+
     //clear pointer chip
     window.addEventListener("clearSelectedChip", () => {
       this.clearPointerChip();
@@ -261,9 +326,10 @@ class Main extends Phaser.Scene {
 
   update() {
     if (this.makeWinningPatchGlow) {
-      makePatchGlow(this.patches[this.randomPatchIndex], this);
+      this.randomPatchIndices.forEach(index => {
+        makePatchGlow(this.patches[index], this);
+      });
     }
-
     if (this.lastNumberOfCardsLeft === undefined) {
       this.lastNumberOfCardsLeft = this.numberOfCardsLeft;
     } else {
@@ -272,23 +338,14 @@ class Main extends Phaser.Scene {
         for (let i = this.numberOfCardsLeft; i < totalNumberOfCards; i++) {
           if (this.cardsToBeDealt[i]) this.cardsToBeDealt[i].destroy();
         }
-        //adding cards to top left card holder
-        for (
-          let i = totalNumberOfCards - this.lastNumberOfCardsLeft;
-          i < totalNumberOfCards - this.numberOfCardsLeft;
-          i++
-        ) {
-          this.recycledCards[i] = this.add.image(
-            this.width / 9 - 0.1 * i,
-            this.height / 20 - 0.2 * i,
-            "recycledCard"
-          );
-        }
         //for text display of number of cards left
         this.numberOfCardsLeftText.setText(this.numberOfCardsLeft);
 
         this.lastNumberOfCardsLeft = this.numberOfCardsLeft;
       }
+    }
+
+    if (this.updateTopLeftDeck) {
     }
     //make chip follow cursor, also make it invisible once cursor is over UI
     if (

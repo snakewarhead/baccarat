@@ -11,11 +11,15 @@ import {
   numberImageObj,
   winningDigitImageArr
 } from "../utils/cardImages";
-import tie from "../assets/cardImages/tie.png";
-import playerWins from "../assets/cardImages/playerWins.png";
-import bankWins from "../assets/cardImages/bankWins.png";
+import tie from "../assets/cardImages/Misc/tie.png";
+import playerWins from "../assets/cardImages/Misc/playerWins.png";
+import bankWins from "../assets/cardImages/Misc/bankWins.png";
 import winBanner from "../assets/cardImages/resultBanner/winBanner.png";
+import loseBanner from "../assets/cardImages/resultBanner/loseBanner.png";
 import goldCoinShower from "../assets/cardImages/resultBanner/gold-coin-shower.gif";
+import naturalBannerFirstPairOnce from "../assets/cardImages/Misc/natural1.gif";
+import naturalBannerSecondPairOnce from "../assets/cardImages/Misc/natural2.gif";
+import naturalBannerLoop from "../assets/cardImages/Misc/natural-repeat.gif";
 
 class CardActions extends Component {
   constructor(props) {
@@ -24,7 +28,12 @@ class CardActions extends Component {
       displayPointsForFirstPair: false,
       displayPointsForSecondPair: false,
       displayResultBanner: false,
-      currentWinning: 0
+      resultBanner: this.props.currentWinning ? winBanner : loseBanner,
+      currentWinning: 0,
+      displayNaturalBannerForFirstPair: false,
+      displayNaturalBannerForSecondPair: false,
+      naturalBannerForFirstPair: naturalBannerFirstPairOnce,
+      naturalBannerForSecondPair: naturalBannerSecondPairOnce
     };
   }
 
@@ -102,25 +111,25 @@ class CardActions extends Component {
             return self.putCards(1000);
           })
           .then(() => {
-            return self.showResult(3000);
+            return self.showResult(0);
           })
           .then(() => {
             return self.showResultBanner(3000);
           })
           .then(() => {
-            // return self.coverCards(5000);
+            return self.coverCards(5000);
           })
           .then(() => {
             const delay = 400;
-            // return self.backCards(function(el, i, l) {
-            //   if (i === 4) return 0 * delay;
-            //   if (i === 0) return 1 * delay;
-            //   if (i === 2) return 2 * delay;
-            //   if (i === 1) return 3 * delay;
-            //   if (i === 3) return 4 * delay;
-            //   if (i === 5) return 5 * delay;
-            //   return i * delay;
-            // });
+            return self.backCards(function(el, i, l) {
+              if (i === 4) return 0 * delay;
+              if (i === 0) return 1 * delay;
+              if (i === 2) return 2 * delay;
+              if (i === 1) return 3 * delay;
+              if (i === 3) return 4 * delay;
+              if (i === 5) return 5 * delay;
+              return i * delay;
+            });
           });
       }
     );
@@ -147,7 +156,7 @@ class CardActions extends Component {
     if (index === 0) {
       first.right = this.getCards()[index].style.right;
       first.transform = `translateX(${card.translateX +
-        card.style.width * 0.27}px) translateY(${card.translateY +
+        card.style.width * 0.23}px) translateY(${card.translateY +
         card.style.height -
         card.style.height * 0.3}px)  `;
       first.height = card.style.height * 0.3 + "px";
@@ -155,7 +164,7 @@ class CardActions extends Component {
     } else if (index === 1) {
       second.right = card.style.right;
       second.transform = `translateX(${card.translateX +
-        card.style.width * 0.27}px) translateY(${card.translateY +
+        card.style.width * 0.23}px) translateY(${card.translateY +
         card.style.height -
         card.style.height * 0.3}px)  `;
       second.height = card.style.height * 0.3 + "px";
@@ -212,14 +221,69 @@ class CardActions extends Component {
   }
 
   checkCard(index, delay) {
-    console.log(index);
-
     const card = this.getCards()[index];
+
+    let first = {};
+    let second = {};
+    if (index === 2) {
+      first.right = this.getCards()[index].style.right;
+      first.transform = `translateX(${card.translateX -
+        0.05 * card.style.width}px) translateY(${card.translateY -
+        0.3 * card.style.height}px)  `;
+      first.height = card.style.height * 0.4 + "px";
+      first.width = card.style.width * 1.8 + "px";
+    } else if (index === 3) {
+      second.right = card.style.right;
+      second.transform = `translateX(${card.translateX -
+        card.style.width * 0.05}px) translateY(${card.translateY -
+        card.style.height * 0.3}px)  `;
+      second.height = card.style.height * 0.4 + "px";
+      second.width = card.style.width * 1.8 + "px";
+    }
+
     let cardNumber = card.number > 10 ? 10 : card.number;
     return new Promise(resolve => {
       setTimeout(() => {
         this.setState(
           prevState => {
+            if (index === 2) {
+              setTimeout(() => {
+                //replace the current gif with the new looping gif
+                this.setState({
+                  naturalBannerForFirstPair: naturalBannerLoop
+                });
+              }, 600);
+            } else if (index === 3) {
+              setTimeout(() => {
+                //replace the current gif with the new looping gif
+                this.setState({
+                  naturalBannerForSecondPair: naturalBannerLoop
+                });
+              }, 600);
+            }
+
+            const firstPairTotal =
+              index % 2 === 0
+                ? (prevState.valueOfFirstPair += cardNumber) % 10
+                : prevState.valueOfFirstPair;
+            const secondPairTotal =
+              index % 2 === 1
+                ? (prevState.valueOfSecondPair += cardNumber) % 10
+                : prevState.valueOfSecondPair;
+
+            const shouldDisplayFirstPairBanner =
+              index === 2
+                ? firstPairTotal === 8 || firstPairTotal === 9
+                  ? true
+                  : false
+                : prevState.displayNaturalBannerForFirstPair;
+            const shouldDisplaySecondPairBanner =
+              index === 3
+                ? secondPairTotal === 8 || secondPairTotal === 9
+                  ? true
+                  : false
+                : prevState.displayNaturalBannerForSecondPair;
+
             return {
               cards: this.state.cards.map((card, i) => {
                 if (index === i) {
@@ -227,14 +291,28 @@ class CardActions extends Component {
                 }
                 return card;
               }),
-              valueOfFirstPair:
-                index % 2 === 0
-                  ? (prevState.valueOfFirstPair += cardNumber) % 10
-                  : prevState.valueOfFirstPair,
-              valueOfSecondPair:
-                index % 2 === 1
-                  ? (prevState.valueOfSecondPair += cardNumber) % 10
-                  : prevState.valueOfSecondPair
+              valueOfFirstPair: firstPairTotal,
+              valueOfSecondPair: secondPairTotal,
+              displayNaturalBannerForFirstPair: shouldDisplayFirstPairBanner,
+              displayNaturalBannerForSecondPair: shouldDisplaySecondPairBanner,
+              firstPairBannerLocation:
+                index === 2
+                  ? {
+                      right: first.right,
+                      transform: first.transform,
+                      width: first.width,
+                      height: first.height
+                    }
+                  : prevState.firstPairBannerLocation,
+              secondPairBannerLocation:
+                index === 3
+                  ? {
+                      right: second.right,
+                      transform: second.transform,
+                      width: second.width,
+                      height: second.height
+                    }
+                  : prevState.secondPairBannerLocation
             };
           },
           () => {
@@ -258,7 +336,8 @@ class CardActions extends Component {
       },
       translateX: function(el, i, l) {
         let card = self.getCards()[i];
-        return card.translateX - 1 * card.style.width;
+        const offset = i % 2 === 1 ? global.screen.width * 0.02 : 0;
+        return card.translateX - 1 * card.style.width + offset;
       }
     }).finished;
 
@@ -320,7 +399,7 @@ class CardActions extends Component {
       secondTranslateYStr.length - 3
     );
 
-    var vv = anime({
+    var qq = anime({
       targets: ".second-pair-points",
       easing: "linear",
       delay: delay ? delay : 500,
@@ -339,56 +418,182 @@ class CardActions extends Component {
               document.querySelector(".second-pair-points").style.width.length -
                 2
             ) *
-            2.15
+            1.85
         );
       }
     }).finished;
+
+    const firstPairNaturalBanner = document.querySelector(
+      ".first-pair-natural-banner"
+    );
+
+    const secondPairNaturalBanner = document.querySelector(
+      ".second-pair-natural-banner"
+    );
+
+    if (firstPairNaturalBanner) {
+      const firstPairBannerTranslateXStr = firstPairNaturalBanner.style.transform.split(
+        " "
+      )[0];
+
+      const firstPairBannerTranslateYStr = firstPairNaturalBanner.style.transform.split(
+        " "
+      )[1];
+
+      const firstPairBannerTranslateXValue = firstPairBannerTranslateXStr.substring(
+        11,
+        firstPairBannerTranslateXStr.length - 3
+      );
+      const firstPairBannerTranslateYValue = firstPairBannerTranslateYStr.substring(
+        11,
+        firstPairBannerTranslateYStr.length - 3
+      );
+
+      var cc = anime({
+        targets: ".first-pair-natural-banner",
+        easing: "linear",
+        delay: delay ? delay : 500,
+        duration: 150,
+        scale: 0.75,
+        translateY: function(el, i, l) {
+          return firstPairBannerTranslateYValue - global.screen.height * 0.17;
+        },
+        translateX: function(el, i, l) {
+          return (
+            firstPairBannerTranslateXValue -
+            document
+              .querySelector(".first-pair-natural-banner")
+              .style.width.substring(
+                0,
+                document.querySelector(".first-pair-natural-banner").style.width
+                  .length - 2
+              ) *
+              0.48
+          );
+        }
+      }).finished;
+    }
+
+    if (secondPairNaturalBanner) {
+      const secondPairBannerTranslateXStr = document
+        .querySelector(".second-pair-natural-banner")
+        .style.transform.split(" ")[0];
+
+      const secondPairBannerTranslateYStr = document
+        .querySelector(".second-pair-natural-banner")
+        .style.transform.split(" ")[1];
+
+      const secondPairBannerTranslateXValue = secondPairBannerTranslateXStr.substring(
+        11,
+        secondPairBannerTranslateXStr.length - 3
+      );
+      const secondPairBannerTranslateYValue = secondPairBannerTranslateYStr.substring(
+        11,
+        secondPairBannerTranslateYStr.length - 3
+      );
+
+      var dd = anime({
+        targets: ".second-pair-natural-banner",
+        easing: "linear",
+        delay: delay ? delay : 500,
+        duration: 150,
+        scale: 0.75,
+        translateY: function(el, i, l) {
+          return secondPairBannerTranslateYValue - global.screen.height * 0.17;
+        },
+        translateX: function(el, i, l) {
+          return (
+            secondPairBannerTranslateXValue -
+            document
+              .querySelector(".second-pair-natural-banner")
+              .style.width.substring(
+                0,
+                document.querySelector(".second-pair-natural-banner").style
+                  .width.length - 2
+              ) *
+              0.38
+          );
+        }
+      }).finished;
+    }
+
     return vv;
   }
 
   showResult(delay) {
-    const randoNum = Math.random();
-    this.setState({
-      displayWinner:
-        randoNum < 0.33 ? tie : randoNum < 0.66 ? bankWins : playerWins
-    });
     return new Promise(resolve => {
       setTimeout(() => {
+        const cards = document.querySelectorAll(".card");
+
+        //make winning location glow
+        const event = new CustomEvent("displayingResult", {
+          detail: this.props.outcomes
+        });
+        window.dispatchEvent(event);
+
+        //1 == 閒贏 3 == 和 4 == 莊贏
+
+        let displayWinner;
+        //make losing pair/triple dim also determine winner
+        this.props.outcomes.find(outcome => {
+          if (outcome === 1) {
+            cards[1].style.filter = "brightness(50%)";
+            cards[3].style.filter = "brightness(50%)";
+            if (cards[5]) cards[5].style.filter = "brightness(50%)";
+            displayWinner = playerWins;
+            return true;
+          } else if (outcome === 3) {
+            displayWinner = tie;
+            return true;
+          } else if (outcome === 4) {
+            cards[0].style.filter = "brightness(50%)";
+            cards[2].style.filter = "brightness(50%)";
+            if (cards[4]) cards[4].style.filter = "brightness(50%)";
+            displayWinner = bankWins;
+            return true;
+          }
+        });
+
+        this.setState({
+          displayWinner
+        });
         resolve();
       }, delay);
     });
   }
 
   showResultBanner(delay) {
-    this.setState(
-      {
-        displayResultBanner: true,
-        displayGoldCoinShower: true
-      },
-      function() {
-        let counter = 0;
-        let delta = this.props.currentWinning / 100;
-        const step = () => {
-          counter++;
-
-          this.setState(prevState => {
-            return {
-              currentWinning: (prevState.currentWinning += delta)
-            };
-          });
-          if (counter < 100) requestAnimationFrame(step);
-        };
-
-        step();
-      }
-    );
     return new Promise(resolve => {
       setTimeout(() => {
         this.setState(
           {
-            displayGoldCoinShower: false
+            displayResultBanner: true,
+            displayGoldCoinShower: this.props.currentWinning ? true : false
           },
-          resolve
+          function() {
+            let counter = 0;
+            let delta = this.props.currentWinning / 100;
+            const step = () => {
+              counter++;
+
+              this.setState(prevState => {
+                return {
+                  currentWinning: (prevState.currentWinning += delta)
+                };
+              });
+              if (counter < 100) requestAnimationFrame(step);
+              else {
+                this.setState({
+                  displayGoldCoinShower: false
+                });
+                this.props.updateBetAndBalance();
+              }
+            };
+
+            step();
+
+            resolve();
+          }
         );
       }, delay);
     });
@@ -398,6 +603,11 @@ class CardActions extends Component {
     return new Promise(resolve => {
       setTimeout(
         () => {
+          //undim the cards
+          const cards = document.querySelectorAll(".card");
+          cards.forEach(card => {
+            card.style.filter = "brightness(100%)";
+          });
           this.setState(
             {
               cards: this.state.cards.map((card, i) => {
@@ -409,7 +619,9 @@ class CardActions extends Component {
               displayWinner: null,
               displayPointsForFirstPair: false,
               displayPointsForSecondPair: false,
-              displayResultBanner: false
+              displayResultBanner: false,
+              displayNaturalBannerForFirstPair: false,
+              displayNaturalBannerForSecondPair: false
             },
             () => {
               resolve(0);
@@ -422,6 +634,14 @@ class CardActions extends Component {
   }
 
   backCards(delay) {
+    const event = new CustomEvent("clearAllChips");
+    window.dispatchEvent(event);
+
+    const event2 = new CustomEvent("increaseTopLeftDeck", {
+      detail: this.getCards().length
+    });
+    window.dispatchEvent(event2);
+
     const self = this;
     return anime({
       targets: ".card",
@@ -484,6 +704,7 @@ class CardActions extends Component {
             <div
               className={"card" + this.getCardClass(card)}
               style={card.style}
+              key={i}
             >
               <div className="card-inner">
                 <div className="card-back">
@@ -501,6 +722,7 @@ class CardActions extends Component {
             </div>
           );
         })}
+
         {this.state.displayWinner ? (
           <CSSTransition
             in={true}
@@ -521,12 +743,20 @@ class CardActions extends Component {
             classNames="fade"
           >
             <div className="result-banner">
-              <img src={winBanner} className="result-banner-bg" />
-              <div className="winning-digits-holder">
-                {winningArr.map(num => {
-                  return <img src={winningDigitImageArr[num]} />;
-                })}
-              </div>
+              {this.props.currentWinning ? (
+                <div className="result-banner-container">
+                  <img src={winBanner} className="win-banner-bg" />
+                  <div className="winning-digits-holder">
+                    {winningArr.map(num => {
+                      return <img src={winningDigitImageArr[num]} />;
+                    })}{" "}
+                  </div>
+                </div>
+              ) : (
+                <div className="result-banner-container">
+                  <img src={loseBanner} className="lose-banner-bg" />
+                </div>
+              )}
             </div>
           </CSSTransition>
         ) : null}
@@ -535,6 +765,24 @@ class CardActions extends Component {
             <img src={goldCoinShower} />
           </div>
         ) : null}
+
+        {this.state.displayNaturalBannerForFirstPair ? (
+          <div
+            className="first-pair-natural-banner"
+            style={this.state.firstPairBannerLocation}
+          >
+            <img src={this.state.naturalBannerForFirstPair} />
+          </div>
+        ) : null}
+        {this.state.displayNaturalBannerForSecondPair ? (
+          <div
+            className="second-pair-natural-banner"
+            style={this.state.secondPairBannerLocation}
+          >
+            <img src={this.state.naturalBannerForSecondPair} />
+          </div>
+        ) : null}
+
         {this.state.displayPointsForFirstPair ? (
           <div
             className="first-pair-points "

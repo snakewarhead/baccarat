@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { CSSTransition } from "react-transition-group";
 import TopLeftHistory from "./TopLeftHistory.jsx";
 import CountdownTimer from "./CountdownTimer.jsx";
 import BottomLeftDisplayRows from "./BottomLeftDisplayRows.jsx";
@@ -10,20 +11,26 @@ import "../../css/secondPageUIOverlay/SecondPageUIOverlay.css";
 import placeBet from "../../assets/backgroundTwo/countdownTimer/start-bet.png";
 import stopBet from "../../assets/backgroundTwo/countdownTimer/stop-bet.png";
 import halt from "../../assets/backgroundTwo/countdownTimer/halt.png";
+import betConfirmed from "../../assets/backgroundTwo/betConfirmed.png";
 import {
   placeBetDuration,
-  timeInbetweenCountdowns
+  timeInbetweenCountdowns,
+  betConfirmBannerDuration
 } from "../../utils/constants";
 import { getCards } from "../../utils/api.js";
+
+const emptyBetDetail = [[], [], [], [], [], []];
 
 class SecondPageUIOverlay extends Component {
   constructor(props) {
     super(props);
+    // confirmedBetDetailPerLocation is a snapshot of betDetailPerLocation when the user clicks on confirm bet
     this.state = {
       selectedChip: 0,
       isChipActive: false,
       totalBet: 0,
       balance: 1000000,
+      balanceAtStartOfCycle: 1000000,
       time: placeBetDuration,
       timerText: placeBet,
       timerRunning: true,
@@ -31,17 +38,44 @@ class SecondPageUIOverlay extends Component {
       lastBet: { amount: 0, location: undefined },
       inAutoBetMode: false,
       isProcessingCards: false,
-      currentWinning: 0
+      currentWinning: 0,
+      betDetailPerLocation: emptyBetDetail,
+      confirmedBetDetailPerLocation: emptyBetDetail,
+      betConfirmedBannerState: false
     };
 
     window.addEventListener("placeBet", e => {
+      //e.detail.location can be one of 'patch1', 'patch2', ... , 'patch6
+
+      //locationNum from 0 to 5
+      const locationNum =
+        e.detail.location.substring(
+          e.detail.location.length - 1,
+          e.detail.location.length
+        ) - 1;
+
       this.setState(function(prevState) {
+        const newBetDetailPerLocation = prevState.betDetailPerLocation.slice();
+        for (let i = 0; i < 6; i++) {
+          if (locationNum === i) {
+            newBetDetailPerLocation[i] = prevState.betDetailPerLocation[
+              i
+            ].slice();
+            newBetDetailPerLocation[i].push(e.detail.amount);
+          } else {
+            newBetDetailPerLocation[i] = prevState.betDetailPerLocation[
+              i
+            ].slice();
+          }
+        }
         return {
           totalBet: prevState.totalBet + e.detail.amount,
+          balance: prevState.balance - e.detail.amount,
           lastBet: {
             amount: e.detail.amount,
             location: e.detail.location
-          }
+          },
+          betDetailPerLocation: newBetDetailPerLocation
         };
       });
     });
@@ -70,9 +104,8 @@ class SecondPageUIOverlay extends Component {
         } else if (prevState.time === 1) {
           return { time: prevState.time - 1, timerText: stopBet };
         } else if (prevState.time === 0) {
+          //restart timer after specified time
           setTimeout(() => {
-            console.log("!!");
-            //restart timer
             this.setState({
               time: placeBetDuration,
               timerRunning: true,
@@ -80,7 +113,9 @@ class SecondPageUIOverlay extends Component {
               totalBet: 0,
               betConfirmed: false,
               selectedChip: 0,
-              isProcessingCards: false
+              isProcessingCards: false,
+              betDetailPerLocation: emptyBetDetail,
+              confirmedBetDetailPerLocation: emptyBetDetail
             });
             this.first = true;
             setTimeout(step, interval);
@@ -89,34 +124,45 @@ class SecondPageUIOverlay extends Component {
             window.dispatchEvent(event);
           }, timeInbetweenCountdowns);
 
-          //clear all chips if bets are not confirmed
-          if (!this.state.betConfirmed) {
-            this.setState({
-              totalBet: 0,
-              previousBetState: {
-                patch1: [],
-                patch2: [],
-                patch3: [],
-                patch4: [],
-                patch5: [],
-                patch6: []
+          //only send the confirmed bets
+          const betDetail = this.state.betConfirmed
+            ? this.state.confirmedBetDetailPerLocation
+            : emptyBetDetail;
+
+          getCards(betDetail).then(obj => {
+            const { cards, winning, outcomes } = obj;
+
+            let totalBet = 0;
+            this.state.confirmedBetDetailPerLocation.forEach(loc => {
+              loc.forEach(bet => {
+                totalBet += bet;
+              });
+            });
+            this.setState(
+              function(prevState) {
+                return {
+                  isProcessingCards: true,
+                  cards,
+                  currentWinning: winning,
+                  outcomes,
+                  totalBet,
+                  balance: prevState.balanceAtStartOfCycle - totalBet
+                };
+              },
+              function() {
+                const event = new CustomEvent("reduceTopRightDeck", {
+                  detail: cards.length
+                });
+                window.dispatchEvent(event);
               }
-            });
-            const event = new CustomEvent("clearAllChips");
-            window.dispatchEvent(event);
-          }
-
-          const event = new CustomEvent("displayingResult");
-          window.dispatchEvent(event);
-
-          getCards().then(obj => {
-            const { cards, winning } = obj;
-            this.setState({
-              isProcessingCards: true,
-              cards,
-              currentWinning: winning
-            });
+            );
           });
+
+          //clear all unconfirmed chips
+          const event = new CustomEvent("clearAllUnconfirmedChips", {
+            detail: this.state.confirmedBetDetailPerLocation
+          });
+          window.dispatchEvent(event);
 
           return {
             time: prevState.time,
@@ -135,79 +181,6 @@ class SecondPageUIOverlay extends Component {
       }
     };
     setTimeout(step, interval);
-
-    // const cardActions = this.state.cardActions;
-    // const screenHeight = global.screen.availHeight;
-
-    // let cards = [
-    //   {
-    //     color: "s",
-    //     number: 1
-    //   },
-    //   {
-    //     color: "h",
-    //     number: 10
-    //   },
-    //   {
-    //     color: "d",
-    //     number: 11
-    //   },
-    //   {
-    //     color: "c",
-    //     number: 12
-    //   },
-    //   {
-    //     color: "d",
-    //     number: 13
-    //   },
-    //   {
-    //     color: "c",
-    //     number: 7
-    //   }
-    // ];
-
-    // cards = cards.map((card, index) => {
-    //   card.style = {
-    //     top: "0%",
-    //     right: (screenHeight * 0.3 * 200) / 270,
-    //     width: (screenHeight * 0.3 * 200) / 270,
-    //     height: screenHeight * 0.3,
-    //     transform: "rotate(-60deg)",
-    //     opacity: 0
-    //   };
-    //   return card;
-    // });
-
-    // cards = cards.map((card, index) => {
-    //   const CARD_RATE = parseFloat(
-    //     (card.style.width / global.screen.width).toFixed(4)
-    //   );
-    //   const CARD_MARGIN = 0.0025;
-
-    //   if (index % 2 === 0) {
-    //     if (index !== 4) {
-    //       card.translateX =
-    //         -1 *
-    //           ((1 - index / 2) * (CARD_RATE + CARD_MARGIN) + 0.5) *
-    //           global.screen.width +
-    //         card.style.right;
-    //     } else {
-    //       card.translateX =
-    //         -1 * (2 * (CARD_RATE + CARD_MARGIN) + 0.5) * global.screen.width +
-    //         card.style.right;
-    //     }
-    //   } else {
-    //     card.translateX =
-    //       -1 *
-    //         (0.5 - ((CARD_RATE * (index + 1)) / 2 + CARD_MARGIN * index)) *
-    //         global.screen.width +
-    //       card.style.right;
-    //   }
-    //   card.translateY = screenHeight / 2 - (card.style.height * 3) / 4;
-    //   return card;
-    // });
-
-    // cardActions.processCards(cards);
   }
 
   selectChip = e => {
@@ -255,10 +228,13 @@ class SecondPageUIOverlay extends Component {
     const event = new CustomEvent("clearAllChips");
     window.dispatchEvent(event);
     this.setState({
+      balance: this.state.balanceAtStartOfCycle,
       totalBet: 0,
       selectedChip: 0,
       isChipActive: false,
-      betConfirmed: false
+      betConfirmed: false,
+      betDetailPerLocation: emptyBetDetail,
+      confirmedBetDetailPerLocation: emptyBetDetail
     });
 
     this.clearAutoBet();
@@ -275,15 +251,24 @@ class SecondPageUIOverlay extends Component {
   };
 
   confirmBet = () => {
-    this.setState({
-      betConfirmed: true
+    this.setState(function(prevState) {
+      return {
+        betConfirmed: true,
+        confirmedBetDetailPerLocation: prevState.betDetailPerLocation,
+        betConfirmedBannerState: true
+      };
     });
+
+    setTimeout(() => {
+      this.setState({
+        betConfirmedBannerState: false
+      });
+    }, betConfirmBannerDuration);
   };
 
   autoBet = () => {
     const event = new CustomEvent("autoReBet", { detail: this.state.lastBet });
     window.dispatchEvent(event);
-    console.log(this.state.lastBet);
 
     this.setState({
       inAutoBetMode: true
@@ -301,6 +286,13 @@ class SecondPageUIOverlay extends Component {
 
   setTimer = time => {
     this.setState({ time });
+  };
+
+  updateBetAndBalance = () => {
+    this.setState({
+      balanceAtStartOfCycle: this.state.balance + this.state.currentWinning,
+      balance: this.state.balance + this.state.currentWinning
+    });
   };
 
   render() {
@@ -344,6 +336,7 @@ class SecondPageUIOverlay extends Component {
           lastBet={this.state.lastBet}
           inAutoBetMode={this.state.inAutoBetMode}
           clearSelectedChip={this.clearSelectedChip}
+          isProcessingCards={this.state.isProcessingCards}
         />
         <TopRightMenu
           showHistoryModal={this.props.showHistoryModal}
@@ -362,7 +355,23 @@ class SecondPageUIOverlay extends Component {
           <CardActions
             cards={this.state.cards}
             currentWinning={this.state.currentWinning}
+            outcomes={this.state.outcomes}
+            updateBetAndBalance={this.updateBetAndBalance}
           />
+        ) : null}
+
+        {this.state.betConfirmed ? (
+          <CSSTransition
+            in={this.state.betConfirmedBannerState}
+            appear={true}
+            timeout={300}
+            classNames="fade"
+            unmountOnExit
+          >
+            <div className="bet-confirmed-banner">
+              <img src={betConfirmed} />
+            </div>
+          </CSSTransition>
         ) : null}
       </div>
     );
