@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import ReactHowler from "react-howler";
 import Phaser from "phaser";
 import "../css/App.css";
 import screenfull from "screenfull";
