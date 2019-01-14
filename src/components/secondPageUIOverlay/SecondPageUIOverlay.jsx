@@ -18,6 +18,7 @@ import {
   betConfirmBannerDuration
 } from "../../utils/constants";
 import { getCards } from "../../utils/api.js";
+import CardAnimation from "../CardAnimation.jsx";
 
 const emptyBetDetail = [[], [], [], [], [], []];
 
@@ -340,16 +341,11 @@ class SecondPageUIOverlay extends Component {
         />
         <TopRightMenu
           showHistoryModal={this.props.showHistoryModal}
+          showSoundModal={this.props.showSoundModal}
           mouseEntersUI={this.mouseEntersUI}
           mouseLeavesUI={this.mouseLeavesUI}
           clearSelectedChip={this.clearSelectedChip}
         />
-
-        {/* <CardActions
-          ref={cardActions => {
-            this.state.cardActions = cardActions;
-          }}
-        /> */}
 
         {this.state.isProcessingCards ? (
           <CardActions
@@ -359,6 +355,10 @@ class SecondPageUIOverlay extends Component {
             updateBetAndBalance={this.updateBetAndBalance}
           />
         ) : null}
+
+        {/* {this.state.isProcessingCards ? (
+          <CardAnimation cards={this.state.cards} />
+        ) : null} */}
 
         {this.state.betConfirmed ? (
           <CSSTransition

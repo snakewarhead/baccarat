@@ -230,7 +230,7 @@ class Tables extends Phaser.Scene {
 
   update() {
     //replace true with this.nextScene
-    if (this.nextScene) {
+    if (true) {
       const event = new CustomEvent("fromTableToMain");
       window.dispatchEvent(event);
       this.scene.start("Main");

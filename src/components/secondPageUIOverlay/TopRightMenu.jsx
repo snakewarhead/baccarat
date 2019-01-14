@@ -21,7 +21,10 @@ class TopRightMenu extends Component {
             className="history-icon top-right-menu-icon"
             onClick={this.props.showHistoryModal}
           />
-          <div className="gear-icon top-right-menu-icon" />
+          <div
+            className="gear-icon top-right-menu-icon"
+            onClick={this.props.showSoundModal}
+          />
           <div className="instruction-icon top-right-menu-icon" />
           <div className="exit-icon top-right-menu-icon" />
         </div>

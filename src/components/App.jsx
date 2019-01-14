@@ -292,6 +292,7 @@ class App extends Component {
             showHistoryModal={this.showHistoryModal}
             showCardModal={this.showCardModal}
             showBeadPlateModal={this.showBeadPlateModal}
+            showSoundModal={this.showSoundModal}
           />
         ) : null}
 
