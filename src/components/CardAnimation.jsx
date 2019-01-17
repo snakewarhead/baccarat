@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { CSSTransition } from "react-transition-group";
 import {
   TimelineMax,
   TweenMax,
@@ -7,7 +8,13 @@ import {
   CSSPlugin
 } from "gsap/all";
 
+import { cardImageObj, numberImageObj } from "../utils/cardImages";
+import { animateFourCards } from "../utils/helperFunctions";
 import "../css/CardAnimation.css";
+
+import naturalBannerFirstPairOnce from "../assets/cardImages/Misc/natural1.gif";
+import naturalBannerSecondPairOnce from "../assets/cardImages/Misc/natural2.gif";
+import naturalBannerLoop from "../assets/cardImages/Misc/natural-repeat.gif";
 
 class CardAnimation extends Component {
   constructor(props) {
@@ -16,14 +23,28 @@ class CardAnimation extends Component {
     this.cardFrontBgEles = [];
     this.cardFrontEles = [];
     this.cardBackEles = [];
+    this.pointDisplays = [];
     this.myTween = new TimelineMax({ paused: true });
+
+    this.state = {
+      //fitst element in the array corresponds to the first dealt card
+      showTopLeftCoverOnCard: [false, false, false, false, false, false],
+      firstPairPoints:
+        this.props.cards[0].number >= 10 ? 0 : this.props.cards[0].number,
+      secondPairPoints:
+        this.props.cards[1].number >= 10 ? 0 : this.props.cards[1].number,
+      displayNaturalBannerForFirstPair: false,
+      displayNaturalBannerForSecondPair: false,
+      naturalBannerForFirstPair: naturalBannerFirstPairOnce,
+      naturalBannerForSecondPair: naturalBannerSecondPairOnce
+    };
 
     CSSPlugin.defaultTransformPerspective = 1000;
   }
 
   componentDidMount() {
-    TweenMax.set(".flipped", { rotationY: -180 });
-    TweenMax.lagSmoothing(0);
+    this.cards = this.props.cards;
+
     const cardWidth = window.innerWidth / 8.5;
     const cardHeight = window.innerHeight / 3.2;
 
@@ -36,87 +57,62 @@ class CardAnimation extends Component {
     const cardBackSlidingDuration = 0.3;
     const cardBackDippingDuration = 0.3;
 
-    if (this.props.cards.length === 4) {
-      this.myTween
-        .to(this.cardEles[0], cardDealingDuration, {
-          x: -window.innerWidth / firstDealtCardPostionXFactor,
-          y: window.innerHeight / cardPositionYFactor,
-          rotation: 0,
-          width: cardWidth,
-          height: cardHeight
-        })
-        .to(this.cardEles[1], cardDealingDuration, {
-          x: -window.innerWidth / secondDealtCardPositionXFactor,
-          y: window.innerHeight / cardPositionYFactor,
-          rotation: 0,
-          width: cardWidth,
-          height: cardHeight
-        })
-        .to(this.cardEles[2], cardDealingDuration, {
-          x: -window.innerWidth / firstDealtCardPostionXFactor + offsetX,
-          y: window.innerHeight / cardPositionYFactor,
-          rotation: 0,
-          width: cardWidth,
-          height: cardHeight
-        })
-        .to(this.cardEles[3], cardDealingDuration, {
-          x: -window.innerWidth / secondDealtCardPositionXFactor + offsetX,
-          y: window.innerHeight / cardPositionYFactor,
-          rotation: 0,
-          width: cardWidth,
-          height: cardHeight
-        })
-        .to(this.cardFrontEles[0], cardFlippingDuration, { rotationY: 0 })
-        .to(
-          this.cardBackEles[0],
-          cardFlippingDuration,
-          { rotationY: 180 },
-          "-=" + cardFlippingDuration
-        )
-        .to(
-          this.cardFrontBgEles[0],
-          cardFlippingDuration,
-          { rotationY: 0 },
-          "-=" + cardFlippingDuration
-        )
-        .to(this.cardFrontEles[1], cardFlippingDuration, { rotationY: 0 })
-        .to(
-          this.cardBackEles[1],
-          cardFlippingDuration,
-          { rotationY: 180 },
-          "-=" + cardFlippingDuration
-        )
-        .to(
-          this.cardFrontBgEles[1],
-          cardFlippingDuration,
-          { rotationY: 0 },
-          "-=" + cardFlippingDuration
-        )
-        .to(this.cardBackEles[2], cardBackSlidingDuration, {
-          x: cardWidth / 2
-        })
-        .to(this.cardBackEles[2], cardBackDippingDuration, {
-          rotation: "30%",
-          x: cardWidth,
-          y: cardHeight / 3,
-          opacity: 0
-        })
-        .to(this.cardBackEles[3], cardBackSlidingDuration, {
-          x: cardWidth / 2
-        })
-        .to(this.cardBackEles[3], cardBackDippingDuration, {
-          rotation: "30%",
-          x: cardWidth,
-          y: cardHeight / 3,
-          opacity: 0
-        })
+    TweenMax.set(".flipped", { rotationY: -180 });
 
-        .play();
+    //this is to let the animation continue even if the tab is inactive
+    TweenMax.lagSmoothing(0);
+
+    //update card front with the correct background image
+    this.cardFrontEles.forEach((cardFront, i) => {
+      cardFront.style.backgroundImage = `url(${
+        cardImageObj[this.cards[i].color + this.cards[i].number]
+      })`;
+    });
+
+    if (this.cards.length === 4) {
+      animateFourCards(
+        cardWidth,
+        cardHeight,
+        cardDealingDuration,
+        cardFlippingDuration,
+        cardBackSlidingDuration,
+        cardBackDippingDuration,
+        firstDealtCardPostionXFactor,
+        secondDealtCardPositionXFactor,
+        cardPositionYFactor,
+        offsetX,
+        this
+      );
     } else {
     }
   }
 
   render() {
+    const {
+      b0,
+      b1,
+      b2,
+      b3,
+      b4,
+      b5,
+      b6,
+      b7,
+      b8,
+      b9,
+      r0,
+      r1,
+      r2,
+      r3,
+      r4,
+      r5,
+      r6,
+      r7,
+      r8,
+      r9
+    } = numberImageObj;
+    const blueNumMap = [b0, b1, b2, b3, b4, b5, b6, b7, b8, b9];
+    const redNumMap = [r0, r1, r2, r3, r4, r5, r6, r7, r8, r9];
+
     return (
       <div className="cards-container">
         {this.props.cards.map((card, i) => {
@@ -127,7 +123,11 @@ class CardAnimation extends Component {
                   i < 2 ? "cardFrontBg flipped" : "cardFrontBg nonFlipped"
                 }
                 ref={div => (this.cardFrontBgEles[i] = div)}
-              />
+              >
+                {this.state.showTopLeftCoverOnCard[i] ? (
+                  <div className="top-left-card-cover" />
+                ) : null}
+              </div>
               <div
                 className={i < 2 ? "cardFront flipped" : "cardFront nonFlipped"}
                 ref={div => (this.cardFrontEles[i] = div)}
@@ -139,6 +139,40 @@ class CardAnimation extends Component {
             </div>
           );
         })}
+        <div
+          className="first-pair-points-container"
+          ref={div => (this.pointDisplays[0] = div)}
+        >
+          <img
+            className="points"
+            src={blueNumMap[this.state.firstPairPoints]}
+          />
+        </div>
+        <div
+          className="second-pair-points-container"
+          ref={div => (this.pointDisplays[1] = div)}
+        >
+          <img
+            className="points"
+            src={redNumMap[this.state.secondPairPoints]}
+          />
+        </div>
+
+        {this.state.displayNaturalBannerForFirstPair ? (
+          <CSSTransition in={true} appear={true} timeout={300} classNames="pop">
+            <div className="first-pair-natural-banner">
+              <img src={this.state.naturalBannerForFirstPair} />
+            </div>
+          </CSSTransition>
+        ) : null}
+
+        {this.state.displayNaturalBannerForSecondPair ? (
+          <CSSTransition in={true} appear={true} timeout={300} classNames="pop">
+            <div className="second-pair-natural-banner">
+              <img src={this.state.naturalBannerForSecondPair} />
+            </div>
+          </CSSTransition>
+        ) : null}
       </div>
     );
   }

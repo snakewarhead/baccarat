@@ -36,6 +36,87 @@
   background-image: url("../assets/cardImages/card.png");
 }
 
-.cardFront {
-  background-image: url("../assets/cardImages/card-s-9.png");
+.first-pair-points-container,
+.second-pair-points-container {
+  position: absolute;
+  top: calc(100% / 1.95);
+
+  height: 10%;
+  width: 10%;
+  background-size: 100% 100%;
+  background-image: url("../assets/cardImages/Misc/pointDisplay.png");
+}
+
+.first-pair-points-container {
+  left: calc(100% / 3.01);
+  transform: scale(0);
+}
+
+.second-pair-points-container {
+  left: calc(100% / 1.76);
+  transform: scale(0);
+}
+
+.points {
+  height: 100%;
+  width: 50%;
+}
+
+.top-left-card-cover {
+  z-index: 2;
+  position: absolute;
+  top: 2%;
+  left: 3%;
+  width: 40%;
+  height: 30%;
+  background-size: 100% 100%;
+  background-image: url("../assets/cardImages/Misc/topLeftCover.png");
+}
+
+.first-pair-natural-banner,
+.second-pair-natural-banner {
+  position: absolute;
+  top: 19%;
+
+  width: 21%;
+  height: 15%;
+}
+
+.first-pair-natural-banner {
+  left: 28%;
+}
+
+.second-pair-natural-banner {
+  left: 51.2%;
+}
+
+.first-pair-natural-banner > img,
+.second-pair-natural-banner > img {
+  width: 100%;
+  height: 100%;
+}
+
+.pop-appear {
+  opacity: 0;
+  transform: scale(0);
+}
+
+.pop-appear.pop-appear-active {
+  transform: scale(1);
+  opacity: 1;
+
+  /* if you change the duration also update naturalBannerPopupDuration in constants.js */
+  transition: all 300ms linear;
+}
+
+.fade-appear {
+  opacity: 0;
+  transform: scale(3);
+}
+
+.fade-appear.fade-appear-active {
+  transform: scale(1);
+  opacity: 1;
+
+  transition: all 300ms linear;
 }

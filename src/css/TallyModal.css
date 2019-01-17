@@ -1,0 +1,23 @@
+.tally-modal-bg {
+  /* keep the width/height ratio at 0.76 */
+  position: relative;
+  height: 65%;
+  width: 25%;
+  background-image: url("../assets/modals/tallyModal/tally-modal-background.png");
+  background-size: 100% 100%;
+}
+
+.tally-modal-confirm-btn {
+  position: absolute;
+  top: 80%;
+  left: 30%;
+  width: 40%;
+  height: 13%;
+  background-image: url("../assets/modals/tallyModal/confirm-btn.png");
+  background-size: 100% 100%;
+  cursor: pointer;
+}
+
+.tally-modal-confirm-btn:active {
+  background-image: url("../assets/modals/tallyModal/confirm-btn-pressed.png");
+}

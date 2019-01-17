@@ -12,7 +12,7 @@ export const totalNumberOfCards = 416;
 //in seconds
 export const placeBetDuration = 1;
 
-export const timeInbetweenCountdowns = 2500000;
+export const timeInbetweenCountdowns = 25000;
 
 export const table1TopLeftPosition = {
   x: 375,
@@ -47,3 +47,8 @@ export const patchCenters = {
   patch5: { x: 1280, y: 640 },
   patch6: { x: 1510, y: 500 }
 };
+
+export const naturalBannerPopupDuration = 300;
+
+export const gameLobbyLocation =
+  "http://ec2-13-112-176-197.ap-northeast-1.compute.amazonaws.com";

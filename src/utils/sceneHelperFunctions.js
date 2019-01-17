@@ -1,4 +1,7 @@
 export function placeBet(interactableArea, x, y, amount, thisArg) {
+  if (window.SecondPageUIOverlay.state.balance - amount < 0) {
+    window.App.showOutOfMoneyModal();
+  }
   const event = new CustomEvent("placeBet", {
     detail: { location: interactableArea.texture.key, amount }
   });

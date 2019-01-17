@@ -46,6 +46,9 @@ class SecondPageUIOverlay extends Component {
     };
 
     window.addEventListener("placeBet", e => {
+      if (this.state.balance - e.detail.amount < 0) {
+        return;
+      }
       //e.detail.location can be one of 'patch1', 'patch2', ... , 'patch6
 
       //locationNum from 0 to 5
@@ -141,6 +144,7 @@ class SecondPageUIOverlay extends Component {
             });
             this.setState(
               function(prevState) {
+                this.props.hideOutOfMoneyModal();
                 return {
                   isProcessingCards: true,
                   cards,
@@ -342,6 +346,8 @@ class SecondPageUIOverlay extends Component {
         <TopRightMenu
           showHistoryModal={this.props.showHistoryModal}
           showSoundModal={this.props.showSoundModal}
+          showInstructionModal={this.props.showInstructionModal}
+          showTallyConfirmationModal={this.props.showTallyConfirmationModal}
           mouseEntersUI={this.mouseEntersUI}
           mouseLeavesUI={this.mouseLeavesUI}
           clearSelectedChip={this.clearSelectedChip}

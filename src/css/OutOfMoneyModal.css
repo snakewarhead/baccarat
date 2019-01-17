@@ -1,0 +1,18 @@
+.out-of-money-modal-bg {
+  /* keep the width/height ratio at 1.79 */
+  position: relative;
+  height: 50%;
+  width: 45%;
+  background-image: url("../assets/modals/outOfMoneyModal/out-of-money-modal-background.png");
+  background-size: 100% 100%;
+}
+
+.out-of-money-modal-confirm-btn {
+  position: absolute;
+  top: 78%;
+  left: 40%;
+  width: 20%;
+  height: 20%;
+  background-image: url("../assets/modals/outOfMoneyModal/confirm-btn.png");
+  background-size: 100% 100%;
+}

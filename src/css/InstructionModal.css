@@ -1,0 +1,38 @@
+.instruction-modal-bg {
+  /* keep the height/width ratio at 0.64 */
+  position: relative;
+  height: 76.5%;
+  width: 60%;
+  background-image: url("../assets/modals/instructionModal/instructions-modal-background.png");
+  background-size: 100% 100%;
+}
+
+.instruction-up-arrow {
+  cursor: pointer;
+  position: absolute;
+  top: 25%;
+  right: 3%;
+  height: 20%;
+  width: 4%;
+}
+
+.instruction-down-arrow {
+  cursor: pointer;
+  position: absolute;
+  top: 55%;
+  right: 3%;
+  height: 20%;
+  width: 4%;
+}
+
+.instruction-content {
+  position: absolute;
+  /* top: 5%;
+  left: 3%;
+  height: 85%;
+  width: 80%; */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}

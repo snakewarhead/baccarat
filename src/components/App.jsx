@@ -13,10 +13,14 @@ import TopNavBar from "../components/firstPageUIOverlay/TopNavBar.jsx";
 import HistoryModal from "../components/HistoryModal.jsx";
 import SoundModal from "../components/SoundModal.jsx";
 import BeadPlateModal from "../components/BeadPlateModal.jsx";
+import InstructionModal from "../components/InstructionModal.jsx";
+import TallyConfirmationModal from "../components/TallyConfirmationModal.jsx";
+import TallyModal from "../components/TallyModal.jsx";
 import SecondPageUIOverlay from "../components/secondPageUIOverlay/SecondPageUIOverlay.jsx";
 import Loading from "../scenes/Loading";
 import Main from "../scenes/Main";
 import Tables from "../scenes/Tables";
+import OutOfMoneyModal from "./OutOfMoneyModal";
 
 let lastScrollTop = 0;
 
@@ -36,6 +40,9 @@ class App extends Component {
       showHistoryModal: false,
       showBeadPlateModal: false,
       showSoundModal: false,
+      showInstructionModal: false,
+      showTallyConfirmationModal: false,
+      showTallyModal: false,
       tableNo: 0,
       visibilitychange: "visible"
     };
@@ -274,6 +281,46 @@ class App extends Component {
     this.setState({ showSoundModal: false });
   };
 
+  showInstructionModal = () => {
+    this.setState({ showInstructionModal: true });
+  };
+
+  hideInstructionModal = () => {
+    this.setState({ showInstructionModal: false });
+  };
+
+  showTallyConfirmationModal = () => {
+    this.setState({ showTallyConfirmationModal: true });
+  };
+
+  hideTallyConfirmationModal = () => {
+    this.setState({ showTallyConfirmationModal: false });
+  };
+
+  showTallyModal = () => {
+    this.setState({
+      showTallyModal: true
+    });
+  };
+
+  hideTallyModal = () => {
+    this.setState({
+      showTallyModal: false
+    });
+  };
+
+  showOutOfMoneyModal = () => {
+    this.setState({
+      showOutOfMoneyModal: true
+    });
+  };
+
+  hideOutOfMoneyModal = () => {
+    this.setState({
+      showOutOfMoneyModal: false
+    });
+  };
+
   render() {
     const { mobile, inLandscapeMode, mobileIOS } = this.state;
 
@@ -284,6 +331,8 @@ class App extends Component {
             balance={this.state.balance}
             showHistoryModal={this.showHistoryModal}
             showSoundModal={this.showSoundModal}
+            showInstructionModal={this.showInstructionModal}
+            showTallyConfirmationModal={this.showTallyConfirmationModal}
           />
         ) : null}
         {this.state.showBackgroundTwo ? (
@@ -292,6 +341,12 @@ class App extends Component {
             showCardModal={this.showCardModal}
             showBeadPlateModal={this.showBeadPlateModal}
             showSoundModal={this.showSoundModal}
+            showInstructionModal={this.showInstructionModal}
+            showTallyConfirmationModal={this.showTallyConfirmationModal}
+            hideOutOfMoneyModal={this.hideOutOfMoneyModal}
+            ref={ourComponent => {
+              window.SecondPageUIOverlay = ourComponent;
+            }}
           />
         ) : null}
 
@@ -316,6 +371,21 @@ class App extends Component {
         ) : null}
         {this.state.showSoundModal ? (
           <SoundModal hideSoundModal={this.hideSoundModal} />
+        ) : null}
+        {this.state.showInstructionModal ? (
+          <InstructionModal hideInstructionModal={this.hideInstructionModal} />
+        ) : null}
+        {this.state.showTallyConfirmationModal ? (
+          <TallyConfirmationModal
+            hideTallyConfirmationModal={this.hideTallyConfirmationModal}
+            showTallyModal={this.showTallyModal}
+          />
+        ) : null}
+        {this.state.showTallyModal ? (
+          <TallyModal hideTallyModal={this.hideTallyModal} />
+        ) : null}
+        {this.state.showOutOfMoneyModal ? (
+          <OutOfMoneyModal hideOutOfMoneyModal={this.hideOutOfMoneyModal} />
         ) : null}
       </div>
     );

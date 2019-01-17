@@ -1,0 +1,36 @@
+.tally-confirmation-modal-bg {
+  /* keep the width/height ratio at 1.79 */
+  position: relative;
+  height: 50%;
+  width: 45%;
+  background-image: url("../assets/modals/tallyConfirmationModal/tally-confirmation-background.png");
+  background-size: 100% 100%;
+}
+
+.tally-confirmation-cancel-btn,
+.tally-confirmation-confirm-btn {
+  position: absolute;
+  top: 80%;
+  height: 15%;
+  width: 20%;
+  background-size: 100% 100%;
+  cursor: pointer;
+}
+
+.tally-confirmation-cancel-btn {
+  left: 20%;
+  background-image: url("../assets/modals/tallyConfirmationModal/cancel-btn.png");
+}
+
+.tally-confirmation-cancel-btn:active {
+  background-image: url("../assets//modals/tallyConfirmationModal/cancel-btn-pressed.png");
+}
+
+.tally-confirmation-confirm-btn {
+  right: 20%;
+  background-image: url("../assets/modals/tallyConfirmationModal/confirm-btn.png");
+}
+
+.tally-confirmation-confirm-btn:active {
+  background-image: url("../assets/modals/tallyConfirmationModal/confirm-btn-pressed.png");
+}

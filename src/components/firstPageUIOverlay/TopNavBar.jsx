@@ -36,8 +36,14 @@ class TopNavBar extends Component {
                 className="gear-icon icons"
                 onClick={this.props.showSoundModal}
               />
-              <div className="instruction-icon icons" />
-              <div className="exit-icon icons" />
+              <div
+                className="instruction-icon icons"
+                onClick={this.props.showInstructionModal}
+              />
+              <div
+                className="exit-icon icons"
+                onClick={this.props.showTallyConfirmationModal}
+              />
             </div>
           </div>
         </div>

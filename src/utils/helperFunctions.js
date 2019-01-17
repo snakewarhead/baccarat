@@ -1,4 +1,6 @@
 import screenfull from "screenfull";
+import naturalBannerLoop from "../assets/cardImages/Misc/natural-repeat.gif";
+import { naturalBannerPopupDuration } from "./constants";
 
 export function getMobileOperatingSystem() {
   var userAgent = navigator.userAgent || navigator.vendor || window.opera;
@@ -100,4 +102,207 @@ export function isLeapYear(year) {
   } else {
     return true;
   }
+}
+
+export function animateFourCards(
+  cardWidth,
+  cardHeight,
+  cardDealingDuration,
+  cardFlippingDuration,
+  cardBackSlidingDuration,
+  cardBackDippingDuration,
+  firstDealtCardPostionXFactor,
+  secondDealtCardPositionXFactor,
+  cardPositionYFactor,
+  offsetX,
+  thisArg
+) {
+  //first, second, etc refer to the sequence the cards are dealt
+
+  thisArg.myTween
+    //deal first card
+    .to(thisArg.cardEles[0], cardDealingDuration, {
+      x: -window.innerWidth / firstDealtCardPostionXFactor,
+      y: window.innerHeight / cardPositionYFactor,
+      rotation: 0,
+      width: cardWidth,
+      height: cardHeight
+    })
+    //deal second card
+    .to(thisArg.cardEles[1], cardDealingDuration, {
+      x: -window.innerWidth / secondDealtCardPositionXFactor,
+      y: window.innerHeight / cardPositionYFactor,
+      rotation: 0,
+      width: cardWidth,
+      height: cardHeight
+    })
+    //deal third card
+    .to(thisArg.cardEles[2], cardDealingDuration, {
+      x: -window.innerWidth / firstDealtCardPostionXFactor + offsetX,
+      y: window.innerHeight / cardPositionYFactor,
+      rotation: 0,
+      width: cardWidth,
+      height: cardHeight
+    })
+    //deal fourth card
+    .to(thisArg.cardEles[3], cardDealingDuration, {
+      x: -window.innerWidth / secondDealtCardPositionXFactor + offsetX,
+      y: window.innerHeight / cardPositionYFactor,
+      rotation: 0,
+      width: cardWidth,
+      height: cardHeight
+    })
+    //flip first card
+    .to(thisArg.cardFrontEles[0], cardFlippingDuration, { rotationY: 0 })
+    .to(
+      thisArg.cardBackEles[0],
+      cardFlippingDuration,
+      { rotationY: 180 },
+      "-=" + cardFlippingDuration
+    )
+    .to(
+      thisArg.cardFrontBgEles[0],
+      cardFlippingDuration,
+      { rotationY: 0 },
+      "-=" + cardFlippingDuration
+    )
+    //display first pair point cresent container
+    .to(
+      thisArg.pointDisplays[0],
+      cardFlippingDuration / 2,
+      { scale: 1.5, transformOrigin: "50% 100%" },
+      "-=" + cardFlippingDuration
+    )
+    .to(
+      thisArg.pointDisplays[0],
+      cardFlippingDuration / 2,
+      { scale: 1, transformOrigin: "50% 50%" },
+      "-=" + cardFlippingDuration / 2
+    )
+    //flip second card
+    .to(thisArg.cardFrontEles[1], cardFlippingDuration, { rotationY: 0 })
+    .to(
+      thisArg.cardBackEles[1],
+      cardFlippingDuration,
+      { rotationY: 180 },
+      "-=" + cardFlippingDuration
+    )
+    .to(
+      thisArg.cardFrontBgEles[1],
+      cardFlippingDuration,
+      { rotationY: 0 },
+      "-=" + cardFlippingDuration
+    )
+    //display second pair point cresent container
+    .to(
+      thisArg.pointDisplays[1],
+      cardFlippingDuration / 2,
+      { scale: 1.5, transformOrigin: "50% 100%" },
+      "-=" + cardFlippingDuration
+    )
+    .to(
+      thisArg.pointDisplays[1],
+      cardFlippingDuration / 2,
+      { scale: 1 },
+      "-=" + cardFlippingDuration / 2
+    )
+    //third card back sliding off
+    .to(thisArg.cardBackEles[2], cardBackSlidingDuration, {
+      x: cardWidth / 2,
+      onStart: function(thisArg) {
+        thisArg.setState({
+          showTopLeftCoverOnCard: [false, false, true, false, false, false]
+        });
+      },
+      onStartParams: [thisArg]
+    })
+    .to(thisArg.cardBackEles[2], cardBackDippingDuration, {
+      rotation: "30%",
+      x: cardWidth,
+      y: cardHeight / 3,
+      opacity: 0,
+      onStart: function(thisArg) {
+        thisArg.setState(function(prevState) {
+          const firstPairTotal =
+            (prevState.firstPairPoints +=
+              thisArg.cards[2].number >= 10 ? 0 : thisArg.cards[2].number) % 10;
+
+          return {
+            showTopLeftCoverOnCard: [false, false, false, false, false, false],
+            firstPairPoints: firstPairTotal,
+            displayNaturalBannerForFirstPair:
+              firstPairTotal === 8 || firstPairTotal === 9
+          };
+        });
+        setTimeout(() => {
+          thisArg.setState({
+            naturalBannerForFirstPair: naturalBannerLoop
+          });
+        }, naturalBannerPopupDuration);
+      },
+      onStartParams: [thisArg]
+    })
+    //fourth card back sliding off
+    .to(thisArg.cardBackEles[3], cardBackSlidingDuration, {
+      x: cardWidth / 2,
+      onStart: function(thisArg) {
+        thisArg.setState({
+          showTopLeftCoverOnCard: [false, false, false, true, false, false]
+        });
+      },
+      onStartParams: [thisArg]
+    })
+    .to(thisArg.cardBackEles[3], cardBackDippingDuration, {
+      rotation: "30%",
+      x: cardWidth,
+      y: cardHeight / 3,
+      opacity: 0,
+      onStart: function(thisArg) {
+        thisArg.setState(function(prevState) {
+          const secondPairTotal =
+            (prevState.secondPairPoints +=
+              thisArg.cards[3].number >= 10 ? 0 : thisArg.cards[3].number) % 10;
+          return {
+            showTopLeftCoverOnCard: [false, false, false, false, false, false],
+            secondPairPoints: secondPairTotal,
+            displayNaturalBannerForSecondPair:
+              secondPairTotal === 8 || secondPairTotal === 9
+          };
+        });
+        setTimeout(() => {
+          thisArg.setState({
+            naturalBannerForSecondPair: naturalBannerLoop
+          });
+        }, naturalBannerPopupDuration);
+      },
+      onStartParams: [thisArg]
+    })
+    //push the cards back top
+    .to(
+      ".card",
+      1,
+      {
+        y: window.innerHeight / 50,
+        scale: 0.75
+      },
+      "+=2"
+    )
+    .to(thisArg.cardEles[0], 1, { x: -window.innerWidth / 2.25 }, "-=1");
+  // .to(
+  //   thisArg.cardEles[2],
+  //   1,
+  //   { x: -window.innerWidth / 2.25 + offsetX * 0.75 },
+  //   "-=1"
+  // );
+  // .to(
+  //   ".first-pair-points-container",
+  //   1,
+  //   {
+  //     top: window.innerHeight / 10,
+  //     scale: 0.9
+  //   },
+  //   "-=1"
+  // );
+
+  thisArg.myTween.play();
 }

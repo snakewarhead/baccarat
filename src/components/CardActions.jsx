@@ -227,16 +227,16 @@ class CardActions extends Component {
     let second = {};
     if (index === 2) {
       first.right = this.getCards()[index].style.right;
-      first.transform = `translateX(${card.translateX -
-        0.05 * card.style.width}px) translateY(${card.translateY -
-        0.3 * card.style.height}px)  `;
+      first.transform = `translateX(${card.translateX +
+        3.7 * card.style.width}px) translateY(${card.translateY -
+        0.95 * card.style.height}px)  `;
       first.height = card.style.height * 0.4 + "px";
       first.width = card.style.width * 1.8 + "px";
     } else if (index === 3) {
       second.right = card.style.right;
-      second.transform = `translateX(${card.translateX -
-        card.style.width * 0.05}px) translateY(${card.translateY -
-        card.style.height * 0.3}px)  `;
+      second.transform = `translateX(${card.translateX +
+        card.style.width * 1.57}px) translateY(${card.translateY -
+        card.style.height * 0.95}px)  `;
       second.height = card.style.height * 0.4 + "px";
       second.width = card.style.width * 1.8 + "px";
     }
@@ -336,7 +336,7 @@ class CardActions extends Component {
       },
       translateX: function(el, i, l) {
         let card = self.getCards()[i];
-        const offset = i % 2 === 1 ? global.screen.width * 0.02 : 0;
+        const offset = i % 2 === 1 ? global.screen.width * 0 : 0;
         return card.translateX - 1 * card.style.width + offset;
       }
     }).finished;
@@ -418,7 +418,7 @@ class CardActions extends Component {
               document.querySelector(".second-pair-points").style.width.length -
                 2
             ) *
-            1.85
+            2.2
         );
       }
     }).finished;
@@ -456,7 +456,7 @@ class CardActions extends Component {
         duration: 150,
         scale: 0.75,
         translateY: function(el, i, l) {
-          return firstPairBannerTranslateYValue - global.screen.height * 0.17;
+          return firstPairBannerTranslateYValue - global.screen.height * 0.23;
         },
         translateX: function(el, i, l) {
           return (
@@ -468,7 +468,7 @@ class CardActions extends Component {
                 document.querySelector(".first-pair-natural-banner").style.width
                   .length - 2
               ) *
-              0.48
+              -0.2
           );
         }
       }).finished;
@@ -499,7 +499,7 @@ class CardActions extends Component {
         duration: 150,
         scale: 0.75,
         translateY: function(el, i, l) {
-          return secondPairBannerTranslateYValue - global.screen.height * 0.17;
+          return secondPairBannerTranslateYValue - global.screen.height * 0.23;
         },
         translateX: function(el, i, l) {
           return (
@@ -511,7 +511,7 @@ class CardActions extends Component {
                 document.querySelector(".second-pair-natural-banner").style
                   .width.length - 2
               ) *
-              0.38
+              0.18
           );
         }
       }).finished;
