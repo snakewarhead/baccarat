@@ -297,6 +297,7 @@ class SecondPageUIOverlay extends Component {
 
   updateBetAndBalance = () => {
     this.setState({
+      totalBet: 0,
       balanceAtStartOfCycle: this.state.balance + this.state.currentWinning,
       balance: this.state.balance + this.state.currentWinning
     });

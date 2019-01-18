@@ -50,7 +50,7 @@ export const patchCenters = {
 
 export const naturalBannerPopupDuration = 300;
 
-export const delayBeforeUpdatingPoints = 600;
+export const delayBeforeUpdatingPoints = 300;
 
 export const gameLobbyLocation =
   "http://ec2-13-112-176-197.ap-northeast-1.compute.amazonaws.com";

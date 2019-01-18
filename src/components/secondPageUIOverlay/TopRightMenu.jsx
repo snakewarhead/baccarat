@@ -6,6 +6,11 @@ class TopRightMenu extends Component {
     super(props);
   }
 
+  changeTable = () => {
+    const event = new CustomEvent("temp");
+    window.dispatchEvent(event);
+  };
+
   render() {
     return (
       <div
@@ -16,7 +21,10 @@ class TopRightMenu extends Component {
       >
         <div className="top-right-menu-container-inner">
           <div className="tally-change-table-icon top-right-menu-icon" />
-          <div className="change-table-icon top-right-menu-icon" />
+          <div
+            className="change-table-icon top-right-menu-icon"
+            onClick={this.changeTable}
+          />
           <div
             className="history-icon top-right-menu-icon"
             onClick={this.props.showHistoryModal}

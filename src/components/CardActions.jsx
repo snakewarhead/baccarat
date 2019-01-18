@@ -11,7 +11,7 @@ import {
   numberImageObj,
   winningDigitImageArr
 } from "../utils/cardImages";
-import {delayBeforeUpdatingPoints} from '../utils/constants'
+import { delayBeforeUpdatingPoints } from "../utils/constants";
 import tie from "../assets/cardImages/Misc/tie.png";
 import playerWins from "../assets/cardImages/Misc/playerWins.png";
 import bankWins from "../assets/cardImages/Misc/bankWins.png";
@@ -36,6 +36,7 @@ class CardActions extends Component {
       naturalBannerForFirstPair: naturalBannerFirstPairOnce,
       naturalBannerForSecondPair: naturalBannerSecondPairOnce
     };
+    console.log(this.props.currentWinning);
   }
 
   getCards() {
@@ -109,28 +110,28 @@ class CardActions extends Component {
 
         promise
           .then(() => {
-            return self.putCards(1000);
+            //  return self.putCards(1000);
           })
           .then(() => {
-            return self.showResult(0);
+            // return self.showResult(0);
           })
           .then(() => {
-            return self.showResultBanner(3000);
+            // return self.showResultBanner(3000);
           })
           .then(() => {
-            return self.coverCards(5000);
+            // return self.coverCards(5000);
           })
           .then(() => {
             const delay = 400;
-            return self.backCards(function(el, i, l) {
-              if (i === 4) return 0 * delay;
-              if (i === 0) return 1 * delay;
-              if (i === 2) return 2 * delay;
-              if (i === 1) return 3 * delay;
-              if (i === 3) return 4 * delay;
-              if (i === 5) return 5 * delay;
-              return i * delay;
-            });
+            // return self.backCards(function(el, i, l) {
+            //   if (i === 4) return 0 * delay;
+            //   if (i === 0) return 1 * delay;
+            //   if (i === 2) return 2 * delay;
+            //   if (i === 1) return 3 * delay;
+            //   if (i === 3) return 4 * delay;
+            //   if (i === 5) return 5 * delay;
+            //   return i * delay;
+            // });
           });
       }
     );

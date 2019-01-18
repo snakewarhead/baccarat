@@ -18,7 +18,7 @@ export function getCards(betDetail) {
   let cards = [];
 
   let cardNum = Math.random() < 0.5 ? 4 : 6;
-  // let cardNum = 6;
+  //let cardNum = 6;
 
   for (let i = 0; i < cardNum; i++) {
     //s,h,d,c
@@ -179,9 +179,12 @@ export function getCards(betDetail) {
   const oddsMap = [11, 1, 12, 8, 1, 11];
   let winning = 0;
   outcomes.forEach(winningLocation => {
-    winning += betDetail[winningLocation] * oddsMap[winningLocation];
+    let sum = 0;
+    betDetail[winningLocation].forEach(num => {
+      sum += num;
+    });
+    winning += sum * oddsMap[winningLocation];
   });
-
   return Promise.resolve({ cards, winning, outcomes });
 }
 

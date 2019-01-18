@@ -21,6 +21,15 @@ class Main extends Phaser.Scene {
       this.pointerChipAmount = 0;
       this.isChipSelected = false;
     };
+
+    window.addEventListener("temp", () => {
+      this.scene.stop("Main");
+      this.scene.start("Tables");
+      window.App.setState({
+        showBackgroundOne: true,
+        showBackgroundTwo: false
+      });
+    });
   }
 
   create() {
