@@ -20,6 +20,8 @@ import {
 import { getCards } from "../../utils/api.js";
 import CardAnimation from "../CardAnimation.jsx";
 
+const preloadImgArr = new Array(50).fill(0);
+
 const emptyBetDetail = [[], [], [], [], [], []];
 
 class SecondPageUIOverlay extends Component {
@@ -379,6 +381,10 @@ class SecondPageUIOverlay extends Component {
             </div>
           </CSSTransition>
         ) : null}
+
+        {preloadImgArr.map((ele, i) => {
+          return <div className={`no-display img${i}`} />;
+        })}
       </div>
     );
   }

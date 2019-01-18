@@ -181,3 +181,55 @@ body {
 .img22 {
   background-image: url("../assets/modals/historyModal/timebar.png");
 }
+
+.img23 {
+  background-image: url("../assets/modals/soundModal/off-switch.png");
+}
+
+.img24 {
+  background-image: url("../assets/modals/soundModal/on-switch.png") "";
+}
+
+.img25 {
+  background-image: url("../assets/modals/soundModal/sound-background.png");
+}
+
+.img26 {
+  background-image: url("../assets/modals/soundModal/x-icon-pressed.png");
+}
+
+.img27 {
+  background-image: url("../assets/modals/soundModal/x-icon.png");
+}
+
+.img28 {
+  background-image: url("../assets/modals/tallyConfirmationModal/cancel-btn-pressed.png");
+}
+
+.img29 {
+  background-image: url("../assets/modals/tallyConfirmationModal/cancel-btn.png");
+}
+
+.img30 {
+  background-image: url("../assets/modals/tallyConfirmationModal/confirm-btn-pressed.png");
+}
+
+.img31 {
+  background-image: url("../assets/modals/tallyConfirmationModal/confirm-btn.png");
+}
+
+.img32 {
+  background-image: url("../assets/modals/tallyConfirmationModal/tally-confirmation-background.png");
+}
+
+.img33 {
+  background-image: url("../assets/modals/tallyModal/confirm-btn-pressed.png");
+}
+
+.img34 {
+  background-image: url("../assets/modals/tallyModal/confirm-btn.png");
+}
+
+.img35 {
+  background-image: url("../assets/modals/tallyModal/tally-modal-background.png");
+}

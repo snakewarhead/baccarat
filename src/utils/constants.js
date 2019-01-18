@@ -10,7 +10,7 @@ export const betConfirmBannerDuration = 1000;
 export const totalNumberOfCards = 416;
 
 //in seconds
-export const placeBetDuration = 45;
+export const placeBetDuration = 1;
 
 export const timeInbetweenCountdowns = 25000;
 

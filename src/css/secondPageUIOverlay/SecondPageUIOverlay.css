@@ -46,3 +46,40 @@
 
   transition: all 300ms linear;
 }
+
+/* the rest is for preloading background images */
+.img1 {
+  background-image: url("../../assets/backgroundTwo/betConfirmed.png");
+}
+
+.img2 {
+  background-image: url("../../assets/cardImages/Misc/bankWins.png");
+}
+
+.img3 {
+  background-image: url("../../assets/cardImages/Misc/pointDisplay.png");
+}
+
+.img4 {
+  background-image: url("../../assets/cardImages/Misc/tie.png");
+}
+
+.img5 {
+  background-image: url("../../assets/cardImages/Misc/playerWins.png");
+}
+
+.img6 {
+  background-image: url("../../assets/cardImages/Misc/natural-repeat.gif");
+}
+
+.img7 {
+  background-image: url("../../assets/cardImages/resultBanner/winBanner.png");
+}
+
+.img8 {
+  background-image: url("../../assets/cardImages/resultBanner/loseBanner.png");
+}
+
+.img9 {
+  background-image: url("../../assets/cardImages/resultBanner/gold-coin-shower.gif");
+}
