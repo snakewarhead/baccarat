@@ -33,7 +33,7 @@ export function getCards(betDetail) {
         : "c";
 
     cards.push({ color: randoColor, number: Math.ceil(Math.random() * 13) });
-    // cards.push({ color: randoColor, number: 4 });
+    //cards.push({ color: randoColor, number: 4 });
   }
 
   cards = cards.map((card, index) => {

@@ -10,7 +10,7 @@ export const betConfirmBannerDuration = 1000;
 export const totalNumberOfCards = 416;
 
 //in seconds
-export const placeBetDuration = 45;
+export const placeBetDuration = 5;
 
 export const timeInbetweenCountdowns = 25000;
 
@@ -50,7 +50,7 @@ export const patchCenters = {
 
 export const naturalBannerPopupDuration = 300;
 
-export const delayBeforeUpdatingPoints = 1000;
+export const delayBeforeUpdatingPoints = 600;
 
 export const gameLobbyLocation =
   "http://ec2-13-112-176-197.ap-northeast-1.compute.amazonaws.com";
