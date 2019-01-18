@@ -22,13 +22,9 @@ import Main from "../scenes/Main";
 import Tables from "../scenes/Tables";
 import OutOfMoneyModal from "./OutOfMoneyModal";
 
-import pic1 from "../assets/modals/instructionModal/instructions-modal-background.png";
-import pic2 from "../assets/modals/instructionModal/instructions-page-one.png";
-import pic3 from "../assets/modals/instructionModal/instructions-page-two.png";
-import pic4 from "../assets/modals/instructionModal/instructions-modal-up-arrow.png";
-import pic5 from "../assets/modals/instructionModal/instructions-modal-down-arrow.png";
-
 let lastScrollTop = 0;
+
+const preloadImgArr = new Array(50).fill(0);
 
 class App extends Component {
   constructor(props) {
@@ -52,17 +48,6 @@ class App extends Component {
       tableNo: 0,
       visibilitychange: "visible"
     };
-
-    var image1 = new Image();
-    image1.src = pic1;
-    var image2 = new Image();
-    image2.src = pic2;
-    var image3 = new Image();
-    image3.src = pic3;
-    var image4 = new Image();
-    image4.src = pic4;
-    var image5 = new Image();
-    image5.src = pic5;
 
     var hidden, state, visibilityChange;
     if (typeof document.hidden !== "undefined") {
@@ -404,6 +389,9 @@ class App extends Component {
         {this.state.showOutOfMoneyModal ? (
           <OutOfMoneyModal hideOutOfMoneyModal={this.hideOutOfMoneyModal} />
         ) : null}
+        {preloadImgArr.map((ele, i) => {
+          return <div className={`no-display img${i}`} />;
+        })}
       </div>
     );
   }

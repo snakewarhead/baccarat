@@ -87,3 +87,37 @@ body {
 .visible {
   visibility: visible;
 }
+
+.no-display {
+  display: none;
+}
+
+/* the rest is for preloading background images */
+
+.img1 {
+  background-image: url("../assets/modals/instructionModal/instructions-page-one.png");
+}
+
+.img2 {
+  background-image: url("../assets/modals/instructionModal/instructions-page-two.png");
+}
+
+.img3 {
+  background-image: url("../assets/modals/instructionModal/instructions-modal-background.png");
+}
+
+.img4 {
+  background-image: url("../assets/modals/instructionModal/instructions-modal-up-arrow.png");
+}
+
+.img5 {
+  background-image: url("../assets/modals/instructionModal/instructions-modal-down-arrow.png");
+}
+
+/* .c::before {
+  position: absolute;
+  width: 0;
+  height: 0;
+  background: url("../assets/modals/instructionModal/instructions-page-two.png");
+  content: "";
+} */
