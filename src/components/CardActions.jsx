@@ -799,6 +799,7 @@ class CardActions extends Component {
             <img src={rightPointDisplayMap[this.state.valueOfSecondPair]} />
           </div>
         ) : null}
+        {/* this is for preloading the digits */}
         {new Array(10).fill(0).map((ele, i) => {
           return <img src={winningDigitImageArr[i]} className="no-display" />;
         })}
