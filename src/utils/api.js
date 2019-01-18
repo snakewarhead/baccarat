@@ -18,7 +18,7 @@ export function getCards(betDetail) {
   let cards = [];
 
   let cardNum = Math.random() < 0.5 ? 4 : 6;
-  //let cardNum = 6;
+  // let cardNum = 6;
 
   for (let i = 0; i < cardNum; i++) {
     //s,h,d,c
@@ -33,7 +33,7 @@ export function getCards(betDetail) {
         : "c";
 
     cards.push({ color: randoColor, number: Math.ceil(Math.random() * 13) });
-    //cards.push({ color: randoColor, number: 4 });
+    // cards.push({ color: randoColor, number: 4 });
   }
 
   cards = cards.map((card, index) => {
@@ -80,7 +80,7 @@ export function getCards(betDetail) {
     } else {
       //1,3,5
       console.log(index);
-      const factor = index === 1 ? 0.97 : index === 3 ? 1.05 : 1.5;
+      const factor = index === 1 ? 0.97 : index === 3 ? 1.05 : 3;
       card.translateX =
         (-1 *
           (0.5 - ((CARD_RATE * (index + 1)) / 2 + CARD_MARGIN * index)) *

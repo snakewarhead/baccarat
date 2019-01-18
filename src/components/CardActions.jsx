@@ -228,15 +228,15 @@ class CardActions extends Component {
     if (index === 2) {
       first.right = this.getCards()[index].style.right;
       first.transform = `translateX(${card.translateX +
-        3.7 * card.style.width}px) translateY(${card.translateY -
-        0.95 * card.style.height}px)  `;
+        3.21 * card.style.width}px) translateY(${card.translateY -
+        0.9 * card.style.height}px)`;
       first.height = card.style.height * 0.4 + "px";
       first.width = card.style.width * 1.8 + "px";
     } else if (index === 3) {
       second.right = card.style.right;
       second.transform = `translateX(${card.translateX +
-        card.style.width * 1.57}px) translateY(${card.translateY -
-        card.style.height * 0.95}px)  `;
+        card.style.width * 1.25}px) translateY(${card.translateY -
+        card.style.height * 0.9}px)`;
       second.height = card.style.height * 0.4 + "px";
       second.width = card.style.width * 1.8 + "px";
     }
@@ -336,7 +336,7 @@ class CardActions extends Component {
       },
       translateX: function(el, i, l) {
         let card = self.getCards()[i];
-        const offset = i % 2 === 1 ? global.screen.width * 0 : 0;
+        const offset = i % 2 === 1 ? global.screen.width * 0.025 : 0;
         return card.translateX - 1 * card.style.width + offset;
       }
     }).finished;
@@ -418,7 +418,7 @@ class CardActions extends Component {
               document.querySelector(".second-pair-points").style.width.length -
                 2
             ) *
-            2.2
+            1.8
         );
       }
     }).finished;
@@ -468,7 +468,7 @@ class CardActions extends Component {
                 document.querySelector(".first-pair-natural-banner").style.width
                   .length - 2
               ) *
-              -0.2
+              -0.13
           );
         }
       }).finished;
@@ -511,7 +511,7 @@ class CardActions extends Component {
                 document.querySelector(".second-pair-natural-banner").style
                   .width.length - 2
               ) *
-              0.18
+              0.11
           );
         }
       }).finished;
