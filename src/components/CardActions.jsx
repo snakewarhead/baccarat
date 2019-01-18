@@ -11,6 +11,7 @@ import {
   numberImageObj,
   winningDigitImageArr
 } from "../utils/cardImages";
+import {delayBeforeUpdatingPoints} from '../utils/constants'
 import tie from "../assets/cardImages/Misc/tie.png";
 import playerWins from "../assets/cardImages/Misc/playerWins.png";
 import bankWins from "../assets/cardImages/Misc/bankWins.png";
@@ -262,60 +263,66 @@ class CardActions extends Component {
               }, 600);
             }
 
-            const firstPairTotal =
-              index % 2 === 0
-                ? (prevState.valueOfFirstPair += cardNumber) % 10
-                : prevState.valueOfFirstPair;
-            const secondPairTotal =
-              index % 2 === 1
-                ? (prevState.valueOfSecondPair += cardNumber) % 10
-                : prevState.valueOfSecondPair;
-
-            const shouldDisplayFirstPairBanner =
-              index === 2
-                ? firstPairTotal === 8 || firstPairTotal === 9
-                  ? true
-                  : false
-                : prevState.displayNaturalBannerForFirstPair;
-            const shouldDisplaySecondPairBanner =
-              index === 3
-                ? secondPairTotal === 8 || secondPairTotal === 9
-                  ? true
-                  : false
-                : prevState.displayNaturalBannerForSecondPair;
-
             return {
               cards: this.state.cards.map((card, i) => {
                 if (index === i) {
                   card.checked = true;
                 }
                 return card;
-              }),
-              valueOfFirstPair: firstPairTotal,
-              valueOfSecondPair: secondPairTotal,
-              displayNaturalBannerForFirstPair: shouldDisplayFirstPairBanner,
-              displayNaturalBannerForSecondPair: shouldDisplaySecondPairBanner,
-              firstPairBannerLocation:
-                index === 2
-                  ? {
-                      right: first.right,
-                      transform: first.transform,
-                      width: first.width,
-                      height: first.height
-                    }
-                  : prevState.firstPairBannerLocation,
-              secondPairBannerLocation:
-                index === 3
-                  ? {
-                      right: second.right,
-                      transform: second.transform,
-                      width: second.width,
-                      height: second.height
-                    }
-                  : prevState.secondPairBannerLocation
+              })
             };
           },
           () => {
+            setTimeout(() => {
+              this.setState(function(prevState) {
+                const firstPairTotal =
+                  index % 2 === 0
+                    ? (prevState.valueOfFirstPair += cardNumber) % 10
+                    : prevState.valueOfFirstPair;
+                const secondPairTotal =
+                  index % 2 === 1
+                    ? (prevState.valueOfSecondPair += cardNumber) % 10
+                    : prevState.valueOfSecondPair;
+
+                const shouldDisplayFirstPairBanner =
+                  index === 2
+                    ? firstPairTotal === 8 || firstPairTotal === 9
+                      ? true
+                      : false
+                    : prevState.displayNaturalBannerForFirstPair;
+                const shouldDisplaySecondPairBanner =
+                  index === 3
+                    ? secondPairTotal === 8 || secondPairTotal === 9
+                      ? true
+                      : false
+                    : prevState.displayNaturalBannerForSecondPair;
+
+                return {
+                  valueOfFirstPair: firstPairTotal,
+                  valueOfSecondPair: secondPairTotal,
+                  displayNaturalBannerForFirstPair: shouldDisplayFirstPairBanner,
+                  displayNaturalBannerForSecondPair: shouldDisplaySecondPairBanner,
+                  firstPairBannerLocation:
+                    index === 2
+                      ? {
+                          right: first.right,
+                          transform: first.transform,
+                          width: first.width,
+                          height: first.height
+                        }
+                      : prevState.firstPairBannerLocation,
+                  secondPairBannerLocation:
+                    index === 3
+                      ? {
+                          right: second.right,
+                          transform: second.transform,
+                          width: second.width,
+                          height: second.height
+                        }
+                      : prevState.secondPairBannerLocation
+                };
+              });
+            }, delayBeforeUpdatingPoints);
             resolve(0);
           }
         );
