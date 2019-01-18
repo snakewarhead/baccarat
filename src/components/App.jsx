@@ -390,7 +390,7 @@ class App extends Component {
           <OutOfMoneyModal hideOutOfMoneyModal={this.hideOutOfMoneyModal} />
         ) : null}
         {preloadImgArr.map((ele, i) => {
-          return <div className={`no-display img${i}`} />;
+          return <div className={`no-display app img${i}`} />;
         })}
       </div>
     );

@@ -383,7 +383,7 @@ class SecondPageUIOverlay extends Component {
         ) : null}
 
         {preloadImgArr.map((ele, i) => {
-          return <div className={`no-display img${i}`} />;
+          return <div className={`no-display second-page-ui img${i}`} />;
         })}
       </div>
     );

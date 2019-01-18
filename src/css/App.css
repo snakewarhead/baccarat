@@ -94,23 +94,23 @@ body {
 
 /* the rest is for preloading background images */
 
-.img1 {
+.app.img1 {
   background-image: url("../assets/modals/instructionModal/instructions-page-one.png");
 }
 
-.img2 {
+.app.img2 {
   background-image: url("../assets/modals/instructionModal/instructions-page-two.png");
 }
 
-.img3 {
+.app.img3 {
   background-image: url("../assets/modals/instructionModal/instructions-modal-background.png");
 }
 
-.img4 {
+.app.img4 {
   background-image: url("../assets/modals/instructionModal/instructions-modal-up-arrow.png");
 }
 
-.img5 {
+.app.img5 {
   background-image: url("../assets/modals/instructionModal/instructions-modal-down-arrow.png");
 }
 
@@ -118,87 +118,87 @@ body {
   background-image: url("../assets//modals/historyModal/betAmount.png");
 }
 
-.img7 {
+.app.img7 {
   background-image: url("../assets/modals/historyModal/betItem.png");
 }
 
-.img8 {
+.app.img8 {
   background-image: url("../assets/modals/historyModal/betResult.png");
 }
 
-.img9 {
+.app.img9 {
   background-image: url("../assets/modals/historyModal/betTime.png");
 }
 
-.img10 {
+.app.img10 {
   background-image: url("../assets/modals/historyModal/betWinning.png");
 }
 
-.img11 {
+.app.img11 {
   background-image: url("../assets/modals/historyModal/confirm.png");
 }
 
-.img12 {
+.app.img12 {
   background-image: url("../assets/modals/historyModal/down-arrow.png");
 }
 
-.img13 {
+.app.img13 {
   background-image: url("../assets/modals/historyModal/gameNo.png");
 }
 
-.img14 {
+.app.img14 {
   background-image: url("../assets/modals/historyModal/historyCellBg.png");
 }
 
-.img15 {
+.app.img15 {
   background-image: url("../assets/modals/historyModal/historyModalBetAmount.png");
 }
 
-.img16 {
+.app.img16 {
   background-image: url("../assets/modals/historyModal/historyModalBg.png");
 }
 
-.img17 {
+.app.img17 {
   background-image: url("../assets/modals/historyModal/historyModalBottomBar.png");
 }
 
-.img18 {
+.app.img18 {
   background-image: url("../assets/modals/historyModal/historyModalTotalWinning.png");
 }
 
-.img19 {
+.app.img19 {
   background-image: url("../assets/modals/historyModal/historyModalX.png");
 }
 
-.img20 {
+.app.img20 {
   background-image: url("../assets/modals/historyModal/time-option.png");
 }
 
-.img21 {
+.app.img21 {
   background-image: url("../assets/modals/historyModal/time-selection.png");
 }
 
-.img22 {
+.app.img22 {
   background-image: url("../assets/modals/historyModal/timebar.png");
 }
 
-.img23 {
+.app.img23 {
   background-image: url("../assets/modals/soundModal/off-switch.png");
 }
 
-.img24 {
-  background-image: url("../assets/modals/soundModal/on-switch.png") "";
+.app.img24 {
+  background-image: url("../assets/modals/soundModal/on-switch.png");
 }
 
-.img25 {
+.app.img25 {
   background-image: url("../assets/modals/soundModal/sound-background.png");
 }
 
-.img26 {
+.app.img26 {
   background-image: url("../assets/modals/soundModal/x-icon-pressed.png");
 }
 
-.img27 {
+.app.img27 {
   background-image: url("../assets/modals/soundModal/x-icon.png");
 }
 
@@ -206,30 +206,30 @@ body {
   background-image: url("../assets/modals/tallyConfirmationModal/cancel-btn-pressed.png");
 }
 
-.img29 {
+.app.img29 {
   background-image: url("../assets/modals/tallyConfirmationModal/cancel-btn.png");
 }
 
-.img30 {
+.app.img30 {
   background-image: url("../assets/modals/tallyConfirmationModal/confirm-btn-pressed.png");
 }
 
-.img31 {
+.app.img31 {
   background-image: url("../assets/modals/tallyConfirmationModal/confirm-btn.png");
 }
 
-.img32 {
+.app.img32 {
   background-image: url("../assets/modals/tallyConfirmationModal/tally-confirmation-background.png");
 }
 
-.img33 {
+.app.img33 {
   background-image: url("../assets/modals/tallyModal/confirm-btn-pressed.png");
 }
 
-.img34 {
+.app.img34 {
   background-image: url("../assets/modals/tallyModal/confirm-btn.png");
 }
 
-.img35 {
+.app.img35 {
   background-image: url("../assets/modals/tallyModal/tally-modal-background.png");
 }

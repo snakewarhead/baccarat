@@ -48,74 +48,74 @@
 }
 
 /* the rest is for preloading background images */
-.img1 {
+.second-page-ui.img1 {
   background-image: url("../../assets/backgroundTwo/betConfirmed.png");
 }
 
-.img2 {
+.second-page-ui.img2 {
   background-image: url("../../assets/cardImages/Misc/bankWins.png");
 }
 
-.img3 {
+.second-page-ui.img3 {
   background-image: url("../../assets/cardImages/Misc/pointDisplay.png");
 }
 
-.img4 {
+.second-page-ui.img4 {
   background-image: url("../../assets/cardImages/Misc/tie.png");
 }
 
-.img5 {
+.second-page-ui.img5 {
   background-image: url("../../assets/cardImages/Misc/playerWins.png");
 }
 
-.img6 {
+.second-page-ui.img6 {
   background-image: url("../../assets/cardImages/Misc/natural-repeat.gif");
 }
 
-.img7 {
+.second-page-ui.img7 {
   background-image: url("../../assets/cardImages/resultBanner/winBanner.png");
 }
 
-.img8 {
+.second-page-ui.img8 {
   background-image: url("../../assets/cardImages/resultBanner/loseBanner.png");
 }
 
-.img9 {
+.second-page-ui.img9 {
   background-image: url("../../assets/cardImages/resultBanner/gold-coin-shower.gif");
 }
 
-.img10 {
+.second-page-ui.img10 {
   background-image: url("../../assets/backgroundTwo/topLeftHistoryDisplay/topLeftHistoryDisplayModal/banker.png");
 }
 
-.img11 {
+.second-page-ui.img11 {
   background-image: url("../../assets/backgroundTwo/topLeftHistoryDisplay/topLeftHistoryDisplayModal/bankerWinsIcon.png");
 }
 
-.img12 {
+.second-page-ui.img12 {
   background-image: url("../../assets/backgroundTwo/topLeftHistoryDisplay/topLeftHistoryDisplayModal/bg.png");
 }
 
-.img13 {
+.second-page-ui.img13 {
   background-image: url("../../assets/backgroundTwo/topLeftHistoryDisplay/topLeftHistoryDisplayModal/cellBg.png");
 }
 
-.img14 {
+.second-page-ui.img14 {
   background-image: url("../../assets/backgroundTwo/topLeftHistoryDisplay/topLeftHistoryDisplayModal/player.png");
 }
 
-.img15 {
+.second-page-ui.img15 {
   background-image: url("../../assets/backgroundTwo/topLeftHistoryDisplay/topLeftHistoryDisplayModal/playerWinsIcon.png");
 }
 
-.img16 {
+.second-page-ui.img16 {
   background-image: url("../../assets/backgroundTwo/topLeftHistoryDisplay/topLeftHistoryDisplayModal/tie.png");
 }
 
-.img17 {
+.second-page-ui.img17 {
   background-image: url("../../assets/backgroundTwo/topLeftHistoryDisplay/topLeftHistoryDisplayModal/tieIcon.png");
 }
 
-.img18 {
+.second-page-ui.img18 {
   background-image: url("../../assets/backgroundTwo/topLeftHistoryDisplay/topLeftHistoryDisplayModal/xIcon.png");
 }
