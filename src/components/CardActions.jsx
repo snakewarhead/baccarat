@@ -141,7 +141,7 @@ class CardActions extends Component {
       targets: [Array.from(document.querySelectorAll(".card"))[index]],
       easing: "linear",
       delay: delay ? delay : 500,
-      duration: 150,
+      duration: 100,
       translateX: this.getCards()[index].translateX,
       translateY: this.getCards()[index].translateY,
       rotate: 360,
