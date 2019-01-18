@@ -114,10 +114,70 @@ body {
   background-image: url("../assets/modals/instructionModal/instructions-modal-down-arrow.png");
 }
 
-/* .c::before {
-  position: absolute;
-  width: 0;
-  height: 0;
-  background: url("../assets/modals/instructionModal/instructions-page-two.png");
-  content: "";
-} */
+.img6 {
+  background-image: url("../assets//modals/historyModal/betAmount.png");
+}
+
+.img7 {
+  background-image: url("../assets/modals/historyModal/betItem.png");
+}
+
+.img8 {
+  background-image: url("../assets/modals/historyModal/betResult.png");
+}
+
+.img9 {
+  background-image: url("../assets/modals/historyModal/betTime.png");
+}
+
+.img10 {
+  background-image: url("../assets/modals/historyModal/betWinning.png");
+}
+
+.img11 {
+  background-image: url("../assets/modals/historyModal/confirm.png");
+}
+
+.img12 {
+  background-image: url("../assets/modals/historyModal/down-arrow.png");
+}
+
+.img13 {
+  background-image: url("../assets/modals/historyModal/gameNo.png");
+}
+
+.img14 {
+  background-image: url("../assets/modals/historyModal/historyCellBg.png");
+}
+
+.img15 {
+  background-image: url("../assets/modals/historyModal/historyModalBetAmount.png");
+}
+
+.img16 {
+  background-image: url("../assets/modals/historyModal/historyModalBg.png");
+}
+
+.img17 {
+  background-image: url("../assets/modals/historyModal/historyModalBottomBar.png");
+}
+
+.img18 {
+  background-image: url("../assets/modals/historyModal/historyModalTotalWinning.png");
+}
+
+.img19 {
+  background-image: url("../assets/modals/historyModal/historyModalX.png");
+}
+
+.img20 {
+  background-image: url("../assets/modals/historyModal/time-option.png");
+}
+
+.img21 {
+  background-image: url("../assets/modals/historyModal/time-selection.png");
+}
+
+.img22 {
+  background-image: url("../assets/modals/historyModal/timebar.png");
+}
